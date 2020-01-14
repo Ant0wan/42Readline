@@ -6,6 +6,7 @@
 #include <termios.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 
 struct s_termcaps
