@@ -9,33 +9,18 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-struct s_len
-{
-	int	cl;
-	int	cm;
-	int	vi;
-	int	ve;
-	int	ab;
-	int	reset;
-	int	ku;
-	int	kd;
-	int	kl;
-	int	kr;
-};
-
 struct s_termcaps
 {
-	char		*cl;
-	char		*cm;
-	char		*vi;
-	char		*ve;
-	char		*ab;
-	char		*reset;
-	char		*ku;
-	char		*kd;
-	char		*kl;
-	char		*kr;
-	struct s_len	len;
+	char	*cl;
+	char	*cm;
+	char	*vi;
+	char	*ve;
+	char	*ab;
+	char	*reset;
+	char	*ku;
+	char	*kd;
+	char	*kl;
+	char	*kr;
 };
 
 extern struct s_termcaps	g_tc;
