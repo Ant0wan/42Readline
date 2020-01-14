@@ -44,7 +44,7 @@ static int	init_termcaps(void)
 	return (0);
 }
 
-int	set_interactive_mode(void)
+static int	set_interactive_mode(void)
 {
 	if (init_termcaps() == 0)
 	{
@@ -60,9 +60,16 @@ int	set_interactive_mode(void)
 	return (0);
 }
 
-int	reset_terminal(void)
+int		reset_terminal(void)
 {
 	if (tcsetattr(STDIN_FILENO, 0, &g_termios_backup) == -1)
 		return (-1);
 	return (0);
+}
+
+int		is_interactive(void)
+{
+	if (isatty(STDIN_FILENO) == 0)
+		return (-1);
+	return (set_interactive_mode());
 }

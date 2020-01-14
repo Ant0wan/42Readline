@@ -26,7 +26,7 @@ extern struct s_termcaps	g_tc;
 extern struct termios		g_termios;
 extern struct termios		g_termios_backup;
 
-int	set_interactive_mode(void);
+int	is_interactive(void);
 int	reset_terminal(void);
 
 #endif
