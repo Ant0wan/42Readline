@@ -64,4 +64,5 @@ int	reset_terminal(void)
 {
 	if (tcsetattr(STDIN_FILENO, 0, &g_termios_backup) == -1)
 		return (-1);
+	return (0);
 }
