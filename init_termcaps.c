@@ -1,5 +1,7 @@
 #include "line_editing.h"
 
+#include <string.h>
+
 struct s_termcaps	g_tc;
 struct termios		g_termios;
 struct termios		g_termios_backup;
@@ -16,6 +18,16 @@ static void	get_terms_value(void)
 	g_tc.kd = tgetstr("kd", NULL);
 	g_tc.kl = tgetstr("kl", NULL);
 	g_tc.kr = tgetstr("kr", NULL);
+	g_tc.len.cl = strlen(g_tc.cl);
+        g_tc.len.cm = strlen(g_tc.cm);
+        g_tc.len.vi = strlen(g_tc.vi);
+        g_tc.len.ve = strlen(g_tc.ve);
+        g_tc.len.ab = strlen(g_tc.ab);
+        g_tc.len.reset = strlen(g_tc.reset);
+        g_tc.len.ku = strlen(g_tc.ku);
+        g_tc.len.kd = strlen(g_tc.kd);
+        g_tc.len.kl = strlen(g_tc.kl);
+        g_tc.len.kr = strlen(g_tc.kr);
 }
 
 static int	init_termcaps(void)

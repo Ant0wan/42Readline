@@ -9,24 +9,41 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+struct s_len
+{
+	int	cl;
+	int	cm;
+	int	vi;
+	int	ve;
+	int	ab;
+	int	reset;
+	int	ku;
+	int	kd;
+	int	kl;
+	int	kr;
+};
+
 struct s_termcaps
 {
-	char *cl;
-	char *cm;
-	char *vi;
-	char *ve;
-	char *ab;
-	char *reset;
-	char *ku;
-	char *kd;
-	char *kl;
-	char *kr;
+	char		*cl;
+	char		*cm;
+	char		*vi;
+	char		*ve;
+	char		*ab;
+	char		*reset;
+	char		*ku;
+	char		*kd;
+	char		*kl;
+	char		*kr;
+	struct s_len	len;
 };
 
 extern struct s_termcaps	g_tc;
 extern struct termios		g_termios;
 extern struct termios		g_termios_backup;
+extern struct winsize		g_win;
 
+int	wininfo(void);
 int	is_interactive(void);
 int	reset_terminal(void);
 
@@ -36,6 +53,7 @@ union	u_buffer
 	char		buf[sizeof(unsigned int)];
 };
 
+int	get_input(void);
 int	output(int c);
 
 #endif
