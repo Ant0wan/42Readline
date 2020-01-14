@@ -30,4 +30,12 @@ extern struct termios		g_termios_backup;
 int	is_interactive(void);
 int	reset_terminal(void);
 
+union	u_buffer
+{
+	unsigned int	value;
+	char		buf[sizeof(unsigned int)];
+};
+
+int	output(int c);
+
 #endif

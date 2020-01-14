@@ -8,8 +8,15 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 
 	struct winsize	win;
-	printf("%d\n", ioctl(STDERR_FILENO, TIOCGWINSZ, &win));
-	printf("col:%d\nrow:%d\n", win.ws_col, win.ws_row);
+	if (ioctl(STDERR_FILENO, TIOCGWINSZ, &win) == -1)
+		exit(EXIT_FAILURE);
+
+	if (tputs(tgoto(g_tc.cm, win.ws_col + 1, win.ws_row + 1), 1, output))
+		return (1);
+	if (5 != write(STDOUT_FILENO, "hello", 5))
+		return (1);
+	else
+		return (0);
 
 	reset_terminal();
 	return (0);
