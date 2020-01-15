@@ -15,5 +15,11 @@ struct s_input	g_input =
    A return value of NULL means that EOF was encountered. */
 char	*ft_readline(const char *prompt)
 {
+	char	*value;
+
+	/* 1. Check if EOF and clear input and settings */
 	
+
+	/* 2. Set prompt */
+	set_prompt(prompt);
 }
