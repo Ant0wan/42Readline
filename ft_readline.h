@@ -9,6 +9,8 @@
 # include <sys/ioctl.h>
 # include <unistd.h>
 
+# include "keymaps.h"
+
 # define NUM_TC_STRINGS (sizeof(g_tc_strings) / sizeof(struct termcaps_string))
 
 struct s_termcaps

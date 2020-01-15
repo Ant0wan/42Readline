@@ -10,6 +10,8 @@ struct s_input	g_input =
 	.arg_sign = 1
 };
 
+t_keymap	g_keymap = emacs_standard_keymap;
+
 /* Read a line of input.
    Prompt with prompt. An NULL prompt means none.
    A return value of NULL means that EOF was encountered. */

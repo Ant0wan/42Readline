@@ -130,7 +130,7 @@ int	init_terminal_io(const char *terminal_name)
 		g_termcaps.mm = NULL;
 		g_termcaps.mo = NULL;
 	}
-	bind_termcap_arrow_keys (emacs_standard_keymap); /* here it left things */
+	bind_termcap_arrow_keys(emacs_standard_keymap); /* here it left things */
 /*	For VI_MODE only, coming...
 	bind_termcap_arrow_keys (vi_movement_keymap);
 	bind_termcap_arrow_keys (vi_insertion_keymap);
