@@ -2,7 +2,7 @@
 
 /* Display variables */
 struct s_display	g_display =
-{ .prompt = NULL };
+{ .prompt = NULL, .display_prompt = NULL, .visible_prompt_length = 0 };
 
 static int	redisplay_after_sigwinch(void)
 {
@@ -15,11 +15,17 @@ static int	redisplay_after_sigwinch(void)
 	return (0);
 }
 
-int		set_prompt(const char *prompt)
+void		set_prompt(const char *prompt)
 {
 	if (g_display.prompt != NULL)
-	{
 		free(g_display.prompt);
+	if (prompt)
+		g_display.prompt = savestring(prompt);
+	else
 		g_display.prompt = NULL;
-	}
+	if (g_display.prompt == NULL)
+		g_display.display_prompt = "";
+	else
+		g_display.display_prompt = g_display.prompt;
+	g_display.visible_prompt_length = len(g_display.prompt); /* Assume single line prompt and does not handle '\' all chr */
 }

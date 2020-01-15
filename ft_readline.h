@@ -78,6 +78,8 @@ extern struct s_input	g_input;
 struct s_display
 {
 	char	*prompt;
+	char	*display_prompt;
+	int	visible_prompt_length;
 };
 
 extern struct s_display	g_display;
