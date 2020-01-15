@@ -1,8 +1,18 @@
 #include "ft_readline.h"
 
 struct s_screen			g_screen;
-struct s_term			g_term = { .termnial_name = NULL };
 struct s_termcaps		g_termcaps = {0};
+
+struct s_term			g_term =
+{
+	.termnial_name = NULL,
+	.term_string_buffer = NULL,
+	.term_buffer = NULL,
+	.autowrap = 0,
+	.terminal_can_insert = 0,
+	.has_meta = 0
+};
+
 
 const struct termcaps_string	g_tc_strings[] =
 {
@@ -86,4 +96,44 @@ int	resize_terminal(void)
 
 int	init_terminal_io(const char *terminal_name)
 {
+	const char	*term;
+	char		*buffer;
+
+	term = terminal_name;
+	if (term == NULL)
+		term = "dumb";
+	if (get_screensize(STDIN_FILENO) == -1)
+		return (-1);
+	if (g_term.term_string_buffer == NULL)
+		g_term.term_string_buffer = (char*)malloc(2032);
+	if (g_term.term_buffer == NULL)
+		g_term.term_buffer = (char*)malloc(4080);
+	buffer = g_term.term_string_buffer;
+	if (tgetent(term_buffer, term) <= 0)
+	{
+		if (g_term.term_string_buffer)
+			free(g_term.term_string_buffer);
+		if (g_term.term_buffer)
+			free(g_term.term_buffer);
+		buffer = NULL;
+		g_term.term_buffer = NULL;
+		g_term.term_string_buffer = NULL;
+		return (0); /* or should be -1 then produce exit(), not to handle crap cases */
+	}
+	if (get_term_capabilities(&buffer) == -1)
+		return (-1);
+	g_term.term_autowrap = (tgetflag("am") && tgetflag("xn"));
+	g_term.terminal_can_insert = (g_termcaps.IC || g_termcaps.im || g_termcaps.ic);
+	g_term.has_meta = (tgetflag("km") != 0);
+	if (g_term.has_meta == 0)
+	{
+		g_termcaps.mm = NULL;
+		g_termcaps.mo = NULL;
+	}
+	bind_termcap_arrow_keys (emacs_standard_keymap); /* here it left things */
+/*	For VI_MODE only, coming...
+	bind_termcap_arrow_keys (vi_movement_keymap);
+	bind_termcap_arrow_keys (vi_insertion_keymap);
+*/
+	return (0);
 }

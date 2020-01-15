@@ -9,16 +9,16 @@
 # include <sys/ioctl.h>
 # include <unistd.h>
 
-# define NUM_TC_STRINGS (sizeof(tc_strings) / sizeof(struct _tc_string))
+# define NUM_TC_STRINGS (sizeof(g_tc_strings) / sizeof(struct termcaps_string))
 
 struct s_termcaps
 {
 /* The key sequences output by the arrow keys, if this terminal has any. */
-	char	*cl;
+/*	char	*cl;
 	char	*cm;
 	char	*vi;
 	char	*ab;
-	char	*reset;
+	char	*reset; */
 	char	*at7;
 	char	*DC;
 	char	*clrscroll;
@@ -69,6 +69,11 @@ struct s_screen
 struct s_term
 {
 	char	*terminal_name;
+	char	*term_string_buffer;
+	char	*term_buffer;
+	int	autowrap;
+	int	terminal_can_insert;
+	int	has_meta;
 };
 
 extern struct s_termcaps		g_tc;
