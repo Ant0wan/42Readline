@@ -64,6 +64,15 @@ int	output(int c);
 # define IM_INSERT (1 << 2)
 
 /* Could be tranformed to union for using mask optimization */
-extern unsigned int	g_input_mode;
+struct s_input
+{
+	int	mode;                  /* Readline and insert mode ON by default */
+	int	last_command_was_kill; /* Non-zero if the previous command was a kill command. */
+	int	numeric_arg;           /* The current value of the numeric argument specified by the user. */
+	int	explicit_arg;          /* Non-zero if an argument was typed. */
+	int	arg_sign;              /* Temporary value used while generating the argument. */
+};
+
+extern struct s_input	g_input;
 
 #endif
