@@ -18,8 +18,9 @@ char	*ft_readline(const char *prompt)
 	char	*value;
 
 	/* 1. Check if EOF and clear input and settings */
-	
+
 
 	/* 2. Set prompt */
 	set_prompt(prompt);
+	initialize();
 }

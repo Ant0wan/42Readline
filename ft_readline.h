@@ -46,9 +46,9 @@ extern struct termios			g_termios_backup;
 extern struct s_screen			g_screen;
 extern const struct termcaps_string	*g_tc_strings;
 
-int	get_screensize(int tty);
-int	is_interactive(void);
-int	reset_terminal(void);
+int		get_screensize(int tty);
+int		is_interactive(void);
+int		reset_terminal(void);
 
 union	u_buffer
 {
@@ -56,8 +56,8 @@ union	u_buffer
 	char		buf[sizeof(unsigned int)];
 };
 
-int	get_input(void);
-int	output(int c);
+int		get_input(void);
+int		output(int c);
 
 # define IM_READLINE (1 << 0)
 # define IM_VIM (1 << 1)
@@ -83,5 +83,48 @@ struct s_display
 };
 
 extern struct s_display	g_display;
+
+# define STATE_INITIALIZING   0x0000001       /* initializing */
+# define STATE_INITIALIZED    0x0000002       /* initialization done */
+# define STATE_TERMPREPPED    0x0000004       /* terminal is prepped */
+# define STATE_READCMD        0x0000008       /* reading a command key */
+# define STATE_METANEXT       0x0000010       /* reading input after ESC */
+# define STATE_DISPATCHING    0x0000020       /* dispatching to a command */
+# define STATE_MOREINPUT      0x0000040       /* reading more input in a command function */
+# define STATE_ISEARCH        0x0000080       /* doing incremental search */
+# define STATE_NSEARCH        0x0000100       /* doing non-inc search */
+# define STATE_SEARCH         0x0000200       /* doing a history search */
+# define STATE_NUMERICARG     0x0000400       /* reading numeric argument */
+# define STATE_MACROINPUT     0x0000800       /* getting input from a macro */
+# define STATE_MACRODEF       0x0001000       /* defining keyboard macro */
+# define STATE_OVERWRITE      0x0002000       /* overwrite mode */
+# define STATE_COMPLETING     0x0004000       /* doing completion */
+# define STATE_SIGHANDLER     0x0008000       /* in readline sighandler */
+# define STATE_UNDOING        0x0010000       /* doing an undo */
+# define STATE_INPUTPENDING   0x0020000       /* execute_next called */
+# define STATE_TTYCSAVED      0x0040000       /* tty special chars saved */
+# define STATE_CALLBACK       0x0080000       /* using the callback interface */
+# define STATE_VIMOTION       0x0100000       /* reading vi motion arg */
+# define STATE_MULTIKEY       0x0200000       /* reading multiple-key command */
+# define STATE_VICMDONCE      0x0400000       /* entered vi command mode at least once */
+# define STATE_CHARSEARCH     0x0800000       /* vi mode char search */
+# define STATE_REDISPLAYING   0x1000000       /* updating terminal display */
+# define STATE_DONE           0x2000000       /* done; accepted line */
+
+extern unsigned long   g_flags_readline_state;
+
+void		setstate(unsigned long x);
+void		unsetstate(unsigned long x);
+unsigned long	isstate(unsigned long x);
+
+# define READLINE_DEFAULT_BUFFER_SIZE 256
+
+struct s_line
+{
+	char	*buffer;
+	size_t	len;
+};
+
+extern struct s_line	g_line;
 
 #endif
