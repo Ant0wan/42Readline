@@ -10,3 +10,10 @@ struct s_input	g_input =
 	.arg_sign = 1
 };
 
+/* Read a line of input.
+   Prompt with prompt. An NULL prompt means none.
+   A return value of NULL means that EOF was encountered. */
+char	*ft_readline(const char *prompt)
+{
+	
+}
