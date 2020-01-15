@@ -1,4 +1,4 @@
-#include "line_editing.h"
+#include "ft_readline.h"
 
 int	output(int c)
 {

@@ -1,5 +1,5 @@
-#ifndef LINE_EDITING_H
-# define LINE_EDITING_H
+#ifndef FT_READLINE_H
+# define FT_READLINE_H
 
 #include <curses.h>
 #include <term.h>

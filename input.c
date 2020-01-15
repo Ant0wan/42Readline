@@ -1,4 +1,4 @@
-#include "line_editing.h"
+#include "ft_readline.h"
 
 int	get_input(void)
 {

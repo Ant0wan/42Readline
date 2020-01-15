@@ -1,4 +1,4 @@
-#include "line_editing.h"
+#include "ft_readline.h"
 
 struct s_termcaps	g_tc;
 struct termios		g_termios;
