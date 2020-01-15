@@ -32,3 +32,29 @@ char	*savestring(const char *str)
 	save[count] = '\0';
 	return (save);
 }
+
+char	*get_env_value(const char *name)
+{
+	extern char **environ;
+	int			i;
+	int			j;
+
+	if (name)
+	{
+		i = 0;
+		while (environ[i])
+		{
+			j = 0;
+			while (name[j] && environ[i][j] && name[j] == environ[i][j])
+				++j;
+			if (environ[i][j] != '=' || name[j])
+				++i;
+			else
+			{
+				++j;
+				return (&environ[i][j]);
+			}
+		}
+	}
+	return (NULL);
+}

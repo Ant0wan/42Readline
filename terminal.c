@@ -1,39 +1,41 @@
 #include "ft_readline.h"
 
 struct s_screen			g_screen;
+struct s_term			g_term = { .termnial_name = NULL };
+struct s_termcaps		g_termcaps = {0};
 
 const struct termcaps_string	g_tc_strings[] =
 {
-	{"@7", &term_at7},
-	{"DC", &term_DC},
-	{"E3", &term_clrscroll},
-	{"IC", &term_IC},
-	{"ce", &term_clreol},
-	{"cl", &term_clrpag},
-	{"cr", &term_cr},
-	{"dc", &term_dc},
-	{"ei", &term_ei},
-	{"ic", &term_ic},
-	{"im", &term_im},
-	{"kD", &term_kD},	/* delete */
-	{"kH", &term_kH},	/* home down ?? */
-	{"kI", &term_kI},	/* insert */
-	{"kd", &term_kd},
-	{"ke", &term_ke},	/* end keypad mode */
-	{"kh", &term_kh},	/* home */
-	{"kl", &term_kl},
-	{"kr", &term_kr},
-	{"ks", &term_ks},	/* start keypad mode */
-	{"ku", &term_ku},
-	{"le", &term_backspace},
-	{"mm", &term_mm},
-	{"mo", &term_mo},
-	{"nd", &term_forward_char},
-	{"pc", &term_pc},
-	{"up", &term_up},
-	{"vb", &visible_bell},
-	{"vs", &term_vs},
-	{"ve", &term_ve},
+	{"@7", &g_termcaps.at7},
+	{"DC", &g_termcaps.DC},
+	{"E3", &g_termcaps.clrscroll},
+	{"IC", &g_termcaps.IC},
+	{"ce", &g_termcaps.clreol},
+	{"cl", &g_termcaps.clrpag},
+	{"cr", &g_termcaps.cr},
+	{"dc", &g_termcaps.dc},
+	{"ei", &g_termcaps.ei},
+	{"ic", &g_termcaps.ic},
+	{"im", &g_termcaps.im},
+	{"kD", &g_termcaps.kD},	/* delete */
+	{"kH", &g_termcaps.kH},	/* home down ?? */
+	{"kI", &g_termcaps.kI},	/* insert */
+	{"kd", &g_termcaps.kd},
+	{"ke", &g_termcaps.ke},	/* end keypad mode */
+	{"kh", &g_termcaps.kh},	/* home */
+	{"kl", &g_termcaps.kl},
+	{"kr", &g_termcaps.kr},
+	{"ks", &g_termcaps.ks},	/* start keypad mode */
+	{"ku", &g_termcaps.ku},
+	{"le", &g_termcaps.backspace},
+	{"mm", &g_termcaps.mm},
+	{"mo", &g_termcaps.mo},
+	{"nd", &g_termcaps.forward_char},
+	{"pc", &g_termcaps.pc},
+	{"up", &g_termcaps.up},
+	{"vb", &g_termcaps.visible_bell},
+	{"vs", &g_termcaps.vs},
+	{"ve", &g_termcaps.ve}
 };
 
 
@@ -84,5 +86,4 @@ int	resize_terminal(void)
 
 int	init_terminal_io(const char *terminal_name)
 {
-	
 }
