@@ -59,4 +59,11 @@ union	u_buffer
 int	get_input(void);
 int	output(int c);
 
+# define IM_READLINE (1 << 0)
+# define IM_VIM (1 << 1)
+# define IM_INSERT (1 << 2)
+
+/* Could be tranformed to union for using mask optimization */
+extern unsigned int	g_input_mode;
+
 #endif

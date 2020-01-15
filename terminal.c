@@ -53,7 +53,7 @@ int	get_term_capabilities(char **bp)
 	return (0);
 }
 
-int		get_screensize(int tty)
+int	get_screensize(int tty)
 {
 	struct winsize	window_size;
 
@@ -73,7 +73,7 @@ int		get_screensize(int tty)
 }
 
 /* Redisplay the current line after a SIGWINCH is received. */
-int		resize_terminal(void)
+int	resize_terminal(void)
 {
 	if (get_screensize(STDIN_FILENO) == -1)
 		return (-1);
@@ -82,3 +82,7 @@ int		resize_terminal(void)
 	return (0);
 }
 
+int	init_terminal_io(const char *terminal_name)
+{
+	
+}
