@@ -1,7 +1,9 @@
 #include "ft_readline.h"
 
-struct s_screen			g_screen;
-struct s_termcaps		g_termcaps = {0};
+struct s_screen		g_screen;
+struct s_termcaps	g_termcaps = {0};
+struct termios		g_termios;
+struct termios		g_termios_backup;
 
 struct s_term			g_term =
 {

@@ -1,6 +1,7 @@
 #ifndef TTY_H
 # define TTY_H
 
-int	prep_terminal(void);
+void	prep_terminal(void);
+void	deprep_terminal(void);
 
 #endif
