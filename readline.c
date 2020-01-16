@@ -31,7 +31,8 @@ char	*ft_readline(const char *prompt)
 
 	prep_terminal();
 
-	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
+//	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
+	printf("%d\n", c.value); /* Debug */
 
 
 //	rl_clear_signals(); /* should reset signals after input */
