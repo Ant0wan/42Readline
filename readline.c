@@ -23,4 +23,8 @@ char	*ft_readline(const char *prompt)
 	/* 2. Set prompt */
 	set_prompt(prompt);
 	initialize();
+	union u_buffer	c;
+	c = get_input();
+	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]);
+
 }

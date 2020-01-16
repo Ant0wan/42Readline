@@ -27,5 +27,5 @@ void		set_prompt(const char *prompt)
 		g_display.display_prompt = "";
 	else
 		g_display.display_prompt = g_display.prompt;
-	g_display.visible_prompt_length = len(g_display.prompt); /* Assume single line prompt and does not handle '\' all chr */
+	g_display.visible_prompt_length = len(g_display.display_prompt); /* Assume single line prompt and does not handle '\' all chr */
 }
