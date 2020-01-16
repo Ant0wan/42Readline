@@ -8,6 +8,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	input = ft_readline((char *)NULL);
+	while (1)
+		input = ft_readline((char *)NULL);
 	return (0);
 }
