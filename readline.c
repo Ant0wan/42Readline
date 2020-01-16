@@ -20,13 +20,19 @@ char	*ft_readline(const char *prompt)
 	/* 1. Check if EOF and clear input and settings */
 
 
-	/* 2. Set prompt */
+	/* 2. Set things */
 	set_prompt(prompt);
 	initialize();
+	prep_terminal();
 //	rl_set_signals(); /* should set signals for input */
-	union u_buffer	c;
-	c = get_input();
-	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]);
+
+	union u_buffer	c; /* Debug */
+	c = get_input(); /* Debug */
+
+	prep_terminal();
+
+	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
+
 
 //	rl_clear_signals(); /* should reset signals after input */
 }
