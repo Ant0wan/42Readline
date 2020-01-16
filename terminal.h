@@ -70,4 +70,7 @@ extern struct s_screen			g_screen;
 extern struct s_term			g_term;
 extern const struct s_termcaps_string	g_tc_strings[];
 
+int	init_terminal(void);
+void	initialize(void);
+
 #endif

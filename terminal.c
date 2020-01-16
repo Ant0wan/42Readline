@@ -89,7 +89,7 @@ int	get_screensize(int tty)
 //	return (0);
 //}
 
-int	init_terminal(const char *terminal_name)
+int	init_terminal(void)
 {
 	char	*buffer;
 

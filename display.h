@@ -10,4 +10,6 @@ struct s_display
 
 extern struct s_display	g_display;
 
+void	set_prompt(const char *prompt);
+
 #endif
