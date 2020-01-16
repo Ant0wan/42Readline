@@ -5,7 +5,8 @@ void	prep_terminal(void)
 	tcgetattr(STDIN_FILENO, &g_termios);
 	tcgetattr(STDIN_FILENO, &g_termios_backup);
 	g_termios.c_lflag &= ~(ICANON | ECHO);
-	g_termios.c_lflag |= ISIG;
+//	g_termios.c_lflag |= ISIG;
+	g_termios.c_lflag &= ~ISIG;
 	g_termios.c_cc[VMIN] = 1;
 	g_termios.c_cc[VTIME] = 0;
 	/* Make sure we differentiate between CR and NL on input. */
