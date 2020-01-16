@@ -1,35 +1,20 @@
-#include "ft_readline.h"
 
-# include <stdio.h>
-# include <string.h>
+#include "input.h"
+
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
-	char	*input;
+	char		*input;
+	union u_buffer	c;
 
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
-		input = ft_readline((char *)NULL);
-		if (input == 0)
-			break;
-		printf("%s\n", input);
-		if (strcmp(input, "exit") == 0)
-			break;
-		free(input);
+	//	input = ft_readline((char *)NULL);
+		c = get_input();
+		printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]);
 	}
-/*
-	if (is_interactive() == -1)
-		exit(EXIT_FAILURE);
-
-	int c;
-	while ((c = get_input()))
-	{
-		if (output(c) != 1)
-			return (1);
-	}
-	reset_terminal();
-*/
 	return (0);
 }

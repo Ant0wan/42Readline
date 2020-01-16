@@ -103,7 +103,7 @@ int		hexvalue(int c)
 		return (c - '0');
 }
 
-int	metachar(int c)
-{
-	return (c > meta_character_threshold && c <= largest_char);
-}
+//int	metachar(int c)
+//{
+//	return (c > meta_character_threshold && c <= largest_char);
+//}

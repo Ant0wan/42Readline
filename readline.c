@@ -1,16 +1,14 @@
 #include "ft_readline.h"
 
-/* The current style of editing. */
-struct s_input	g_input =
-{
-	.mode = IM_READLINE | IM_INSERT,
-	.last_command_was_kill = 0,
-	.numeric_arg = 1,
-	.explicit_arg = 0,
-	.arg_sign = 1
-};
-
-t_keymap	g_keymap = emacs_standard_keymap;
+///* The current style of editing. */
+//struct s_input	g_input =
+//{
+//	.mode = IM_READLINE | IM_INSERT,
+//	.last_command_was_kill = 0,
+//	.numeric_arg = 1,
+//	.explicit_arg = 0,
+//	.arg_sign = 1
+//};
 
 /* Read a line of input.
    Prompt with prompt. An NULL prompt means none.

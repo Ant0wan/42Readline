@@ -5,7 +5,7 @@ struct s_termcaps		g_termcaps = {0};
 
 struct s_term			g_term =
 {
-	.termnial_name = NULL,
+	.terminal_name = NULL,
 	.term_string_buffer = NULL,
 	.term_buffer = NULL,
 	.autowrap = 0,
@@ -13,8 +13,7 @@ struct s_term			g_term =
 	.has_meta = 0
 };
 
-
-const struct termcaps_string	g_tc_strings[] =
+const struct s_termcaps_string	g_tc_strings[] =
 {
 	{"@7", &g_termcaps.at7},
 	{"DC", &g_termcaps.DC},
@@ -48,28 +47,24 @@ const struct termcaps_string	g_tc_strings[] =
 	{"ve", &g_termcaps.ve}
 };
 
-
 /* Inititalize termcaps. Get termcaps values. */
-int	get_term_capabilities(char **bp)
+void	get_term_capabilities(char **bp)
 {
 	register int	i;
 
 	i = 0;
 	while (i < NUM_TC_STRINGS)
 	{
-		*(g_tc_strings[i].value) = tgetstr((char *)tc_strings[i].var, bp);
-		if (g_tc_string[i] == NULL)
-			return (-1);
+		*(g_tc_strings[i].value) = tgetstr((char *)g_tc_strings[i].var, bp);
 		++i;
 	}
-	return (0);
 }
 
 int	get_screensize(int tty)
 {
 	struct winsize	window_size;
 
-	if (ioctl(tty, TIOCGWINSZ, &g_win) == -1)
+	if (ioctl(tty, TIOCGWINSZ, &window_size) == -1)
 		return (-1);
 	else
 	{
@@ -84,56 +79,47 @@ int	get_screensize(int tty)
 	return (0);
 }
 
-/* Redisplay the current line after a SIGWINCH is received. */
-int	resize_terminal(void)
-{
-	if (get_screensize(STDIN_FILENO) == -1)
-		return (-1);
-	if (redisplay_after_sigwinch() == -1)
-		return (-1);
-	return (0);
-}
+///* Redisplay the current line after a SIGWINCH is received. */
+//int	resize_terminal(void)
+//{
+//	if (get_screensize(STDIN_FILENO) == -1)
+//		return (-1);
+//	if (redisplay_after_sigwinch() == -1)
+//		return (-1);
+//	return (0);
+//}
 
-int	init_terminal_io(const char *terminal_name)
+int	init_terminal(const char *terminal_name)
 {
-	const char	*term;
-	char		*buffer;
+	char	*buffer;
 
-	term = terminal_name;
-	if (term == NULL)
-		term = "dumb";
+	if (g_term.terminal_name == NULL)
+		g_term.terminal_name = "dumb";
 	if (get_screensize(STDIN_FILENO) == -1)
 		return (-1);
 	if (g_term.term_string_buffer == NULL)
 		g_term.term_string_buffer = (char*)malloc(2032);
 	if (g_term.term_buffer == NULL)
 		g_term.term_buffer = (char*)malloc(4080);
-	buffer = g_term.term_string_buffer;
-	if (tgetent(term_buffer, term) <= 0)
+	if (tgetent(g_term.term_buffer, g_term.terminal_name) <= 0)
 	{
 		if (g_term.term_string_buffer)
 			free(g_term.term_string_buffer);
 		if (g_term.term_buffer)
 			free(g_term.term_buffer);
-		buffer = NULL;
 		g_term.term_buffer = NULL;
 		g_term.term_string_buffer = NULL;
-		return (0); /* or should be -1 then produce exit(), not to handle crap cases */
+		return (-1); /* not to handle crap cases */
 	}
-	if (get_term_capabilities(&buffer) == -1)
-		return (-1);
-	g_term.term_autowrap = (tgetflag("am") && tgetflag("xn"));
+	buffer = g_term.term_string_buffer;
+	get_term_capabilities(&buffer);
+	g_term.autowrap = (tgetflag("am") && tgetflag("xn"));
 	g_term.terminal_can_insert = (g_termcaps.IC || g_termcaps.im || g_termcaps.ic);
 	g_term.has_meta = (tgetflag("km") != 0);
-	if (g_term.has_meta == 0)
-	{
-		g_termcaps.mm = NULL;
-		g_termcaps.mo = NULL;
-	}
-	bind_termcap_arrow_keys(emacs_standard_keymap); /* here it left things */
+	bind_termcap(g_emacs_standard_keymap);
 /*	For VI_MODE only, coming...
-	bind_termcap_arrow_keys (vi_movement_keymap);
-	bind_termcap_arrow_keys (vi_insertion_keymap);
+	bind_termcap(vi_movement_keymap);
+	bind_termcap(vi_insertion_keymap);
 */
 	return (0);
 }
