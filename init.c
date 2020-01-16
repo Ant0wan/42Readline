@@ -16,6 +16,7 @@ static void readline_initializer(void)
 	if (g_term.terminal_name == NULL)
 		g_term.terminal_name = get_env_value("TERM");
 	init_terminal_io(g_term.terminal_name); /* HERE IT WAS WORK PROGRESS !!!! readline->readline_init_everything->init_terminal_io*/
+	
 }
 
 /* Initialize readline and terminal if not already. */

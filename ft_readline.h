@@ -100,6 +100,13 @@ int		output(int c);
 size_t		len(const char *str);
 char		*savestring(const char *str);
 char		*get_env_value(const char *name);
+int		cmp(const char *s1, const char *s2);
+int		rl_toupper(int c);
+int		rl_tolower(int c);
+int		isoctal(int c);
+int		isxdigit(int c);
+int		hexvalue(int c);
+int		metachar(int c);
 
 # define IM_READLINE (1 << 0)
 # define IM_VIM (1 << 1)
@@ -168,5 +175,26 @@ struct s_line
 };
 
 extern struct s_line	g_line;
+
+# define control_character_threshold	0x020   /* Smaller than this is control. */
+# define control_character_mask		0x1f    /* 0x20 - 1 */
+# define meta_character_threshold	0x07f   /* Larger than this is Meta. */
+# define control_character_bit		0x40    /* 0x000000, must be off. */
+# define meta_character_bit		0x080   /* x0000000, must be on. */
+# define largest_char			255     /* Largest character value. */
+
+# define META(c)	((c) | meta_character_bit)
+# define CTRL(c)	((c) & control_character_mask)
+# define ESC		CTRL('[')
+# define NEWLINE	'\n'
+# define RETURN		CTRL('M')
+# define RUBOUT		0x7f
+# define TAB		'\t'
+
+struct s_backslash_convert
+{
+	int	c;
+	int	val;
+};
 
 #endif
