@@ -15,6 +15,7 @@
 # include "terminal.h"
 # include "utils.h"
 # include "display.h"
+# include "line.h"
 
 char	*ft_readline(const char *prompt);
 
