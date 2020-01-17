@@ -12,5 +12,6 @@ int		isoctal(int c);
 int		isxdigit(int c);
 int		hexvalue(int c);
 int		metachar(int c);
+int		isprintchr(int c);
 
 #endif

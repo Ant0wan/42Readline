@@ -12,9 +12,10 @@
 
 static void	readline_internal(union u_buffer c)
 {
-	void	(*f)();
-
-	(g_keymap[c.value].func)(c.value);
+	if (isprintchr(c.value))
+		(g_keymap[c.value].func)(c.value);
+	else
+		return;
 }
 
 /* Read a line of input.

@@ -107,3 +107,8 @@ int		hexvalue(int c)
 //{
 //	return (c > meta_character_threshold && c <= largest_char);
 //}
+
+int	isprintchr(int c)
+{
+	return (c >= 32 && c <= 126);
+}
