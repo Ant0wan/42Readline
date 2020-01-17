@@ -43,7 +43,7 @@ char	*ft_readline(const char *prompt)
 //	rl_set_signals(); /* should set signals for input */
 
 	union u_buffer	c; /* Debug */
-	c = get_input(); /* Debug */
+	c = read_key(); /* Debug */
 	readline_internal(c);
 	prep_terminal();
 

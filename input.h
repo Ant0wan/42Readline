@@ -7,6 +7,6 @@ union	u_buffer
 	char		buf[sizeof(unsigned int)];
 };
 
-union u_buffer	get_input(void);
+union u_buffer	read_key(void);
 
 #endif

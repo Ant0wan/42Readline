@@ -1,6 +1,6 @@
 #include "ft_readline.h"
 
-union u_buffer	get_input(void)
+union u_buffer	read_key(void)
 {
 	union u_buffer	buffer_u;
 
