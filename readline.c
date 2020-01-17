@@ -14,16 +14,17 @@ static void	readline_internal(union u_buffer c)
 {
 	if (isstdkey(c.value))
 	{
-		(g_keymap[c.value].func)(c.value);
-	}
-	else if (ismetachar(c))
-	{
-		/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
-		return ;
+		(g_emacs_standard_keymap[c.value].func)(c.value);
 	}
 	else if (isctrlkey(c))
 	{
 		/* should execute ctrl_keymap */
+		(g_emacs_ctlx_keymap[c.buf[2]].func)();
+		return ;
+	}
+	else if (ismetachar(c))
+	{
+		/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
 		return ;
 	}
 }

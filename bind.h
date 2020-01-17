@@ -20,7 +20,7 @@ void	bind_keys(struct s_keymap_entry *keymap);
 //void	rl_call_last_kbd_macro(void);
 //void	rl_capitalize_word(void);
 //void	rl_char_search(void);
-//void	rl_clear_screen(void);
+void	clear_scr(void);
 //void	rl_complete(void);
 //void	rl_delete(void);
 //void	rl_delete_horizontal_space(void);

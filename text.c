@@ -7,12 +7,12 @@ void	rl_insert(int c)
 
 void	cursor_l(void)
 {
-	return;
+	tputs(*(g_tc_strings[16].value), 1, output);
 }
 
 void	cursor_r(void)
 {
-	return;
+	tputs(*(g_tc_strings[17].value), 1, output);
 }
 
 void	history_up(void)
@@ -23,4 +23,9 @@ void	history_up(void)
 void	history_down(void)
 {
 	return;
+}
+
+void	clear_scr(void)
+{
+	tputs(*(g_tc_strings[5].value), 1, output);
 }
