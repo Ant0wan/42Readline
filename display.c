@@ -4,6 +4,14 @@
 struct s_display	g_display =
 { .prompt = NULL, .display_prompt = NULL, .visible_prompt_length = 0 };
 
+/* Cursor position */
+struct s_cursor		g_cursor =
+{ .last_c_pos = 0, .last_v_pos = 0 };
+
+/* Line buffers */
+struct s_line_state	g_line_state_visible = {0};
+struct s_line_state	g_line_state_invisible = {0};
+
 static int	redisplay_after_sigwinch(void)
 {
 	/* Clear the last line (assuming that the screen size change will result in
