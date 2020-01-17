@@ -8,7 +8,8 @@ struct s_display	g_display =
 	.visible_prompt_length = 0,
 	.vis_botlin = 0,
 	.cpos_buffer_position = 0,
-	.line_size = 1024
+	.line_size = 1024,
+	.visible_first_line_len = 0
 };
 
 /* Cursor position */

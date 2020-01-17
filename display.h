@@ -4,12 +4,14 @@
 /* Display variables */
 struct s_display
 {
-	char	*prompt;               /* Pointer to passed prompt */
-	char	*display_prompt;       /* String containing prompt to display */
-	int	visible_prompt_length; /* Length of visible prompt */
-	int	vis_botlin;            /* Number of physical lines consumed by the current line buffer currently */
-	int	cpos_buffer_position;  /* The index into the line buffer corresponding to the cursor position */
-	int	line_size;             /* Default and initial buffer size. Can grow. */
+	char	*prompt;                /* Pointer to passed prompt */
+	char	*display_prompt;        /* String containing prompt to display */
+	int	visible_prompt_length;  /* Length of visible prompt */
+	int	vis_botlin;             /* Number of physical lines consumed by the current line buffer currently */
+	int	cpos_buffer_position;   /* The index into the line buffer corresponding to the cursor position */
+	int	line_size;              /* Default and initial buffer size. Can grow. */
+	int	visible_first_line_len; /* The length (buffer offset) of the first line of the last (possibly multi-line) buffer displayed on the screen. */
+
 };
 
 /* State of visible and invisible lines. */
