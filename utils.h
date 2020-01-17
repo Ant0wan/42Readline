@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "input.h"
+
 int		output(int c);
 size_t		len(const char *str);
 char		*savestring(const char *str);
@@ -13,5 +15,8 @@ int		isxdigit(int c);
 int		hexvalue(int c);
 int		metachar(int c);
 int		isprintchr(int c);
+int		isstdkey(int c);
+int		ismetachar(union u_buffer c);
+int		isctrlkey(union u_buffer c);
 
 #endif

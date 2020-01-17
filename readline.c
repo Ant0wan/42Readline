@@ -12,10 +12,18 @@
 
 static void	readline_internal(union u_buffer c)
 {
-	if (isprintchr(c.value))
+	if (isstdkey(c.value))
 		(g_keymap[c.value].func)(c.value);
-	else
-		return;
+	else if (ismetachar(c))
+	{
+		/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
+		return ;
+	}
+	else if (isctrlkey(c))
+	{
+		/* should execute ctrl_keymap */
+		return ;
+	}
 }
 
 /* Read a line of input.
@@ -39,8 +47,9 @@ char	*ft_readline(const char *prompt)
 	readline_internal(c);
 	prep_terminal();
 
-//	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
-	printf("%d\n", c.value); /* Debug */
+	//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
+	printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
+	//printf("%d\n", c.value); /* Debug */
 
 
 //	rl_clear_signals(); /* should reset signals after input */
