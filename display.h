@@ -1,11 +1,15 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+/* Display variables */
 struct s_display
 {
-	char	*prompt;
-	char	*display_prompt;
-	int	visible_prompt_length;
+	char	*prompt;               /* Pointer to passed prompt */
+	char	*display_prompt;       /* String containing prompt to display */
+	int	visible_prompt_length; /* Length of visible prompt */
+	int	vis_botlin;            /* Number of physical lines consumed by the current line buffer currently */
+	int	cpos_buffer_position;  /* The index into the line buffer corresponding to the cursor position */
+	int	line_size;             /* Default and initial buffer size. Can grow. */
 };
 
 /* State of visible and invisible lines. */

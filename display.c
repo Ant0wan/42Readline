@@ -2,7 +2,14 @@
 
 /* Display variables */
 struct s_display	g_display =
-{ .prompt = NULL, .display_prompt = NULL, .visible_prompt_length = 0 };
+{
+	.prompt = NULL,
+	.display_prompt = NULL,
+	.visible_prompt_length = 0,
+	.vis_botlin = 0,
+	.cpos_buffer_position = 0,
+	.line_size = 1024
+};
 
 /* Cursor position */
 struct s_cursor		g_cursor =
