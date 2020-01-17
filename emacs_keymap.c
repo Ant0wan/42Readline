@@ -431,149 +431,184 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
 //   { ISFUNC, backward_kill_word },	/* Meta-rubout */
 // };
 // 
-// struct s_keymap_entry	g_emacs_ctlx_keymap[] =
-// {
-//   /* Control keys. */
-//   { ISFUNC, NULL },		/* Control-@ */
-//   { ISFUNC, NULL },		/* Control-a */
-//   { ISFUNC, NULL },		/* Control-b */
-//   { ISFUNC, NULL },		/* Control-c */
-//   { ISFUNC, NULL },		/* Control-d */
-//   { ISFUNC, NULL },		/* Control-e */
-//   { ISFUNC, NULL },		/* Control-f */
-//   { ISFUNC, abort },				/* Control-g */
-//   { ISFUNC, NULL },		/* Control-h */
-//   { ISFUNC, NULL },		/* Control-i */
-//   { ISFUNC, NULL },		/* Control-j */
-//   { ISFUNC, NULL },		/* Control-k */
-//   { ISFUNC, NULL },		/* Control-l */
-//   { ISFUNC, NULL },		/* Control-m */
-//   { ISFUNC, NULL },		/* Control-n */
-//   { ISFUNC, NULL },		/* Control-o */
-//   { ISFUNC, NULL },		/* Control-p */
-//   { ISFUNC, NULL },		/* Control-q */
-//   { ISFUNC, re_read_init_file },		/* Control-r */
-//   { ISFUNC, NULL },		/* Control-s */
-//   { ISFUNC, NULL },		/* Control-t */
-//   { ISFUNC, undo_command },			/* Control-u */
-//   { ISFUNC, NULL },		/* Control-v */
-//   { ISFUNC, NULL },		/* Control-w */
-//   { ISFUNC, exchange_point_and_mark },	/* Control-x */
-//   { ISFUNC, NULL },		/* Control-y */
-//   { ISFUNC, NULL },		/* Control-z */
-//   { ISFUNC, NULL },		/* Control-[ */
-//   { ISFUNC, NULL },		/* Control-\ */
-//   { ISFUNC, NULL },		/* Control-] */
-//   { ISFUNC, NULL },		/* Control-^ */
-//   { ISFUNC, NULL },		/* Control-_ */
-// 
-//   /* The start of printing characters. */
-//   { ISFUNC, NULL },		/* SPACE */
-//   { ISFUNC, NULL },		/* ! */
-//   { ISFUNC, NULL },		/* " */
-//   { ISFUNC, NULL },		/* # */
-//   { ISFUNC, NULL },		/* $ */
-//   { ISFUNC, NULL },		/* % */
-//   { ISFUNC, NULL },		/* & */
-//   { ISFUNC, NULL },		/* ' */
-//   { ISFUNC, start_kbd_macro },		/* ( */
-//   { ISFUNC, end_kbd_macro  },		/* ) */
-//   { ISFUNC, NULL },		/* * */
-//   { ISFUNC, NULL },		/* + */
-//   { ISFUNC, NULL },		/* , */
-//   { ISFUNC, NULL },		/* - */
-//   { ISFUNC, NULL },		/* . */
-//   { ISFUNC, NULL },		/* / */
-// 
-//   /* Regular digits. */
-//   { ISFUNC, NULL },		/* 0 */
-//   { ISFUNC, NULL },		/* 1 */
-//   { ISFUNC, NULL },		/* 2 */
-//   { ISFUNC, NULL },		/* 3 */
-//   { ISFUNC, NULL },		/* 4 */
-//   { ISFUNC, NULL },		/* 5 */
-//   { ISFUNC, NULL },		/* 6 */
-//   { ISFUNC, NULL },		/* 7 */
-//   { ISFUNC, NULL },		/* 8 */
-//   { ISFUNC, NULL },		/* 9 */
-// 
-//   /* A little more punctuation. */
-//   { ISFUNC, NULL },		/* : */
-//   { ISFUNC, NULL },		/* ; */
-//   { ISFUNC, NULL },		/* < */
-//   { ISFUNC, NULL },		/* = */
-//   { ISFUNC, NULL },		/* > */
-//   { ISFUNC, NULL },		/* ? */
-//   { ISFUNC, NULL },		/* @ */
-// 
-//   /* Uppercase alphabet. */
-//   { ISFUNC, do_lowercase_version },		/* A */
-//   { ISFUNC, do_lowercase_version },		/* B */
-//   { ISFUNC, do_lowercase_version },		/* C */
-//   { ISFUNC, do_lowercase_version },		/* D */
-//   { ISFUNC, do_lowercase_version },		/* E */
-//   { ISFUNC, do_lowercase_version },		/* F */
-//   { ISFUNC, do_lowercase_version },		/* G */
-//   { ISFUNC, do_lowercase_version },		/* H */
-//   { ISFUNC, do_lowercase_version },		/* I */
-//   { ISFUNC, do_lowercase_version },		/* J */
-//   { ISFUNC, do_lowercase_version },		/* K */
-//   { ISFUNC, do_lowercase_version },		/* L */
-//   { ISFUNC, do_lowercase_version },		/* M */
-//   { ISFUNC, do_lowercase_version },		/* N */
-//   { ISFUNC, do_lowercase_version },		/* O */
-//   { ISFUNC, do_lowercase_version },		/* P */
-//   { ISFUNC, do_lowercase_version },		/* Q */
-//   { ISFUNC, do_lowercase_version },		/* R */
-//   { ISFUNC, do_lowercase_version },		/* S */
-//   { ISFUNC, do_lowercase_version },		/* T */
-//   { ISFUNC, do_lowercase_version },		/* U */
-//   { ISFUNC, do_lowercase_version },		/* V */
-//   { ISFUNC, do_lowercase_version },		/* W */
-//   { ISFUNC, do_lowercase_version },		/* X */
-//   { ISFUNC, do_lowercase_version },		/* Y */
-//   { ISFUNC, do_lowercase_version },		/* Z */
-// 
-//   /* Some more punctuation. */
-//   { ISFUNC, NULL },		/* [ */
-//   { ISFUNC, NULL },		/* \ */
-//   { ISFUNC, NULL },		/* ] */
-//   { ISFUNC, NULL },		/* ^ */
-//   { ISFUNC, NULL },		/* _ */
-//   { ISFUNC, NULL },		/* ` */
-// 
-//   /* Lowercase alphabet. */
-//   { ISFUNC, NULL },		/* a */
-//   { ISFUNC, NULL },		/* b */
-//   { ISFUNC, NULL },		/* c */
-//   { ISFUNC, NULL },		/* d */
-//   { ISFUNC, call_last_kbd_macro },		/* e */
-//   { ISFUNC, NULL },		/* f */
-//   { ISFUNC, NULL },		/* g */
-//   { ISFUNC, NULL },		/* h */
-//   { ISFUNC, NULL },		/* i */
-//   { ISFUNC, NULL },		/* j */
-//   { ISFUNC, NULL },		/* k */
-//   { ISFUNC, NULL },		/* l */
-//   { ISFUNC, NULL },		/* m */
-//   { ISFUNC, NULL },		/* n */
-//   { ISFUNC, NULL },		/* o */
-//   { ISFUNC, NULL },		/* p */
-//   { ISFUNC, NULL },		/* q */
-//   { ISFUNC, NULL },		/* r */
-//   { ISFUNC, NULL },		/* s */
-//   { ISFUNC, NULL },		/* t */
-//   { ISFUNC, NULL },		/* u */
-//   { ISFUNC, NULL },		/* v */
-//   { ISFUNC, NULL },		/* w */
-//   { ISFUNC, NULL },		/* x */
-//   { ISFUNC, NULL },		/* y */
-//   { ISFUNC, NULL },		/* z */
-// 
-//   /* Final punctuation. */
-//   { ISFUNC, NULL },		/* { */
-//   { ISFUNC, NULL },		/* | */
-//   { ISFUNC, NULL },		/* } */
-//   { ISFUNC, NULL },		/* ~ */
-//   { ISFUNC, backward_kill_line },		/* RUBOUT */
-// };
+struct s_keymap_entry	g_emacs_ctlx_keymap[] =
+{
+   	/* Control keys. */
+	{ ISFUNC, NULL },		/* Control-@ */
+	{ ISFUNC, NULL },		/* Control-a */
+	{ ISFUNC, NULL },		/* Control-b */
+	{ ISFUNC, NULL },		/* Control-c */
+	{ ISFUNC, NULL },		/* Control-d */
+	{ ISFUNC, NULL },		/* Control-e */
+	{ ISFUNC, NULL },		/* Control-f */
+//	{ ISFUNC, abort },				/* Control-g */
+	{ ISFUNC, NULL },				/* Control-g */
+	{ ISFUNC, NULL },		/* Control-h */
+	{ ISFUNC, NULL },		/* Control-i */
+	{ ISFUNC, NULL },		/* Control-j */
+	{ ISFUNC, NULL },		/* Control-k */
+	{ ISFUNC, NULL },		/* Control-l */
+	{ ISFUNC, NULL },		/* Control-m */
+	{ ISFUNC, NULL },		/* Control-n */
+	{ ISFUNC, NULL },		/* Control-o */
+	{ ISFUNC, NULL },		/* Control-p */
+	{ ISFUNC, NULL },		/* Control-q */
+	//{ ISFUNC, re_read_init_file },		/* Control-r */
+	{ ISFUNC, NULL },		/* Control-r */
+	{ ISFUNC, NULL },		/* Control-s */
+	{ ISFUNC, NULL },		/* Control-t */
+//	{ ISFUNC, undo_command },			/* Control-u */
+	{ ISFUNC, NULL },			/* Control-u */
+	{ ISFUNC, NULL },		/* Control-v */
+	{ ISFUNC, NULL },		/* Control-w */
+//	{ ISFUNC, exchange_point_and_mark },	/* Control-x */
+	{ ISFUNC, NULL },	/* Control-x */
+	{ ISFUNC, NULL },		/* Control-y */
+	{ ISFUNC, NULL },		/* Control-z */
+	{ ISFUNC, NULL },		/* Control-[ */
+	{ ISFUNC, NULL },		/* Control-\ */
+	{ ISFUNC, NULL },		/* Control-] */
+	{ ISFUNC, NULL },		/* Control-^ */
+	{ ISFUNC, NULL },		/* Control-_ */
+
+	/* The start of printing characters. */
+	{ ISFUNC, NULL },		/* SPACE */
+	{ ISFUNC, NULL },		/* ! */
+	{ ISFUNC, NULL },		/* " */
+	{ ISFUNC, NULL },		/* # */
+	{ ISFUNC, NULL },		/* $ */
+	{ ISFUNC, NULL },		/* % */
+	{ ISFUNC, NULL },		/* & */
+	{ ISFUNC, NULL },		/* ' */
+//	{ ISFUNC, start_kbd_macro },		/* ( */
+//	{ ISFUNC, end_kbd_macro  },		/* ) */
+	{ ISFUNC, NULL },		/* ( */
+	{ ISFUNC, NULL  },		/* ) */
+	{ ISFUNC, NULL },		/* * */
+	{ ISFUNC, NULL },		/* + */
+	{ ISFUNC, NULL },		/* , */
+	{ ISFUNC, NULL },		/* - */
+	{ ISFUNC, NULL },		/* . */
+	{ ISFUNC, NULL },		/* / */
+
+	/* Regular digits. */
+	{ ISFUNC, NULL },		/* 0 */
+	{ ISFUNC, NULL },		/* 1 */
+	{ ISFUNC, NULL },		/* 2 */
+	{ ISFUNC, NULL },		/* 3 */
+	{ ISFUNC, NULL },		/* 4 */
+	{ ISFUNC, NULL },		/* 5 */
+	{ ISFUNC, NULL },		/* 6 */
+	{ ISFUNC, NULL },		/* 7 */
+	{ ISFUNC, NULL },		/* 8 */
+	{ ISFUNC, NULL },		/* 9 */
+
+	/* A little more punctuation. */
+	{ ISFUNC, NULL },		/* : */
+	{ ISFUNC, NULL },		/* ; */
+	{ ISFUNC, NULL },		/* < */
+	{ ISFUNC, NULL },		/* = */
+	{ ISFUNC, NULL },		/* > */
+	{ ISFUNC, NULL },		/* ? */
+	{ ISFUNC, NULL },		/* @ */
+
+	/* Uppercase alphabet. */
+//	{ ISFUNC, do_lowercase_version },		/* A */
+//	{ ISFUNC, do_lowercase_version },		/* B */
+//	{ ISFUNC, do_lowercase_version },		/* C */
+//	{ ISFUNC, do_lowercase_version },		/* D */
+//	{ ISFUNC, do_lowercase_version },		/* E */
+//	{ ISFUNC, do_lowercase_version },		/* F */
+//	{ ISFUNC, do_lowercase_version },		/* G */
+//	{ ISFUNC, do_lowercase_version },		/* H */
+//	{ ISFUNC, do_lowercase_version },		/* I */
+//	{ ISFUNC, do_lowercase_version },		/* J */
+//	{ ISFUNC, do_lowercase_version },		/* K */
+//	{ ISFUNC, do_lowercase_version },		/* L */
+//	{ ISFUNC, do_lowercase_version },		/* M */
+//	{ ISFUNC, do_lowercase_version },		/* N */
+//	{ ISFUNC, do_lowercase_version },		/* O */
+//	{ ISFUNC, do_lowercase_version },		/* P */
+//	{ ISFUNC, do_lowercase_version },		/* Q */
+//	{ ISFUNC, do_lowercase_version },		/* R */
+//	{ ISFUNC, do_lowercase_version },		/* S */
+//	{ ISFUNC, do_lowercase_version },		/* T */
+//	{ ISFUNC, do_lowercase_version },		/* U */
+//	{ ISFUNC, do_lowercase_version },		/* V */
+//	{ ISFUNC, do_lowercase_version },		/* W */
+//	{ ISFUNC, do_lowercase_version },		/* X */
+//	{ ISFUNC, do_lowercase_version },		/* Y */
+//	{ ISFUNC, do_lowercase_version },		/* Z */
+
+	{ ISFUNC, NULL },		/* A */
+	{ ISFUNC, NULL },		/* B */
+	{ ISFUNC, NULL },		/* C */
+	{ ISFUNC, NULL },		/* D */
+	{ ISFUNC, NULL },		/* E */
+	{ ISFUNC, NULL },		/* F */
+	{ ISFUNC, NULL },		/* G */
+	{ ISFUNC, NULL },		/* H */
+	{ ISFUNC, NULL },		/* I */
+	{ ISFUNC, NULL },		/* J */
+	{ ISFUNC, NULL },		/* K */
+	{ ISFUNC, NULL },		/* L */
+	{ ISFUNC, NULL },		/* M */
+	{ ISFUNC, NULL },		/* N */
+	{ ISFUNC, NULL },		/* O */
+	{ ISFUNC, NULL },		/* P */
+	{ ISFUNC, NULL },		/* Q */
+	{ ISFUNC, NULL },		/* R */
+	{ ISFUNC, NULL },		/* S */
+	{ ISFUNC, NULL },		/* T */
+	{ ISFUNC, NULL },		/* U */
+	{ ISFUNC, NULL },		/* V */
+	{ ISFUNC, NULL },		/* W */
+	{ ISFUNC, NULL },		/* X */
+	{ ISFUNC, NULL },		/* Y */
+	{ ISFUNC, NULL },		/* Z */
+
+	/* Some more punctuation. */
+	{ ISFUNC, NULL },		/* [ */
+	{ ISFUNC, NULL },		/* \ */
+	{ ISFUNC, NULL },		/* ] */
+	{ ISFUNC, NULL },		/* ^ */
+	{ ISFUNC, NULL },		/* _ */
+	{ ISFUNC, NULL },		/* ` */
+
+	/* Lowercase alphabet. */
+	{ ISFUNC, NULL },		/* a */
+	{ ISFUNC, NULL },		/* b */
+	{ ISFUNC, NULL },		/* c */
+	{ ISFUNC, NULL },		/* d */
+//	{ ISFUNC, call_last_kbd_macro },		/* e */
+	{ ISFUNC, NULL },		/* e */
+	{ ISFUNC, NULL },		/* f */
+	{ ISFUNC, NULL },		/* g */
+	{ ISFUNC, NULL },		/* h */
+	{ ISFUNC, NULL },		/* i */
+	{ ISFUNC, NULL },		/* j */
+	{ ISFUNC, NULL },		/* k */
+	{ ISFUNC, NULL },		/* l */
+	{ ISFUNC, NULL },		/* m */
+	{ ISFUNC, NULL },		/* n */
+	{ ISFUNC, NULL },		/* o */
+	{ ISFUNC, NULL },		/* p */
+	{ ISFUNC, NULL },		/* q */
+	{ ISFUNC, NULL },		/* r */
+	{ ISFUNC, NULL },		/* s */
+	{ ISFUNC, NULL },		/* t */
+	{ ISFUNC, NULL },		/* u */
+	{ ISFUNC, NULL },		/* v */
+	{ ISFUNC, NULL },		/* w */
+	{ ISFUNC, NULL },		/* x */
+	{ ISFUNC, NULL },		/* y */
+	{ ISFUNC, NULL },		/* z */
+
+	/* Final punctuation. */
+	{ ISFUNC, NULL },		/* { */
+	{ ISFUNC, NULL },		/* | */
+	{ ISFUNC, NULL },		/* } */
+	{ ISFUNC, NULL },		/* ~ */
+	{ ISFUNC, NULL },		/* RUBOST */
+//	{ ISFUNC, backward_kill_line },		/* RUBOUT */
+ };

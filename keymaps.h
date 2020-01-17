@@ -13,10 +13,10 @@ struct s_keymap_entry
 };
 
 extern struct s_keymap_entry	g_emacs_standard_keymap[];
+extern struct s_keymap_entry	g_emacs_ctlx_keymap[];
 
 /* Implement later
 extern s_keymap_entry	g_emacs_meta_keymap;
-extern s_keymap_entry	g_emacs_ctlx_keymap;
 */
 
 #endif

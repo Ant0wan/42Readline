@@ -118,7 +118,7 @@ int	init_terminal(void)
 	g_term.autowrap = (tgetflag("am") && tgetflag("xn"));
 	g_term.terminal_can_insert = (g_termcaps.IC || g_termcaps.im || g_termcaps.ic);
 	g_term.has_meta = (tgetflag("km") != 0);
-	bind_termcap(g_emacs_standard_keymap);
+	bind_keys(g_emacs_standard_keymap);
 /*	For VI_MODE only, coming...
 	bind_termcap(vi_movement_keymap);
 	bind_termcap(vi_insertion_keymap);

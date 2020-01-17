@@ -6,7 +6,7 @@
 extern struct s_keymap_entry	*g_keymap;
 
 /* Bind functions */
-void	bind_termcap(struct s_keymap_entry *keymap);
+void	bind_keys(struct s_keymap_entry *keymap);
 
 /* Action functions */
 //void	rl_abort(void);

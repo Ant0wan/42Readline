@@ -47,3 +47,27 @@ void		set_prompt(const char *prompt)
 }
 
 /* 1460 update_line in display.c here is the heart of the thing */
+
+//	!!!!!!!!   LAST WORK TO DO !!!!!!!!!
+
+/* PWP: update_line() is based on finding the middle difference of each
+   line on the screen; vis:
+
+                             /old first difference
+        /beginning of line   |        /old last same       /old EOL
+        v                    v        v             v
+old:    eddie> Oh, my little gruntle-buggy is to me, as lurgid as
+new:    eddie> Oh, my little buggy says to me, as lurgid as
+        ^                    ^  ^                          ^
+        \beginning of line   |  \new last same     \new end of line
+                             \new first difference
+
+   All are character pointers for the sake of speed.  Special cases for
+   no differences, as well as for end of line additions must be handled.
+
+   Could be made even smarter, but this works well enough */
+
+void	update_line(void)
+{
+	return ;
+}

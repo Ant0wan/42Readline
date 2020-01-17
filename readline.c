@@ -13,7 +13,9 @@
 static void	readline_internal(union u_buffer c)
 {
 	if (isstdkey(c.value))
+	{
 		(g_keymap[c.value].func)(c.value);
+	}
 	else if (ismetachar(c))
 	{
 		/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
