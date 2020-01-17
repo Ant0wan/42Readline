@@ -11,10 +11,10 @@ void	prep_terminal(void)
 	g_termios.c_cc[VTIME] = 0;
 	/* Make sure we differentiate between CR and NL on input. */
 	g_termios.c_iflag &= ~(ICRNL | INLCR); /* test */
-	tcsetattr(STDIN_FILENO, 0, &g_termios);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_termios);
 }
 
 void	deprep_terminal(void)
 {
-	tcsetattr(STDIN_FILENO, 0, &g_termios_backup);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_termios_backup);
 }
