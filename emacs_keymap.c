@@ -6,9 +6,8 @@
 
 
 struct s_keymap_entry	g_emacs_standard_keymap[] =
-{
-  /* Control keys. */
-  { ISFUNC, NULL },			/* Control-@ */
+{ /* 127 entries */
+  { ISFUNC, NULL }, /* Control keys. */	/* Control-@ */
   { ISFUNC, NULL },			/* Control-a */
   { ISFUNC, NULL },			/* Control-b */
   { ISFUNC, NULL },		/* Control-c */
@@ -40,9 +39,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, NULL },			/* Control-] */
   { ISFUNC, NULL },		/* Control-^ */
   { ISFUNC, NULL },			/* Control-_ */
-
-  /* The start of printing characters. */
-  { ISFUNC, rl_insert },		/* SPACE */
+  { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE */
   { ISFUNC, rl_insert },		/* ! */
   { ISFUNC, rl_insert },		/* " */
   { ISFUNC, rl_insert },		/* # */
@@ -58,9 +55,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_insert },		/* - */
   { ISFUNC, rl_insert },		/* . */
   { ISFUNC, rl_insert },		/* / */
-
-  /* Regular digits. */
-  { ISFUNC, rl_insert },		/* 0 */
+  { ISFUNC, rl_insert }, /* Regular digits. */	/* 0 */
   { ISFUNC, rl_insert },		/* 1 */
   { ISFUNC, rl_insert },		/* 2 */
   { ISFUNC, rl_insert },		/* 3 */
@@ -70,18 +65,14 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_insert },		/* 7 */
   { ISFUNC, rl_insert },		/* 8 */
   { ISFUNC, rl_insert },		/* 9 */
-
-  /* A little more punctuation. */
-  { ISFUNC, rl_insert },		/* : */
+  { ISFUNC, rl_insert }, /* A little more punctuation. */ /* : */
   { ISFUNC, rl_insert },		/* ; */
   { ISFUNC, rl_insert },		/* < */
   { ISFUNC, rl_insert },		/* = */
   { ISFUNC, rl_insert },		/* > */
   { ISFUNC, rl_insert },		/* ? */
   { ISFUNC, rl_insert },		/* @ */
-
-  /* Uppercase alphabet. */
-  { ISFUNC, rl_insert },		/* A */
+  { ISFUNC, rl_insert }, /* Uppercase alphabet. */ /* A */
   { ISFUNC, rl_insert },		/* B */
   { ISFUNC, rl_insert },		/* C */
   { ISFUNC, rl_insert },		/* D */
@@ -107,17 +98,13 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_insert },		/* X */
   { ISFUNC, rl_insert },		/* Y */
   { ISFUNC, rl_insert },		/* Z */
-
-  /* Some more punctuation. */
-  { ISFUNC, rl_insert },		/* [ */
+  { ISFUNC, rl_insert }, /* Some more punctuation. */	/* [ */
   { ISFUNC, rl_insert },		/* \ */
   { ISFUNC, rl_insert },		/* ] */
   { ISFUNC, rl_insert },		/* ^ */
   { ISFUNC, rl_insert },		/* _ */
   { ISFUNC, rl_insert },		/* ` */
-
-  /* Lowercase alphabet. */
-  { ISFUNC, rl_insert },		/* a */
+  { ISFUNC, rl_insert }, /* Lowercase alphabet. */ /* a */
   { ISFUNC, rl_insert },		/* b */
   { ISFUNC, rl_insert },		/* c */
   { ISFUNC, rl_insert },		/* d */
@@ -143,9 +130,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_insert },		/* x */
   { ISFUNC, rl_insert },		/* y */
   { ISFUNC, rl_insert },		/* z */
-
-  /* Final punctuation. */
-  { ISFUNC, rl_insert },		/* { */
+  { ISFUNC, rl_insert }, /* Final punctuation. */ /* { */
   { ISFUNC, rl_insert },		/* | */
   { ISFUNC, rl_insert },		/* } */
   { ISFUNC, rl_insert },		/* ~ */

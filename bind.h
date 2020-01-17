@@ -3,6 +3,8 @@
 
 # include "keymaps.h"
 
+extern struct s_keymap_entry	*g_keymap;
+
 /* Bind functions */
 void	bind_termcap(struct s_keymap_entry *keymap);
 

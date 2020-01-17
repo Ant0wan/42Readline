@@ -10,6 +10,13 @@
 //	.arg_sign = 1
 //};
 
+static void	readline_internal(union u_buffer c)
+{
+	void	(*f)();
+
+	(g_keymap[c.value].func)(c.value);
+}
+
 /* Read a line of input.
    Prompt with prompt. An NULL prompt means none.
    A return value of NULL means that EOF was encountered. */
@@ -28,7 +35,7 @@ char	*ft_readline(const char *prompt)
 
 	union u_buffer	c; /* Debug */
 	c = get_input(); /* Debug */
-
+	readline_internal(c);
 	prep_terminal();
 
 //	printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
