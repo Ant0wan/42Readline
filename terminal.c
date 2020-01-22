@@ -17,36 +17,36 @@ struct s_term			g_term =
 
 const struct s_termcaps_string	g_tc_strings[] =
 {
-	{"@7", &g_termcaps.at7},
-	{"DC", &g_termcaps.DC},
-	{"E3", &g_termcaps.clrscroll},
-	{"IC", &g_termcaps.IC},
-	{"ce", &g_termcaps.clreol},
-	{"cl", &g_termcaps.clrpag},
-	{"cr", &g_termcaps.cr},
-	{"dc", &g_termcaps.dc},
-	{"ei", &g_termcaps.ei},
-	{"ic", &g_termcaps.ic},
-	{"im", &g_termcaps.im},
-	{"kD", &g_termcaps.kD},	/* delete */
-	{"kH", &g_termcaps.kH},	/* home down ?? */
-	{"kI", &g_termcaps.kI},	/* insert */
-	{"kd", &g_termcaps.kd},
-	{"ke", &g_termcaps.ke},	/* end keypad mode */
-	{"kh", &g_termcaps.kh},	/* home */
-	{"kl", &g_termcaps.kl},
-	{"kr", &g_termcaps.kr},
-	{"ks", &g_termcaps.ks},	/* start keypad mode */
-	{"ku", &g_termcaps.ku},
-	{"le", &g_termcaps.backspace},
-	{"mm", &g_termcaps.mm},
-	{"mo", &g_termcaps.mo},
-	{"nd", &g_termcaps.forward_char},
-	{"pc", &g_termcaps.pc},
-	{"up", &g_termcaps.up},
-	{"vb", &g_termcaps.visible_bell},
-	{"vs", &g_termcaps.vs},
-	{"ve", &g_termcaps.ve}
+	{"@7", &g_termcaps.at7}, /* 0 */
+	{"DC", &g_termcaps.DC}, /* 1 */
+	{"E3", &g_termcaps.clrscroll}, /* 2 */
+	{"IC", &g_termcaps.IC}, /* 3 */
+	{"ce", &g_termcaps.clreol}, /* 4 */
+	{"cl", &g_termcaps.clrpag}, /* 5 */
+	{"cr", &g_termcaps.cr}, /* 6 */
+	{"dc", &g_termcaps.dc}, /* 7 */
+	{"ei", &g_termcaps.ei}, /* 8 */
+	{"ic", &g_termcaps.ic}, /* 9 */
+	{"im", &g_termcaps.im}, /* 10 */
+	{"kD", &g_termcaps.kD},	/* 11 delete */
+	{"kH", &g_termcaps.kH},	/* 12 home down ?? */
+	{"kI", &g_termcaps.kI},	/* 13 insert */
+	{"kd", &g_termcaps.kd},  /* 14 */
+	{"ke", &g_termcaps.ke},	/* 15 end keypad mode */
+	{"kh", &g_termcaps.kh},	/* 16home */
+	{"kl", &g_termcaps.kl}, /* 17 */
+	{"kr", &g_termcaps.kr}, /* 18 */
+	{"ks", &g_termcaps.ks},	/* 19 start keypad mode */
+	{"ku", &g_termcaps.ku}, /* 20 */
+	{"le", &g_termcaps.backspace}, /* 21 */
+	{"mm", &g_termcaps.mm}, /* 22 */
+	{"mo", &g_termcaps.mo}, /* 23 */
+	{"nd", &g_termcaps.forward_char}, /* 24 */
+	{"pc", &g_termcaps.pc}, /* 25 */
+	{"up", &g_termcaps.up}, /* 26 */
+	{"vb", &g_termcaps.visible_bell}, /* 27 */
+	{"vs", &g_termcaps.vs}, /* 28 */
+	{"ve", &g_termcaps.ve} /* 29 */
 };
 
 /* Inititalize termcaps. Get termcaps values. */

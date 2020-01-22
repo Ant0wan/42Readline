@@ -21,6 +21,7 @@ void	initialize(void)
 		/* Initialize the terminal interface. */
 		if (g_term.terminal_name == NULL)
 			g_term.terminal_name = get_env_value("TERM");
+		tgetent(NULL, g_term.terminal_name);
 		init_terminal();
 		++initialized;
 	}

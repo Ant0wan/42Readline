@@ -29,6 +29,7 @@ clean:
 fclean:
 	@$(RM) $(OBJECTS) $(DEPENDS) $(NAME)
 	@printf "\e[0m$(NAME)\e[38;5;52m%2sdeleted\n\e[0m"
+	@$(RM) test
 
 re: fclean $(NAME)
 

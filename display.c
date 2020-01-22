@@ -69,5 +69,6 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(void)
 {
+	write(1, "X", 1);
 	return ;
 }

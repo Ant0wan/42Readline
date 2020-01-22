@@ -41,14 +41,14 @@ char	*ft_readline(const char *prompt)
 
 	/* 2. Set things */
 	set_prompt(prompt);
-	initialize();
 	prep_terminal();
+	initialize();
 //	rl_set_signals(); /* should set signals for input */
 
 	union u_buffer	c; /* Debug */
 	c = read_key(); /* Debug */
 	readline_internal(c);
-
+//	update_line();
 	deprep_terminal();
 	//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
 //	printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
