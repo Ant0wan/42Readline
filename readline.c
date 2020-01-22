@@ -10,23 +10,39 @@
 //	.arg_sign = 1
 //};
 
-static void	readline_internal(union u_buffer c)
+static char	*readline_internal(void)
 {
-	if (isstdkey(c.value))
+	union u_buffer	c;
+	char		*value;
+
+	value = NULL;
+	c.value = 1;
+	while (c.value)
 	{
-		(g_emacs_standard_keymap[c.value].func)(c.value);
+		c = read_key();
+
+		//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
+		printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
+		//printf("%d\n", c.value); /* Debug */
+		if (enter_rc(c))
+			return (value);
+		if (isstdkey(c.value))
+		{
+			(g_emacs_standard_keymap[c.value].func)(c.value);
+		}
+		else if (isctrlkey(c))
+		{
+			/* should execute ctrl_keymap */
+			(g_emacs_ctlx_keymap[c.buf[2]].func)();
+	//		return (value);
+		}
+		else if (ismetachar(c))
+		{
+			/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
+			return (value);
+		}
 	}
-	else if (isctrlkey(c))
-	{
-		/* should execute ctrl_keymap */
-		(g_emacs_ctlx_keymap[c.buf[2]].func)();
-		return ;
-	}
-	else if (ismetachar(c))
-	{
-		/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
-		return ;
-	}
+	return (value);
 }
 
 /* Read a line of input.
@@ -36,24 +52,14 @@ char	*ft_readline(const char *prompt)
 {
 	char	*value;
 
-	/* 1. Check if EOF and clear input and settings */
-
-
-	/* 2. Set things */
 	set_prompt(prompt);
 	prep_terminal();
 	initialize();
 //	rl_set_signals(); /* should set signals for input */
 
-	union u_buffer	c; /* Debug */
-	c = read_key(); /* Debug */
-	readline_internal(c);
-//	update_line();
+	value = readline_internal();
+
 	deprep_terminal();
-	//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
-//	printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
-	//printf("%d\n", c.value); /* Debug */
-
-
 //	rl_clear_signals(); /* should reset signals after input */
+	return (value);
 }

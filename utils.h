@@ -18,5 +18,6 @@ int		isprintchr(int c);
 int		isstdkey(int c);
 int		ismetachar(union u_buffer c);
 int		isctrlkey(union u_buffer c);
+int		enter_rc(union u_buffer c);
 
 #endif

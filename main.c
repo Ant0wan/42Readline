@@ -8,10 +8,9 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	while (1)
-	{
-		input = ft_readline((char *)NULL);
-//		printf("%s\n", input);
-	}
+	//input = ft_readline((char *)NULL);
+	input = ft_readline("$>");
+//	printf("%s\n", input);
+//	free(input);
 	return (0);
 }

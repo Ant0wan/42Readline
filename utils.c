@@ -122,3 +122,8 @@ int	isctrlkey(union u_buffer c)
 {
 	return (c.buf[0] == 27 && c.buf[1] == 91);
 }
+
+int	enter_rc(union u_buffer c)
+{
+	return (c.buf[0] == 13 && c.buf[1] == 0);
+}
