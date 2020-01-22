@@ -7,6 +7,9 @@
 Termcap lib:
 `apt-get install libncurses-dev`
 
+Termcap doc:
+`apt-get install ncurses-doc`
+
 ---
 
 ## Description
