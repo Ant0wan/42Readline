@@ -16,7 +16,7 @@
 
 all: $(NAME)
 
-$(NAME)	: $(OBJECTS)
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 	@printf "\n\e[38;5;148m%4s [\e[1m$(NAME) built]\n\n\e[0m"
@@ -34,9 +34,12 @@ re: fclean $(NAME)
 
 objects: $(OBJECTS)
 
-lib	: $(OBJECTS)
+lib: $(OBJECTS)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
+
+test: lib
+	$(CC) main.c $(NAME) -ltermcap -o test
 
 -include $(DEPENDS)
 
