@@ -69,7 +69,8 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(void)
 {
-	tputs(tgoto(*(g_tc_strings[21].value), 0, 0), 1, output);
+//	tputs(tgoto(*(g_tc_strings[21].value), g_line_state_visible.len, 0), 1, output);
+	tputs(tgoto(tgetstr("ch", NULL), g_line_state_visible.len, 0), 1, output);
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-	return ;
+	g_line_state_visible = g_line_state_invisible;
 }
