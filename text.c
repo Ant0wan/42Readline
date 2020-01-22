@@ -8,25 +8,26 @@ static void	l_expand(void)
 	char	*new;
 	size_t	lold;
 
-	lold = g_rl_line.size_buf;
-	g_rl_line.size_buf = lold * 2;
-	new = (char*)malloc(sizeof(char) * g_rl_line.size_buf);
-	strncpy(new, g_rl_line.line_buffer, lold);
-	free(g_rl_line.line_buffer);
-	g_rl_line.line_buffer = new;
+	lold = g_line_state_invisible.size_buf;
+	g_line_state_invisible.size_buf = lold * 2;
+	new = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
+	strncpy(new, g_line_state_invisible.line, lold);
+	free(g_line_state_invisible.line);
+	g_line_state_invisible.line = new;
 }
 
 void	insert_text(const char *string, int len)
 {
-	if (g_rl_line.line_buffer == NULL)
+	if (g_line_state_invisible.line == NULL)
 	{
-		g_rl_line.line_buffer = (char*)malloc(sizeof(char) * g_rl_line.size_buf);
-		g_rl_line.line_buffer[0] = '\0';
+		g_line_state_invisible.size_buf = 512;
+		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
+		g_line_state_invisible.line[0] = '\0';
 	}
-	if (len + g_rl_line.len >= g_rl_line.size_buf)
+	if (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 		l_expand();
-	strncat(g_rl_line.line_buffer, string, len);
-	g_rl_line.len += len;
+	strncat(g_line_state_invisible.line, string, len);
+	g_line_state_invisible.len += len;
 	update_line();
 }
 

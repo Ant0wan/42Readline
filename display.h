@@ -18,10 +18,12 @@ struct s_display
 struct s_line_state
 {
 	char	*line;
-	int	*lbreaks;
-	int	lbsize;
-	int	wbsize;
-	int	*wrapped_line;
+	int	size_buf;
+	int	len;
+//	int	*lbreaks;
+//	int	lbsize;
+//	int	wbsize;
+//	int	*wrapped_line;
 };
 
 /* The visible cursor position. Adjuted when text is printed. */

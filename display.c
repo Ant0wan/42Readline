@@ -69,6 +69,7 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(void)
 {
-	write(STDOUT_FILENO, g_rl_line.line_buffer, g_rl_line.len);
+	tputs(tgoto(*(g_tc_strings[21].value), 0, 0), 1, output);
+	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 	return ;
 }

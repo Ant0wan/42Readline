@@ -10,9 +10,6 @@
 //	.arg_sign = 1
 //};
 
-struct s_line_buffer     g_rl_line =
-{ .line_buffer = NULL, .size_buf = 512, .len = 0 };
-
 static char	*readline_internal(void)
 {
 	union u_buffer	c;
@@ -43,7 +40,7 @@ static char	*readline_internal(void)
 			/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
 			return (value);
 		}
-		value = g_rl_line.line_buffer;
+		value = g_line_state_invisible.line;
 	}
 	return (value);
 }
