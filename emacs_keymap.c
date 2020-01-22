@@ -10,7 +10,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, NULL }, /* Control keys. */	/* Control-@ */
   { ISFUNC, NULL },			/* Control-a */
   { ISFUNC, NULL },			/* Control-b */
-  { ISFUNC, exit },		/* Control-c */
+  { ISFUNC, kill_line },		/* Control-c */
   { ISFUNC, NULL },			/* Control-d */
   { ISFUNC, NULL },			/* Control-e */
   { ISFUNC, NULL },			/* Control-f */

@@ -1,8 +1,29 @@
 #include "ft_readline.h"
 
+/* Insert a string of text into the line at point.  This is the only
+   way that you should do insertion.  _rl_insert_char () calls this
+   function.  Returns the number of characters inserted. */
+void	insert_text(const char *string, int len)
+{
+	
+	return ;
+}
+
+void	kill_line(void)
+{
+	char	s[2];
+
+	s[0] = '^';
+	s[1] = 'C';
+	insert_text(s, 2);
+}
+
 void	rl_insert(int c)
 {
-	output(c);
+	char	s[1];
+
+	s[0] = c.buf[0];
+	insert_text(s, 1);
 }
 
 void	cursor_l(void)

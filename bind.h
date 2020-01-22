@@ -43,7 +43,7 @@ void	history_up(void);
 void	history_down(void);
 //void	rl_insert_comment(void);
 //void	rl_insert_completions(void);
-//void	rl_kill_line(void);
+void	kill_line(void);
 //void	rl_kill_word(void);
 //void	rl_newline(void);
 //void	rl_noninc_forward_search(void);
