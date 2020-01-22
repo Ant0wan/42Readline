@@ -35,6 +35,11 @@ void	insert_text(const char *string, int len)
 	g_cursor.last_c_pos += len;
 }
 
+void	rl_delete(void)
+{
+	tputs(tgoto(*(g_tc_strings[7].value), 0, 0), 1, output);
+}
+
 void	kill_line(void)
 {
 	char	s[2];

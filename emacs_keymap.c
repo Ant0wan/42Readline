@@ -11,7 +11,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, NULL },			/* Control-a */
   { ISFUNC, NULL },			/* Control-b */
   { ISFUNC, kill_line },		/* Control-c */
-  { ISFUNC, NULL },			/* Control-d */
+  { ISFUNC, rl_delete },			/* Control-d */
   { ISFUNC, NULL },			/* Control-e */
   { ISFUNC, NULL },			/* Control-f */
   { ISFUNC, NULL },				/* Control-g */
@@ -198,7 +198,7 @@ struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_delete },
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
