@@ -36,7 +36,6 @@ struct s_termcaps
 	char	*visible_bell;
 	char	*vs;
 	char	*ve;
-
 };
 
 struct s_termcaps_string
