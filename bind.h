@@ -23,6 +23,7 @@ void	bind_keys(struct s_keymap_entry *keymap);
 void	clear_scr(void);
 //void	rl_complete(void);
 void	rl_delete(void);
+void	rl_backspace(void);
 //void	rl_delete_horizontal_space(void);
 //void	rl_digit_argument(void);
 //void	rl_do_lowercase_version(void);

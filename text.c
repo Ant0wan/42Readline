@@ -40,6 +40,12 @@ void	rl_delete(void)
 	tputs(tgoto(*(g_tc_strings[7].value), 0, 0), 1, output);
 }
 
+void	rl_backspace(void)
+{
+	cursor_l();
+	tputs(tgoto(*(g_tc_strings[7].value), 0, 0), 1, output);
+}
+
 void	kill_line(void)
 {
 	char	s[2];

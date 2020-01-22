@@ -115,7 +115,7 @@ int	isprintchr(int c)
 
 int	isstdkey(int c)
 {
-	return (c > 0 && c <= 126);
+	return (c > 0 && c <= 127);
 }
 
 int	isctrlkey(union u_buffer c)

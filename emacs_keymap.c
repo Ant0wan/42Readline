@@ -134,7 +134,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_insert },		/* | */
   { ISFUNC, rl_insert },		/* } */
   { ISFUNC, rl_insert },		/* ~ */
-  { ISFUNC, NULL },		/* RUBOUT */
+  { ISFUNC, rl_backspace }		/* RUBOUT */
 };
 
 
@@ -274,5 +274,5 @@ struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
 	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
+	{ ISFUNC, NULL }
  };
