@@ -34,3 +34,5 @@ ARFLAGS := rc
 
 #CFLAGS += -Wall -Werror -Wextra -ansi -std=c99 -D_POSIX_C_SOURCE -fno-builtin -O2
 CFLAGS += -std=c99 -D_POSIX_C_SOURCE
+
+CDEBUG := -g3 -fsanitize=address

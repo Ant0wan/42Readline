@@ -10,6 +10,9 @@
 //	.arg_sign = 1
 //};
 
+struct s_line_buffer     g_rl_line =
+{ .line_buffer = NULL, .size_buf = 512, .len = 0 };
+
 static char	*readline_internal(void)
 {
 	union u_buffer	c;
@@ -20,7 +23,6 @@ static char	*readline_internal(void)
 	while (c.value)
 	{
 		c = read_key();
-
 		//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
 		//printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
 		//printf("%d\n", c.value); /* Debug */
@@ -41,6 +43,7 @@ static char	*readline_internal(void)
 			/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
 			return (value);
 		}
+		value = g_rl_line.line_buffer;
 	}
 	return (value);
 }

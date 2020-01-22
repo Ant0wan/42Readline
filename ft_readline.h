@@ -18,6 +18,15 @@
 # include "line.h"
 # include "tty.h"
 
+struct	s_line_buffer
+{
+	char	*line_buffer;
+	size_t	size_buf;
+	size_t	len;
+};
+
+extern struct s_line_buffer	g_rl_line;
+
 char	*ft_readline(const char *prompt);
 
 #endif

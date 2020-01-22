@@ -69,6 +69,6 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(void)
 {
-	write(1, "X", 1);
+	write(STDOUT_FILENO, g_rl_line.line_buffer, g_rl_line.len);
 	return ;
 }

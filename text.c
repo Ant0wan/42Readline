@@ -3,10 +3,31 @@
 /* Insert a string of text into the line at point.  This is the only
    way that you should do insertion.  _rl_insert_char () calls this
    function.  Returns the number of characters inserted. */
+static void	l_expand(void)
+{
+	char	*new;
+	size_t	lold;
+
+	lold = g_rl_line.size_buf;
+	g_rl_line.size_buf = lold * 2;
+	new = (char*)malloc(sizeof(char) * g_rl_line.size_buf);
+	strncpy(new, g_rl_line.line_buffer, lold);
+	free(g_rl_line.line_buffer);
+	g_rl_line.line_buffer = new;
+}
+
 void	insert_text(const char *string, int len)
 {
-	
-	return ;
+	if (g_rl_line.line_buffer == NULL)
+	{
+		g_rl_line.line_buffer = (char*)malloc(sizeof(char) * g_rl_line.size_buf);
+		g_rl_line.line_buffer[0] = '\0';
+	}
+	if (len + g_rl_line.len >= g_rl_line.size_buf)
+		l_expand();
+	strncat(g_rl_line.line_buffer, string, len);
+	g_rl_line.len += len;
+	update_line();
 }
 
 void	kill_line(void)
@@ -22,7 +43,7 @@ void	rl_insert(int c)
 {
 	char	s[1];
 
-	s[0] = c.buf[0];
+	s[0] = (char)c;
 	insert_text(s, 1);
 }
 
