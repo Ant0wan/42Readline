@@ -2,6 +2,13 @@
 
 ---
 
+## REQUIREMENTS
+
+Termcap lib:
+`apt-get install libncurses-dev`
+
+---
+
 ## Description
 
 ### Command Line Features

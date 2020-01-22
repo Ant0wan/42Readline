@@ -9,6 +9,9 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	while (1)
+	{
 		input = ft_readline((char *)NULL);
+//		printf("%s\n", input);
+	}
 	return (0);
 }
