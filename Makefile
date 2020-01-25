@@ -19,7 +19,7 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@printf "\n\e[38;5;148m%4s [\e[1m$(NAME) built]\n\n\e[0m"
+	@printf "\n\e[38;5;221m%4s [\e[1m$(NAME) built]\n\n\e[0m"
 	@printf "\e[38;5;222mTo compile with the $(NAME), use the command-line: \e[0m\e[4m%s main.c -L. -lft\n\e[0m" $(CC)
 
 clean:
