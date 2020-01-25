@@ -18,7 +18,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, NULL },			/* Control-h */
   { ISFUNC, NULL },			/* Control-i */
   { ISFUNC, NULL },			/* Control-j */
-  { ISFUNC, NULL },			/* Control-k */
+  { ISFUNC, clear_eol },			/* Control-k */
   { ISFUNC, clear_scr },			/* Control-l */
   { ISFUNC, NULL },			/* Control-m */
   { ISFUNC, NULL },		/* Control-n */

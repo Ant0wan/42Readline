@@ -3,6 +3,8 @@
 /* Insert a string of text into the line at point.  This is the only
    way that you should do insertion.  _rl_insert_char () calls this
    function.  Returns the number of characters inserted. */
+extern struct s_termcaps g_termcaps;
+
 static void	l_expand(void)
 {
 	char	*new;
@@ -37,13 +39,13 @@ void	insert_text(const char *string, int len)
 
 void	rl_delete(void)
 {
-	tputs(tgoto(*(g_tc_strings[7].value), 0, 0), 1, output);
+	tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 }
 
 void	rl_backspace(void)
 {
 	cursor_l();
-	tputs(tgoto(*(g_tc_strings[7].value), 0, 0), 1, output);
+	tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 }
 
 void	kill_line(void)
@@ -66,13 +68,13 @@ void	rl_insert(int c)
 void	cursor_l(void)
 {
 	g_cursor.last_c_pos -= 1;
-	tputs(tgoto(*(g_tc_strings[21].value), 0, 0), 1, output);
+	tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
 }
 
 void	cursor_r(void)
 {
 	g_cursor.last_c_pos += 1;
-	tputs(tgoto(*(g_tc_strings[24].value), 0, 0), 1, output);
+	tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
 }
 
 void	history_up(void)
@@ -85,7 +87,13 @@ void	history_down(void)
 	return;
 }
 
+
 void	clear_scr(void)
 {
-	tputs(*(g_tc_strings[5].value), 1, output);
+	tputs(g_termcaps.clrpag, 1, output);
+}
+
+void	clear_eol(void)
+{
+	tputs(g_termcaps.clreol, 1, output);
 }

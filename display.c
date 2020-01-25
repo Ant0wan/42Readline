@@ -20,6 +20,8 @@ struct s_cursor		g_cursor =
 struct s_line_state	g_line_state_visible = {0};
 struct s_line_state	g_line_state_invisible = {0};
 
+extern struct s_termcaps g_termcaps;
+
 static int	redisplay_after_sigwinch(void)
 {
 	/* Clear the last line (assuming that the screen size change will result in
@@ -69,6 +71,7 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(void)
 {
+	tputs(tgoto(g_termcaps.IC, g_line_state_invisible.len, 0), 1, output); /* insertion mode */
 //	tputs(tgoto(*(g_tc_strings[30].value), g_line_state_invisible.len, 0), 1, output);
 	write(STDOUT_FILENO, &(g_line_state_invisible.line[g_cursor.last_c_pos]), 1); //g_line_state_invisible.len);
 //	tputs(tgoto(*(g_tc_strings[30].value), g_line_state_visible.len, 0), 1, output);
