@@ -127,3 +127,33 @@ int	enter_rc(union u_buffer c)
 {
 	return (c.buf[0] == 13 && c.buf[1] == 0);
 }
+
+void	rl_bzero(void *s, size_t n)
+{
+	unsigned char	*ptr;
+
+	ptr = s;
+	while (n)
+	{
+		*ptr++ = 0;
+		--n;
+	}
+}
+
+char	*rl_strncpy(char *dst, const char *src, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len && src[i])
+	{
+		dst[i] = src[i];
+		++i;
+	}
+	while (i < len)
+	{
+		dst[i] = '\0';
+		++i;
+	}
+	return (dst);
+}
