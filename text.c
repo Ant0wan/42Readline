@@ -27,9 +27,11 @@ void	insert_text(const char *string, int len)
 		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
 		rl_bzero(g_line_state_invisible.line, 512);
 	}
-//	if (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
-//		l_expand();
-	rl_strncpy(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
+	while (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
+		l_expand();
+	if (g_cursor.last_c_pos + len <= g_line_state_invisible.len + 1)
+		rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos + len]), &(g_line_state_invisible.line[g_cursor.last_c_pos]), g_line_state_invisible.len - len - g_cursor.last_c_pos + 2);
+	rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
 	if (g_cursor.last_c_pos >= len)
 		g_line_state_invisible.len += len;
 //	g_cursor.last_l_pos = 0;
