@@ -144,6 +144,22 @@ void	paste(void)
 	return;
 }
 
+void	rl_home(void)
+{
+	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
+	g_cursor.last_c_pos = 0;
+}
+
+
+void	rl_end(void)
+{
+	while (g_cursor.last_c_pos < g_line_state_invisible.len)
+	{
+		g_cursor.last_c_pos += 1;
+		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+	}
+}
+
 void	clear_scr(void)
 {
 	tputs(g_termcaps.clrpag, 1, output);
