@@ -43,6 +43,6 @@ extern struct s_display		g_display;
 extern struct s_cursor		g_cursor;
 
 void	set_prompt(const char *prompt);
-void	update_line(void);
+void	update_line(int len);
 
 #endif

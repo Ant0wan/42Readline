@@ -33,7 +33,7 @@ void	insert_text(const char *string, int len)
 	if (g_cursor.last_c_pos > len)
 		g_line_state_invisible.len += len;
 //	g_cursor.last_l_pos = 0;
-	update_line();
+	update_line(len);
 	g_cursor.last_c_pos += len;
 }
 
@@ -55,6 +55,9 @@ void	kill_line(void)
 	s[0] = '^';
 	s[1] = 'C';
 	insert_text(s, 2);
+	bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
+	g_cursor.last_c_pos = 0;
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	rl_insert(int c)
