@@ -82,7 +82,7 @@ void	cursor_r(void)
 
 void	history_up(void)
 {
-	return;
+	insert_text("=>history command<=", 19); // test
 }
 
 void	history_down(void)
