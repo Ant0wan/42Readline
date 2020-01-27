@@ -21,7 +21,7 @@ static char	*readline_internal(void)
 	{
 		c = read_key();
 		//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
-		//printf("%d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3]); /* Debug */
+		printf("%d %d %d %d  %d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3], (int)c.buf[4], (int)c.buf[5], (int)c.buf[6], (int)c.buf[7]); /* Debug */
 		//printf("%d\n", c.value); /* Debug */
 		if (enter_rc(c))
 			return (value);

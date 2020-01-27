@@ -3,8 +3,8 @@
 
 union	u_buffer
 {
-	unsigned int	value;
-	char		buf[sizeof(unsigned int)];
+	unsigned long	value;
+	char		buf[sizeof(unsigned long)];
 };
 
 union u_buffer	read_key(void);
