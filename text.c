@@ -32,7 +32,7 @@ void	insert_text(const char *string, int len)
 	if (g_cursor.last_c_pos + len <= g_line_state_invisible.len + 1)
 		rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos + len]), &(g_line_state_invisible.line[g_cursor.last_c_pos]), g_line_state_invisible.len - len - g_cursor.last_c_pos + 2);
 	rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
-	if (g_cursor.last_c_pos >= len)
+	if (g_cursor.last_c_pos >= len - 1)
 		g_line_state_invisible.len += len;
 //	g_cursor.last_l_pos = 0;
 	update_line(len);
@@ -41,17 +41,20 @@ void	insert_text(const char *string, int len)
 
 void	rl_delete(void)
 {
-	tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
-	if (g_line_state_invisible.line[g_cursor.last_c_pos])
+	if (g_cursor.last_c_pos <= g_line_state_invisible.len && g_line_state_invisible.len > 0)
 	{
-		rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
-		g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
-		--g_line_state_invisible.len;
-	}
-	else if (g_cursor.last_c_pos > 0)
-	{
-		g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
-		--g_line_state_invisible.len;
+		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
+		if (g_line_state_invisible.line[g_cursor.last_c_pos] && g_cursor.last_c_pos <= g_line_state_invisible.len)
+		{
+			rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
+			g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
+			--g_line_state_invisible.len;
+		}
+		else if (g_cursor.last_c_pos > 0)
+		{
+			g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
+			--g_line_state_invisible.len;
+		}
 	}
 }
 
@@ -103,7 +106,7 @@ void	cursor_l(void)
 
 void	cursor_r(void)
 {
-	if (g_cursor.last_c_pos <= g_line_state_invisible.len)
+	if (g_cursor.last_c_pos < g_line_state_invisible.len)
 	{
 		g_cursor.last_c_pos += 1;
 		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
