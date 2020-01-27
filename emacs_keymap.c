@@ -9,13 +9,13 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
 { /* 127 entries */
   { ISFUNC, NULL }, /* Control keys. */	/* Control-@ */
   { ISFUNC, NULL },			/* Control-a */
-  { ISFUNC, NULL },			/* Control-b */
+  { ISFUNC, cursor_l },			/* Control-b */
   { ISFUNC, kill_line },		/* Control-c */
   { ISFUNC, rl_delete },			/* Control-d */
   { ISFUNC, NULL },			/* Control-e */
-  { ISFUNC, NULL },			/* Control-f */
+  { ISFUNC, cursor_r },			/* Control-f */
   { ISFUNC, NULL },				/* Control-g */
-  { ISFUNC, NULL },			/* Control-h */
+  { ISFUNC, rl_backspace },			/* Control-h */
   { ISFUNC, autocomplete },			/* Control-i */
   { ISFUNC, NULL },			/* Control-j */
   { ISFUNC, clear_eol },			/* Control-k */
@@ -23,7 +23,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, NULL },			/* Control-m */
   { ISFUNC, NULL },		/* Control-n */
   { ISFUNC, NULL },		/* Control-o */
-  { ISFUNC, NULL },		/* Control-p */
+  { ISFUNC, history_up },		/* Control-p */
   { ISFUNC, NULL },			/* Control-q */
   { ISFUNC, NULL },	/* Control-r */
   { ISFUNC, NULL },	/* Control-s */

@@ -80,12 +80,17 @@ void	cursor_r(void)
 	tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
 }
 
-void	history_up(void)
+void	clear_line(void)
 {
 	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
 	tputs(g_termcaps.clreol, 1, output);
 	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_cursor.last_c_pos = 0;
+}
+
+void	history_up(void)
+{
+	clear_line();
 	insert_text("=>history command<=", 19); // test
 }
 
