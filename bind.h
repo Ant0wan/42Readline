@@ -20,6 +20,8 @@ void	bind_keys(struct s_keymap_entry *keymap);
 //void	rl_call_last_kbd_macro(void);
 //void	rl_capitalize_word(void);
 //void	rl_char_search(void);
+void	wd_right(void);
+void	wd_left(void);
 void	clear_scr(void);
 void	clear_eol(void);
 void	clear_line(void);

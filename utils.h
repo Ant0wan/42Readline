@@ -18,6 +18,7 @@ int		isprintchr(int c);
 int		isstdkey(int c);
 int		ismetachar(union u_buffer c);
 int		isctrlkey(union u_buffer c);
+int		mvctrlkey(union u_buffer c);
 int		enter_rc(union u_buffer c);
 void		rl_bzero(void *s, size_t n);
 char		*rl_strncpy(char *dst, const char *src, size_t len);

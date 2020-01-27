@@ -160,6 +160,22 @@ void	rl_end(void)
 	}
 }
 
+void	wd_right(void)
+{
+	while (g_line_state_invisible.line[g_cursor.last_c_pos] == ' ' && g_cursor.last_c_pos < g_line_state_invisible.len)
+		cursor_r();
+	while (g_line_state_invisible.line[g_cursor.last_c_pos] != ' ' && g_cursor.last_c_pos < g_line_state_invisible.len)
+		cursor_r();
+}
+
+void	wd_left(void)
+{
+	while (g_cursor.last_c_pos > 0 && g_line_state_invisible.line[g_cursor.last_c_pos - 1] == ' ')
+		cursor_l();
+	while (g_cursor.last_c_pos > 0 && g_line_state_invisible.line[g_cursor.last_c_pos - 1] != ' ')
+		cursor_l();
+}
+
 void	clear_scr(void)
 {
 	tputs(g_termcaps.clrpag, 1, output);
