@@ -22,6 +22,7 @@ void	bind_keys(struct s_keymap_entry *keymap);
 //void	rl_char_search(void);
 void	clear_scr(void);
 void	clear_eol(void);
+void	autocomplete(void);
 //void	rl_complete(void);
 void	rl_delete(void);
 void	rl_backspace(void);

@@ -89,6 +89,12 @@ void	history_up(void)
 	insert_text("=>history command<=", 19); // test
 }
 
+void	autocomplete(void)
+{
+	insert_text("=>suggest<=", 11); // test
+	insert_text(" ", 1); // test
+}
+
 void	history_down(void)
 {
 	return;
