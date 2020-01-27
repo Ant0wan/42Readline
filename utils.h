@@ -21,5 +21,6 @@ int		isctrlkey(union u_buffer c);
 int		enter_rc(union u_buffer c);
 void		rl_bzero(void *s, size_t n);
 char		*rl_strncpy(char *dst, const char *src, size_t len);
+void		*rl_memmove(void *dst, const void *src, size_t len);
 
 #endif

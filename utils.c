@@ -157,3 +157,32 @@ char	*rl_strncpy(char *dst, const char *src, size_t len)
 	}
 	return (dst);
 }
+
+void	*rl_memmove(void *dst, const void *src, size_t len)
+{
+	size_t			i;
+	unsigned char	*p_dst;
+	unsigned char	*p_src;
+
+	i = 0;
+	p_dst = (unsigned char*)dst;
+	p_src = (unsigned char*)src;
+	if (src < dst)
+	{
+		i = len;
+		while (i > 0)
+		{
+			--i;
+			p_dst[i] = p_src[i];
+		}
+	}
+	else
+	{
+		while (i < len)
+		{
+			p_dst[i] = p_src[i];
+			++i;
+		}
+	}
+	return (dst);
+}

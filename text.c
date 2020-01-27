@@ -40,19 +40,29 @@ void	insert_text(const char *string, int len)
 void	rl_delete(void)
 {
 	tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
-}
-
-void	rl_backspace(void)
-{
-	cursor_l();
-	tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 	if (g_line_state_invisible.line[g_cursor.last_c_pos])
 	{
-		memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
+		rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
 		g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
 	}
 	else if (g_cursor.last_c_pos > 0)
 		g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
+}
+
+void	rl_backspace(void)
+{
+	if (g_cursor.last_c_pos > 0)
+	{
+		cursor_l();
+		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
+		if (g_line_state_invisible.line[g_cursor.last_c_pos])
+		{
+			rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
+			g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
+		}
+		else
+			g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
+	}
 }
 
 void	kill_line(void)
@@ -77,8 +87,11 @@ void	rl_insert(int c)
 
 void	cursor_l(void)
 {
-	g_cursor.last_c_pos -= 1;
-	tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+	if (g_cursor.last_c_pos > 0)
+	{
+		g_cursor.last_c_pos -= 1;
+		tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+	}
 }
 
 void	cursor_r(void)
