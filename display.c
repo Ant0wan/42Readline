@@ -22,6 +22,11 @@ struct s_line_state	g_line_state_invisible = {0};
 
 extern struct s_termcaps g_termcaps;
 
+void		display_prompt(void)
+{
+	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);
+}
+
 static int	redisplay_after_sigwinch(void)
 {
 	/* Clear the last line (assuming that the screen size change will result in

@@ -17,6 +17,7 @@ static char	*readline_internal(void)
 
 	value = NULL;
 	c.value = 1;
+	display_prompt();
 	while (c.value)
 	{
 		c = read_key();

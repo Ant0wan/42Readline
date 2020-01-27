@@ -85,6 +85,7 @@ void	kill_line(void)
 	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_cursor.last_c_pos = 0;
 	write(STDOUT_FILENO, "\n", 1);
+	display_prompt();
 }
 
 void	rl_insert(int c)

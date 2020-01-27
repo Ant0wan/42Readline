@@ -9,7 +9,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	//input = ft_readline((char *)NULL);
-	input = ft_readline("$>");
+	input = ft_readline("$> ");
 	printf("\n\nvalue:\n%s\n", input);
 	free(input);
 	return (0);
