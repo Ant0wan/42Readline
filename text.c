@@ -30,7 +30,7 @@ void	insert_text(const char *string, int len)
 //	if (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 //		l_expand();
 	rl_strncpy(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
-	if (g_cursor.last_c_pos > len)
+	if (g_cursor.last_c_pos >= len)
 		g_line_state_invisible.len += len;
 //	g_cursor.last_l_pos = 0;
 	update_line(len);
@@ -44,9 +44,13 @@ void	rl_delete(void)
 	{
 		rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), &(g_line_state_invisible.line[g_cursor.last_c_pos + 1]), g_line_state_invisible.len - g_cursor.last_c_pos + 1);
 		g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
+		--g_line_state_invisible.len;
 	}
 	else if (g_cursor.last_c_pos > 0)
+	{
 		g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
+		--g_line_state_invisible.len;
+	}
 }
 
 void	rl_backspace(void)
@@ -62,6 +66,7 @@ void	rl_backspace(void)
 		}
 		else
 			g_line_state_invisible.line[g_cursor.last_c_pos] = '\0';
+		--g_line_state_invisible.len;
 	}
 }
 
@@ -96,8 +101,11 @@ void	cursor_l(void)
 
 void	cursor_r(void)
 {
-	g_cursor.last_c_pos += 1;
-	tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+	if (g_cursor.last_c_pos <= g_line_state_invisible.len)
+	{
+		g_cursor.last_c_pos += 1;
+		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+	}
 }
 
 void	clear_line(void)
