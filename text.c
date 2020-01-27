@@ -82,6 +82,10 @@ void	cursor_r(void)
 
 void	history_up(void)
 {
+	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
+	tputs(g_termcaps.clreol, 1, output);
+	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
+	g_cursor.last_c_pos = 0;
 	insert_text("=>history command<=", 19); // test
 }
 
@@ -90,6 +94,11 @@ void	history_down(void)
 	return;
 }
 
+void	paste(void)
+{
+ //	insert_text("=>history command<=", 19); // test
+	return;
+}
 
 void	clear_scr(void)
 {
