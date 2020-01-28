@@ -22,7 +22,7 @@ static void	l_expand(void)
 void	insert_text(const char *string, int len)
 {
 	if (g_line_state_invisible.line == NULL)
-	{ /* init line */
+	{
 		g_line_state_invisible.size_buf = 512;
 		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
 		rl_bzero(g_line_state_invisible.line, 512);
@@ -34,7 +34,6 @@ void	insert_text(const char *string, int len)
 	rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
 	if (g_cursor.last_c_pos >= len - 1 || g_line_state_invisible.len == 0)
 		g_line_state_invisible.len += len;
-//	g_cursor.last_l_pos = 0;
 	update_line(len);
 	g_cursor.last_c_pos += len;
 }
@@ -118,11 +117,9 @@ void	cursor_r(void)
 void	clear_line(void)
 {
 	rl_home();
-//	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
 	tputs(g_termcaps.clreol, 1, output);
 	g_line_state_invisible.len = 0;
 	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
-//	g_cursor.last_c_pos = 0;
 }
 
 void	history_up(void)
@@ -200,4 +197,6 @@ void	clear_scr(void)
 void	clear_eol(void)
 {
 	tputs(g_termcaps.clreol, 1, output);
+	rl_bzero(&(g_line_state_invisible.line[g_cursor.last_c_pos]), g_line_state_invisible.len - g_cursor.last_c_pos);
+	g_line_state_invisible.len -= (g_line_state_invisible.len - g_cursor.last_c_pos);
 }
