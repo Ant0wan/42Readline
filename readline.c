@@ -29,22 +29,15 @@ static char	*readline_internal(void)
 		if (enter_rc(c))
 			return (value);
 		if (isstdkey(c.value))
-		{
 			(g_emacs_standard_keymap[c.value].func)(c.value);
-		}
 		else if (isctrlkey(c))
 		{
 			if (mvctrlkey(c))
 				c.buf[2] = c.buf[5] + 20;
-			/* should execute ctrl_keymap */
 			(g_emacs_ctlx_keymap[c.buf[2]].func)();
-	//		return (value);
 		}
 		else if (ismetachar(c))
-		{
-			/* should get meta keymap and get meta_keymap_entry[c.buf[1]] */
 			return (value);
-		}
 		value = g_line_state_invisible.line;
 	}
 	return (value);
