@@ -40,8 +40,8 @@ void	insert_text(const char *string, int len)
 	rl_memmove(&(g_line_state_invisible.line[g_cursor.last_c_pos]), string, len);
 	if (g_cursor.last_c_pos >= len - 1 || g_line_state_invisible.len == 0)
 		g_line_state_invisible.len += len;
-	update_line(len);
 	g_cursor.last_c_pos += len;
+	update_line(len);
 }
 
 void	rl_delete(void)
