@@ -19,9 +19,10 @@ void    init_line_buffer(void);
 
 struct s_clipboard
 {
-	
 	char	*str;
-	int	cflag;
+	int	flag;
 };
+
+extern struct s_clipboard	g_clipboard;
 
 #endif

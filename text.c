@@ -3,7 +3,9 @@
 /* Insert a string of text into the line at point.  This is the only
    way that you should do insertion.  _rl_insert_char () calls this
    function.  Returns the number of characters inserted. */
-extern struct s_termcaps g_termcaps;
+extern struct s_termcaps	g_termcaps;
+
+struct s_clipboard		g_clipboard = { .flag = CNULL, .str = NULL };
 
 void	init_line_buffer(void)
 {
@@ -143,12 +145,6 @@ void	history_down(void)
 	return;
 }
 
-void	paste(void)
-{
- //	insert_text("=>history command<=", 19); // test
-	return;
-}
-
 void	rl_home(void)
 {
 	int	i;
@@ -209,5 +205,40 @@ void	clear_eol(void)
 void	rl_void(void)
 {
 	/* Could include bell ring to show key does not exists */
+	return;
+}
+
+void	start_select(void) /* Not done, would be done later */
+{
+//	tputs(tgetstr("mr", NULL), 1, output);
+	return;
+}
+
+void	close_select(void) /* Not done, would be done later */
+{
+//	tputs(g_termcaps.ve, 1, output);
+	return;
+}
+
+void	paste_clipboard(void) /* Not done, would be done later */
+{
+	g_clipboard.flag = CNULL;
+ //	insert_text("=>history command<=", 19); // test
+	return;
+}
+
+void	copy_selection(void) /* Not done, would be done later */
+{
+	if (g_clipboard.flag == CNULL)
+		g_clipboard.flag = CCOPY;
+ //	insert_text("=>history command<=", 19); // test
+	return;
+}
+
+void	cut_selection(void)
+{
+	if (g_clipboard.flag == CNULL)
+		g_clipboard.flag = CCOPY;
+ //	insert_text("=>history command<=", 19); // test
 	return;
 }

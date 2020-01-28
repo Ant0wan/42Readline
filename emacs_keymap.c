@@ -7,38 +7,38 @@
 
 struct s_keymap_entry	g_emacs_standard_keymap[] =
 { /* 127 entries */
-  { ISFUNC, NULL }, /* Control keys. */	/* Control-@ */
-  { ISFUNC, NULL },			/* Control-a */
+  { ISFUNC, rl_void }, /* Control keys. */	/* Control-@ */
+  { ISFUNC, rl_void },			/* Control-a */
   { ISFUNC, cursor_l },			/* Control-b */
   { ISFUNC, kill_line },		/* Control-c */
   { ISFUNC, rl_delete },			/* Control-d */
-  { ISFUNC, NULL },			/* Control-e */
+  { ISFUNC, rl_void },			/* Control-e */
   { ISFUNC, cursor_r },			/* Control-f */
-  { ISFUNC, NULL },				/* Control-g */
+  { ISFUNC, rl_void },				/* Control-g */
   { ISFUNC, rl_backspace },			/* Control-h */
   { ISFUNC, autocomplete },			/* Control-i */
-  { ISFUNC, NULL },			/* Control-j */
+  { ISFUNC, rl_void },			/* Control-j */
   { ISFUNC, clear_eol },			/* Control-k */
   { ISFUNC, clear_scr },			/* Control-l */
-  { ISFUNC, NULL },			/* Control-m */
-  { ISFUNC, NULL },		/* Control-n */
-  { ISFUNC, NULL },		/* Control-o */
+  { ISFUNC, rl_void },			/* Control-m */
+  { ISFUNC, rl_void },		/* Control-n */
+  { ISFUNC, rl_void },		/* Control-o */
   { ISFUNC, history_up },		/* Control-p */
-  { ISFUNC, NULL },			/* Control-q */
-  { ISFUNC, NULL },	/* Control-r */
-  { ISFUNC, NULL },	/* Control-s */
-  { ISFUNC, NULL },		/* Control-t */
-  { ISFUNC, NULL },		/* Control-u */
-  { ISFUNC, NULL },			/* Control-v */
-  { ISFUNC, NULL },		/* Control-w */
-  { ISKMAP, NULL },	/* Control-x */
-  { ISFUNC, NULL },				/* Control-y */
-  { ISFUNC, NULL },		/* Control-z */
-  { ISKMAP, NULL }, /* Control-[ */
-  { ISFUNC, NULL },		/* Control-\ */
-  { ISFUNC, NULL },			/* Control-] */
-  { ISFUNC, NULL },		/* Control-^ */
-  { ISFUNC, NULL },			/* Control-_ */
+  { ISFUNC, rl_void },			/* Control-q */
+  { ISFUNC, rl_void },	/* Control-r */
+  { ISFUNC, rl_void },	/* Control-s */
+  { ISFUNC, rl_void },		/* Control-t */
+  { ISFUNC, rl_void },		/* Control-u */
+  { ISFUNC, rl_void },			/* Control-v */
+  { ISFUNC, rl_void },		/* Control-w */
+  { ISKMAP, rl_void },	/* Control-x */
+  { ISFUNC, rl_void },				/* Control-y */
+  { ISFUNC, rl_void },		/* Control-z */
+  { ISKMAP, start_select }, /* Control-[ */
+  { ISFUNC, rl_void },		/* Control-\ */
+  { ISFUNC, close_select },			/* Control-] */
+  { ISFUNC, rl_void },		/* Control-^ */
+  { ISFUNC, rl_void },			/* Control-_ */
   { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE */
   { ISFUNC, rl_insert },		/* ! */
   { ISFUNC, rl_insert },		/* " */
@@ -147,132 +147,132 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
 
 struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 {
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
 	{ ISFUNC, rl_delete },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
 	{ ISFUNC, history_up },
 	{ ISFUNC, history_down },
 	{ ISFUNC, cursor_r },
 	{ ISFUNC, cursor_l },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_void },
 	{ ISFUNC, rl_end },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_void },
 	{ ISFUNC, rl_home },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
 	{ ISFUNC, wd_right },
 	{ ISFUNC, wd_left },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL },
-	{ ISFUNC, NULL }
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void }
  };
