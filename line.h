@@ -11,4 +11,6 @@ struct s_line
 
 extern struct s_line	g_line;
 
+void    init_line_buffer(void);
+
 #endif

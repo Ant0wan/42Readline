@@ -45,5 +45,6 @@ extern struct s_cursor		g_cursor;
 void	set_prompt(const char *prompt);
 void	display_prompt(void);
 void	update_line(int len);
+void	init_line_buffer(void);
 
 #endif

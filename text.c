@@ -5,6 +5,16 @@
    function.  Returns the number of characters inserted. */
 extern struct s_termcaps g_termcaps;
 
+void	init_line_buffer(void)
+{
+	if (g_line_state_invisible.line == NULL)
+	{
+		g_line_state_invisible.size_buf = 512;
+		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
+		rl_bzero(g_line_state_invisible.line, 512);
+	}
+}
+
 static void	l_expand(void)
 {
 	char	*new;
@@ -21,12 +31,6 @@ static void	l_expand(void)
 
 void	insert_text(const char *string, int len)
 {
-	if (g_line_state_invisible.line == NULL)
-	{
-		g_line_state_invisible.size_buf = 512;
-		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
-		rl_bzero(g_line_state_invisible.line, 512);
-	}
 	while (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 		l_expand();
 	if (g_cursor.last_c_pos + len <= g_line_state_invisible.len + 1)
