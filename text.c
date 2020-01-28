@@ -187,7 +187,14 @@ void	wd_left(void)
 
 void	clear_scr(void)
 {
+	int	i;
+
+	i = g_line_state_invisible.len - g_cursor.last_c_pos;
 	tputs(g_termcaps.clrpag, 1, output);
+	display_prompt();
+	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
+	while (i--)
+		tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
 }
 
 void	clear_eol(void)
