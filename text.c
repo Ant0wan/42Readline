@@ -147,8 +147,13 @@ void	paste(void)
 
 void	rl_home(void)
 {
+	int	i;
+
+	i = g_display.visible_prompt_length;
 	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
 	g_cursor.last_c_pos = 0;
+	while (i--)
+		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
 }
 
 
