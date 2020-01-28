@@ -13,4 +13,15 @@ extern struct s_line	g_line;
 
 void    init_line_buffer(void);
 
+# define CNULL  0x00
+# define CCOPY  0x01
+# define CCUT   0x02
+
+struct s_clipboard
+{
+	
+	char	*str;
+	int	cflag;
+};
+
 #endif
