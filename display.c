@@ -77,16 +77,35 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(int len)
 {
-	if (g_display.visible_first_line_len >= g_line_state_invisible.len) /* Single-line algorithm */
+	int l;
+	int c;
+
+	l = 0;
+	c = 0;
+	if (g_display.visible_first_line_len > g_line_state_invisible.len) /* Single-line algorithm */
 	{
+		c = g_display.visible_prompt_length;
 		tputs(tgetstr("cd", NULL), 1, output);
-		tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
+		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
 		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-		tputs(tgoto(tgetstr("ch", NULL), 0, g_display.cpos_buffer_position + g_display.visible_prompt_length), 1, output);
+		c += g_display.cpos_buffer_position;
+		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
 		g_line_state_visible = g_line_state_invisible;
+		g_cursor.last_c_pos = c;
+		g_cursor.last_v_pos = 0;
 	}
 	else /* Multi-line algorithm */
 	{
+//		if (g_cursor.last_v_pos > 0)
+//		{
+//			g_cursor.last_v_pos--;
+//			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
+			l = g_display.cpos_buffer_position + g_display.visible_prompt_length;
+			tputs(tgetstr("cd", NULL), 1, output);
+			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
+			write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
+			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.cpos_buffer_position + g_display.visible_prompt_length), 1, output);
+//		}
 		return;
 	}
 }
