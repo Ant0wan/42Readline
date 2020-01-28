@@ -81,7 +81,7 @@ void	update_line(int len)
 
 	tputs(tgetstr("cd", NULL), 1, output);
 	p = g_display.visible_prompt_length;
-	i = g_cursor.last_c_pos + p;
+	i = g_display.cpos_buffer_position + p;
 	tputs(tgoto(tgetstr("ch", NULL), p, p), 1, output);
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 	tputs(tgoto(tgetstr("ch", NULL), i, i), 1, output);
