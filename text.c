@@ -200,3 +200,10 @@ void	clear_eol(void)
 	rl_bzero(&(g_line_state_invisible.line[g_cursor.last_c_pos]), g_line_state_invisible.len - g_cursor.last_c_pos);
 	g_line_state_invisible.len -= (g_line_state_invisible.len - g_cursor.last_c_pos);
 }
+
+/* Function to use to replace all NULL in keymap */
+void	rl_void(void)
+{
+	/* Could include bell ring to show key does not exists */
+	return;
+}
