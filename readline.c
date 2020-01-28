@@ -50,9 +50,9 @@ char	*ft_readline(const char *prompt)
 {
 	char	*value;
 
-	set_prompt(prompt);
 	prep_terminal();
 	initialize();
+	set_prompt(prompt);
 //	rl_set_signals(); /* should set signals for input */
 
 	value = readline_internal();
