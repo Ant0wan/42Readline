@@ -76,9 +76,11 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
 void	update_line(int len)
 {
-	tputs(tgoto(g_termcaps.IC, 0, len), 1, output); /* insertion mode */
+//	tputs(tgoto(g_termcaps.IC, 0, len), 1, output); /* insertion mode */
 //	tputs(tgoto(*(g_tc_strings[30].value), g_line_state_invisible.len, 0), 1, output);
-	write(STDOUT_FILENO, &(g_line_state_invisible.line[g_cursor.last_c_pos]), len); //g_line_state_invisible.len);
+//	write(STDOUT_FILENO, &(g_line_state_invisible.line[g_cursor.last_c_pos]), len); //g_line_state_invisible.len);
+	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
+	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len); //g_line_state_invisible.len);
 
 //	tputs(tgoto(*(g_tc_strings[30].value), g_line_state_visible.len, 0), 1, output);
 //	write(STDOUT_FILENO, &(g_line_state_invisible.line[g_cursor.last_c_pos]), g_line_state_invisible.len);
