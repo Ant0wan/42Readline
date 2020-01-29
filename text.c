@@ -107,8 +107,20 @@ void	cursor_l(void)
 {
 	if (g_display.cpos_buffer_position > 0)
 	{
+		if (g_cursor.last_c_pos > 0)
+		{
+			tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+			--g_cursor.last_c_pos;
+		}
+		else
+		{
+			g_cursor.last_c_pos = g_screen.width - 1;
+			--g_cursor.last_v_pos;
+			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
+			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+		}
 		g_display.cpos_buffer_position -= 1;
-		tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+		update_line();
 	}
 }
 
@@ -116,8 +128,20 @@ void	cursor_r(void)
 {
 	if (g_display.cpos_buffer_position < g_line_state_invisible.len)
 	{
+		if (g_cursor.last_c_pos == g_screen.width)
+		{
+			g_cursor.last_c_pos = 0;
+			++g_cursor.last_v_pos;
+			tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, output);
+			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+		}
+		else
+		{
+			++g_cursor.last_c_pos;
+			tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+		}
 		g_display.cpos_buffer_position += 1;
-		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+		update_line();
 	}
 }
 

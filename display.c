@@ -87,8 +87,6 @@ void	display_lines(void)
 
 void	update_line(void)
 {
-
-
 	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
 	if (g_cursor.last_v_pos > 0)
 		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
