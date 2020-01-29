@@ -69,7 +69,6 @@ void	rl_backspace(void)
 	if (g_display.cpos_buffer_position > 0)
 	{
 		cursor_l();
-//		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 		if (g_line_state_invisible.line[g_display.cpos_buffer_position])
 		{
 			rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
@@ -77,6 +76,7 @@ void	rl_backspace(void)
 		}
 		else
 			g_line_state_invisible.line[g_display.cpos_buffer_position] = '\0';
+		update_line();
 		--g_line_state_invisible.len;
 	}
 }
