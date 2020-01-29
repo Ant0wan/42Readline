@@ -148,23 +148,15 @@ void	history_down(void)
 
 void	rl_home(void)
 {
-	int	i;
-
-	i = g_display.visible_prompt_length;
-	tputs(tgoto(g_termcaps.cr, 0, 0), 1, output);
+	tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
 	g_display.cpos_buffer_position = 0;
-	while (i--)
-		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
 }
 
 
 void	rl_end(void)
 {
-	while (g_display.cpos_buffer_position < g_line_state_invisible.len)
-	{
-		g_display.cpos_buffer_position += 1;
-		tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
-	}
+	tputs(tgoto(tgetstr("ch", NULL), 0, g_line_state_invisible.len + g_display.visible_prompt_length), 1, output);
+	g_display.cpos_buffer_position = g_line_state_invisible.len;
 }
 
 void	wd_right(void)
