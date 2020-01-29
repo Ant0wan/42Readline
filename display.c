@@ -61,48 +61,49 @@ void	display_lines(void)
 
 	chr_l = g_line_state_invisible.len;
 	index = 0;
-	display_prompt();
-	if (g_display.vis_botlin)
+//	display_prompt();
+	//g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+//	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
+//	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
+//		write(STDOUT_FILENO, "\n", 1);
+//	chr_l -= g_display.visible_first_line_len;
+//	index += g_display.visible_first_line_len;
+	while (chr_l > 0)
 	{
-		g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
-		chr_l -= g_display.visible_first_line_len;
-		index += g_display.visible_first_line_len;
-		write(STDOUT_FILENO, "\n", 1);
-		while (chr_l > 0)
+		if (g_screen.width <= chr_l)
 		{
-			if (g_screen.width <= chr_l)
-			{
-				write(STDOUT_FILENO, &(g_line_state_invisible.line[index]), g_screen.width);
-				chr_l -= g_screen.width;
-				index += g_screen.width;
-				write(STDOUT_FILENO, "\n", 1);
-			}
-			else if (chr_l > 0)
-			{
-				write(STDOUT_FILENO, &(g_line_state_invisible.line[index]), chr_l);
-				chr_l = 0;
-			}
+			write(STDOUT_FILENO, &(g_line_state_invisible.line[index]), g_screen.width);
+			chr_l -= g_screen.width;
+			index += g_screen.width;
+			write(STDOUT_FILENO, "\n", 1);
+		}
+		else if (chr_l > 0)
+		{
+			write(STDOUT_FILENO, &(g_line_state_invisible.line[index]), chr_l);
+			chr_l = 0;
 		}
 	}
-	else
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 }
 
 void	update_line(void)
 {
-	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
-	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position - 1) / g_screen.width;
-	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
+//	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+//	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+//	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
+
 
 	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
-	if (g_cursor.last_v_pos)
+	if (g_cursor.last_v_pos > 0)
 		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
 	tputs(tgetstr("cd", NULL), 1, output);
+
+	g_cursor.last_c_pos = g_display.cpos_buffer_position % g_screen.width;
+	g_cursor.last_v_pos = g_display.cpos_buffer_position / g_screen.width;
+	g_display.vis_botlin = g_line_state_invisible.len / g_screen.width;
 
 	display_lines();
 
 	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-//	if (g_cursor.last_v_pos != g_display.vis_botlin)
-//		tputs(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
+	if (g_display.vis_botlin - g_cursor.last_v_pos)
+		tputs(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
 }
