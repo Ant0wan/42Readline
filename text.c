@@ -232,9 +232,12 @@ void	clear_scr(void)
 
 void	clear_eol(void)
 {
+	if (g_display.cpos_buffer_position == g_line_state_invisible.len)
+		return;
 	tputs(g_termcaps.clreol, 1, output);
 	rl_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - g_display.cpos_buffer_position);
 	g_line_state_invisible.len -= (g_line_state_invisible.len - g_display.cpos_buffer_position);
+	update_line();
 }
 
 /* Function to use to replace all NULL in keymap */
