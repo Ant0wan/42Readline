@@ -60,16 +60,23 @@ void	update_line(void)
 	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position - 1) / g_screen.width;
 	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
 
+	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
 	if (g_cursor.last_v_pos)
 		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
-	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
+	tputs(tgetstr("cd", NULL), 1, output);
 
 	display_prompt();
-	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
+	if (g_display.vis_botlin)
+	{
+		g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+		write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
+		write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, &(g_line_state_invisible.line[g_display.visible_first_line_len]), g_line_state_invisible.len - g_display.visible_first_line_len);
+	}
+	else
+		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 
-	if (g_display.vis_botlin - g_cursor.last_v_pos)
-		tputs(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
-	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-
-
+//	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+//	if (g_cursor.last_v_pos)
+//		tputs(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
 }
