@@ -83,16 +83,16 @@ void	rl_backspace(void)
 
 void	kill_line(void)
 {
-	char	s[2];
-
-	s[0] = '^';
-	s[1] = 'C';
-	insert_text(s, 2);
+	write(STDOUT_FILENO, "^C", 2);
 	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_display.cpos_buffer_position = 0;
 	g_line_state_invisible.len = 0;
+	g_cursor.last_c_pos = 0;
+	if (g_cursor.last_v_pos != g_display.vis_botlin)
+		tputs(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
+	g_cursor.last_v_pos = 0;
 	write(STDOUT_FILENO, "\n", 1);
-	display_prompt();
+	update_line();
 }
 
 void	rl_insert(int c)
