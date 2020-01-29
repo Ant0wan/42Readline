@@ -54,119 +54,21 @@ void		set_prompt(const char *prompt)
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
 }
 
-/* 1460 update_line in display.c here is the heart of the thing */
-
-//	!!!!!!!!   LAST WORK TO DO !!!!!!!!!
-
-/* PWP: update_line() is based on finding the middle difference of each
-   line on the screen; vis:
-
-                             /old first difference
-        /beginning of line   |        /old last same       /old EOL
-        v                    v        v             v
-old:    eddie> Oh, my little gruntle-buggy is to me, as lurgid as
-new:    eddie> Oh, my little buggy says to me, as lurgid as
-        ^                    ^  ^                          ^
-        \beginning of line   |  \new last same     \new end of line
-                             \new first difference
-
-   All are character pointers for the sake of speed.  Special cases for
-   no differences, as well as for end of line additions must be handled.
-
-   Could be made even smarter, but this works well enough */
-
 void	update_line(void)
 {
-	int l;
-	int c;
+	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
 
-	l = 0;
-	c = 0;
-	if (g_display.visible_first_line_len > g_line_state_invisible.len) /* Single-line algorithm */
-	{
-		c = g_display.visible_prompt_length;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		tputs(tgetstr("ce", NULL), 1, output);
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-		c += g_display.cpos_buffer_position;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		g_line_state_visible = g_line_state_invisible;
-		g_cursor.last_c_pos = c;
-		g_cursor.last_v_pos = 0;
-	}
-	else if (g_display.visible_first_line_len == g_line_state_invisible.len) /* Border algorithm */
-	{
-		c = g_display.visible_prompt_length;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		tputs(tgetstr("ce", NULL), 1, output);
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-		write(STDOUT_FILENO, "\n", 1);
-		l = (g_display.cpos_buffer_position + g_display.visible_prompt_length) / g_screen.width;
-		if (l)
-		{
-			g_cursor.last_c_pos = (g_display.cpos_buffer_position + g_display.visible_prompt_length) % g_screen.width;
-			g_cursor.last_v_pos = l;
-			g_cursor.last_c_pos = g_cursor.last_c_pos % g_screen.width;
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-			g_line_state_visible = g_line_state_invisible;
-		}
-		else
-		{
-	//		printf("OK\n");
-			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
-			++g_cursor.last_c_pos;
-			g_cursor.last_c_pos = g_cursor.last_c_pos % g_screen.width;
-			g_cursor.last_v_pos = g_cursor.last_c_pos / g_screen.width;
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-		}
-	}
-	else
-	{
-		c = g_display.visible_prompt_length;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		tputs(tgetstr("ce", NULL), 1, output);
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-		write(STDOUT_FILENO, "\n", 1);
-		l = (g_display.cpos_buffer_position + g_display.visible_prompt_length) / g_screen.width;
-		if (l)
-		{
-			g_cursor.last_c_pos = (g_display.cpos_buffer_position + g_display.visible_prompt_length) % g_screen.width;
-			g_cursor.last_v_pos = l;
-			g_cursor.last_c_pos = g_cursor.last_c_pos % g_screen.width;
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-			g_line_state_visible = g_line_state_invisible;
-		}
-		else
-		{
-	//		printf("OK\n");
-			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
-			++g_cursor.last_c_pos;
-			g_cursor.last_c_pos = g_cursor.last_c_pos % g_screen.width;
-			g_cursor.last_v_pos = g_cursor.last_c_pos / g_screen.width;
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
-		}
-	}
+	if (g_cursor.last_v_pos)
+		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
+	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
+
+	display_prompt();
+	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
+
+	if (g_cursor.last_v_pos)
+		tputs(tgoto(tgetstr("DO", NULL), 0, g_cursor.last_v_pos), 1, output);
+	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+
+
 }
-/*
-	else  Multi-line algorithm 
-	{
-		return;
-		if (g_cursor.last_v_pos)
-			tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
-		c = g_display.visible_prompt_length;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		tputs(tgetstr("ce", NULL), 1, output);
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-		c = (g_display.cpos_buffer_position + g_display.visible_prompt_length) % g_screen.width;
-		l = (g_display.cpos_buffer_position + g_display.visible_prompt_length) / g_screen.width;
-		if (l > 0 && g_cursor.last_v_pos)
-			tputs(tgoto(tgetstr("UP", NULL), 0, l), 1, output);
-		else
-			c += g_display.visible_prompt_length;
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
-		g_line_state_visible = g_line_state_invisible;
-		g_cursor.last_c_pos = c;
-		g_cursor.last_v_pos = l;
-	}
-}*/

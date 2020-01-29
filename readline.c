@@ -19,7 +19,7 @@ static char	*readline_internal(void)
 	c.value = 1;
 	init_line_buffer();
 	value = g_line_state_invisible.line;
-	display_prompt();
+	update_line();
 	while (c.value)
 	{
 		c = read_key();
