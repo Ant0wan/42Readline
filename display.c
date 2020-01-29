@@ -75,7 +75,7 @@ new:    eddie> Oh, my little buggy says to me, as lurgid as
 
    Could be made even smarter, but this works well enough */
 
-void	update_line(int len)
+void	update_line(void)
 {
 	int l;
 	int c;
@@ -85,8 +85,8 @@ void	update_line(int len)
 	if (g_display.visible_first_line_len > g_line_state_invisible.len) /* Single-line algorithm */
 	{
 		c = g_display.visible_prompt_length;
-		tputs(tgetstr("cd", NULL), 1, output);
-		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
+		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output); /* should invert */
+		tputs(tgetstr("ce", NULL), 1, output); /* should invet */
 		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 		c += g_display.cpos_buffer_position;
 		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
@@ -96,16 +96,28 @@ void	update_line(int len)
 	}
 	else /* Multi-line algorithm */
 	{
-//		if (g_cursor.last_v_pos > 0)
-//		{
-//			g_cursor.last_v_pos--;
-//			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
-			l = g_display.cpos_buffer_position + g_display.visible_prompt_length;
+		if (g_line_state_invisible.len == g_display.visible_first_line_len)
+		{
+			c = g_display.visible_prompt_length;
 			tputs(tgetstr("cd", NULL), 1, output);
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
+			tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
 			write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.cpos_buffer_position + g_display.visible_prompt_length), 1, output);
-//		}
-		return;
+			c += g_display.cpos_buffer_position;
+			tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
+			g_line_state_visible = g_line_state_invisible;
+			g_cursor.last_c_pos = c;
+			tputs(tgoto(tgetstr("DO", NULL), 0, 1), 1, output);
+			tputs(tgoto(tgetstr("cr", NULL), 0, 0), 1, output);
+			g_cursor.last_v_pos = 1;
+		}
+//		l = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
+//		tputs(tgoto(tgetstr("UP", NULL), 0, l), 1, output);
+//		tputs(tgetstr("cd", NULL), 1, output);
+//		c = g_display.visible_prompt_length;
+//		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
+//		write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
+//		tputs(tgoto(tgetstr("DO", NULL), 0, l), 1, output);
+//		c += g_display.cpos_buffer_position % g_screen.width;
+//		tputs(tgoto(tgetstr("ch", NULL), 0, c), 1, output);
 	}
 }

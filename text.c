@@ -41,23 +41,24 @@ void	insert_text(const char *string, int len)
 	if (g_display.cpos_buffer_position >= len - 1 || g_line_state_invisible.len == 0)
 		g_line_state_invisible.len += len;
 	g_display.cpos_buffer_position += len;
-	update_line(len);
+	update_line();
 }
 
 void	rl_delete(void)
 {
-	if (g_display.cpos_buffer_position <= g_line_state_invisible.len && g_line_state_invisible.len > 0)
+	if (g_display.cpos_buffer_position < g_line_state_invisible.len && g_line_state_invisible.len > 0)
 	{
-		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 		if (g_line_state_invisible.line[g_display.cpos_buffer_position] && g_display.cpos_buffer_position <= g_line_state_invisible.len)
 		{
 			rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
 			g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
+			update_line();
 			--g_line_state_invisible.len;
 		}
 		else if (g_display.cpos_buffer_position > 0)
 		{
 			g_line_state_invisible.line[g_display.cpos_buffer_position] = '\0';
+			update_line();
 			--g_line_state_invisible.len;
 		}
 	}
@@ -68,7 +69,7 @@ void	rl_backspace(void)
 	if (g_display.cpos_buffer_position > 0)
 	{
 		cursor_l();
-		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
+//		tputs(tgoto(g_termcaps.dc, 0, 0), 1, output);
 		if (g_line_state_invisible.line[g_display.cpos_buffer_position])
 		{
 			rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
@@ -204,7 +205,7 @@ void	clear_eol(void)
 /* Function to use to replace all NULL in keymap */
 void	rl_void(void)
 {
-	/* Could include bell ring to show key does not exists */
+	tputs(tgetstr("bl", NULL), 1, output);
 	return;
 }
 
