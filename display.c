@@ -61,13 +61,13 @@ void	display_lines(void)
 
 	chr_l = g_line_state_invisible.len;
 	index = 0;
-//	display_prompt();
-	//g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
-//	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
-//	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
-//		write(STDOUT_FILENO, "\n", 1);
-//	chr_l -= g_display.visible_first_line_len;
-//	index += g_display.visible_first_line_len;
+	display_prompt();
+	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
+	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
+		write(STDOUT_FILENO, "\n", 1);
+	chr_l -= g_display.visible_first_line_len;
+	index += g_display.visible_first_line_len;
 	while (chr_l > 0)
 	{
 		if (g_screen.width <= chr_l)
@@ -87,9 +87,6 @@ void	display_lines(void)
 
 void	update_line(void)
 {
-//	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
-//	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
-//	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
 
 
 	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
@@ -97,9 +94,9 @@ void	update_line(void)
 		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
 	tputs(tgetstr("cd", NULL), 1, output);
 
-	g_cursor.last_c_pos = g_display.cpos_buffer_position % g_screen.width;
-	g_cursor.last_v_pos = g_display.cpos_buffer_position / g_screen.width;
-	g_display.vis_botlin = g_line_state_invisible.len / g_screen.width;
+	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
 
 	display_lines();
 
