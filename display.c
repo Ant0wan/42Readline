@@ -57,7 +57,8 @@ void		set_prompt(const char *prompt)
 void	update_line(void)
 {
 	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
-	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position - 1) / g_screen.width;
+	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
 
 	if (g_cursor.last_v_pos)
 		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
@@ -66,8 +67,8 @@ void	update_line(void)
 	display_prompt();
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
 
-	if (g_cursor.last_v_pos)
-		tputs(tgoto(tgetstr("DO", NULL), 0, g_cursor.last_v_pos), 1, output);
+	if (g_display.vis_botlin - g_cursor.last_v_pos)
+		tputs(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
 	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
 
 
