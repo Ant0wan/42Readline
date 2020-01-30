@@ -220,6 +220,11 @@ void	history_down(void)
 	{
 		clear_line();
 		insert_text(s, len(s));
+		if (s == g_vline)
+		{
+			free(g_vline);
+			g_vline = NULL;
+		}
 	}
 }
 

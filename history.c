@@ -3,6 +3,15 @@
 struct s_hist	*g_hist = NULL;
 char		*g_vline = NULL;
 
+static int	strisspace(const char *str)
+{
+	while (*str && isspace(*str))
+		++str;
+	if (!*str)
+		return (1);
+	return (0);
+}
+
 void	add_hentry(const char *str)
 {
 	if (g_vline)
@@ -12,6 +21,8 @@ void	add_hentry(const char *str)
 	}
 	while (g_hist && g_hist->next)
 		g_hist = g_hist->next;
+	if (strisspace(str))
+		return;
 	if (g_hist == NULL)
 	{
 		g_hist = (struct s_hist*)malloc(sizeof(struct s_hist));
@@ -55,14 +66,7 @@ char	*next_hist(void)
 			return (g_hist->prev->str);
 		}
 		else
-		{
-			if (g_vline)
-			{
-				free(g_vline);
-				g_vline = NULL;
-			}
 			return (g_vline);
-		}
 	}
 }
 
