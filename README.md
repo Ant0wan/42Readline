@@ -38,4 +38,9 @@ Commands can be edited from command line using LEFT arrow key, RIGHT arrow key, 
 
 Typing a command and pressing Tab key lists the complete command along with the usage for the command.
 
+### Keyboard Shortcuts
+
+https://www.howtogeek.com/howto/ubuntu/keyboard-shortcuts-for-bash-command-shell-for-ubuntu-debian-suse-redhat-linux-etc/
+
+
 ---
