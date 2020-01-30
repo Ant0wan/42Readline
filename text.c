@@ -262,16 +262,6 @@ void	clear_scr(void)
 	update_line();
 }
 
-void	clear_eol(void)
-{
-	if (g_display.cpos_buffer_position == g_line_state_invisible.len)
-		return;
-	tputs(g_termcaps.clreol, 1, output);
-	rl_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - g_display.cpos_buffer_position);
-	g_line_state_invisible.len -= (g_line_state_invisible.len - g_display.cpos_buffer_position);
-	update_line();
-}
-
 /* Function to use to replace all NULL in keymap */
 void	rl_void(void)
 {
@@ -292,3 +282,16 @@ void	paste_via_input(unsigned long v)
 }
 
 /* Ctrl+W: Cut the word before the cursor, adding it to the clipboard. */
+void	clear_eol(void)
+{
+	int	rest;
+
+	if (g_display.cpos_buffer_position != g_line_state_invisible.len)
+	{
+		rest = g_line_state_invisible.len - g_display.cpos_buffer_position;
+		rl_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
+		g_line_state_invisible.len -= rest;
+		update_line();
+	}
+}
+
