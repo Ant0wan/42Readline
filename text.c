@@ -313,3 +313,15 @@ void	cut_selection(void)
  //	insert_text("=>history command<=", 19); // test
 	return;
 }
+
+void	paste_via_input(unsigned long v)
+{
+	union u_buffer	u;
+	int		len;
+
+	len = 0;
+	u.value = v;
+	while (len < 8 && u.buf[len])
+		++len;
+	insert_text(&(u.buf[0]), len);
+}

@@ -38,6 +38,8 @@ static char	*readline_internal(void)
 		}
 		else if (ismetachar(c))
 			return (value);
+		else
+			paste_via_input(c.value);
 		value = g_line_state_invisible.line;
 	}
 	return (value);
