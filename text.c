@@ -195,8 +195,14 @@ static void	clear_line(void)
 
 void	history_up(void)
 {
-	clear_line();
-	insert_text("=>history command<=", 19); // test
+	char	*s;
+
+	s = prev_hist();
+	if (s)
+	{
+		clear_line();
+		insert_text(s, len(s));
+	}
 }
 
 void	autocomplete(void)
@@ -207,7 +213,14 @@ void	autocomplete(void)
 
 void	history_down(void)
 {
-	return;
+	char	*s;
+
+	s = next_hist();
+	if (s)
+	{
+		clear_line();
+		insert_text(s, len(s));
+	}
 }
 
 void	rl_home(void)
