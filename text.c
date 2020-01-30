@@ -327,18 +327,16 @@ void	cut_prev_wd(void)
 {
 	int	start;
 
-	start = 0;
 	if (g_display.cpos_buffer_position != 0)
 	{
 		rl_bzero(g_clipboard.str, g_clipboard.l);
 		start = g_display.cpos_buffer_position;
-		while (start && g_line_state_invisible.line[start] == ' ')
+		while (start && g_line_state_invisible.line[start - 1] == ' ')
 			--start;
-		while (start && g_line_state_invisible.line[start] != ' ')
+		while (start && g_line_state_invisible.line[start - 1] != ' ')
 			--start;
 		g_clipboard.l = g_display.cpos_buffer_position - start;
 		rl_strncpy(g_clipboard.str, &(g_line_state_invisible.line[start]), g_clipboard.l);
-
 		rl_memmove(&(g_line_state_invisible.line[start]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
 		g_line_state_invisible.len -= g_clipboard.l;
 		rl_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
