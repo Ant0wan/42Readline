@@ -303,3 +303,21 @@ void	clip_paste(void)
 {
 	insert_text(g_clipboard.str, g_clipboard.l);
 }
+
+/* Ctrl+U: Cut the part of the line before the cursor, adding it to the clipboard. */
+void	clear_befline(void)
+{
+	int	rest;
+
+	if (g_display.cpos_buffer_position != 0)
+	{
+		rl_bzero(g_clipboard.str, g_clipboard.l);
+		rl_strncpy(g_clipboard.str, g_line_state_invisible.line, g_display.cpos_buffer_position);
+		g_clipboard.l = g_display.cpos_buffer_position;
+		g_line_state_invisible.len -= g_display.cpos_buffer_position;
+		rl_memmove(g_line_state_invisible.line, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_display.cpos_buffer_position);
+		rl_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
+		g_display.cpos_buffer_position = 0;
+		rl_home();
+	}
+}

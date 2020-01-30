@@ -28,7 +28,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_void },	/* Control-r */
   { ISFUNC, rl_void },	/* Control-s */
   { ISFUNC, rl_void },		/* Control-t */
-  { ISFUNC, rl_void },		/* Control-u */
+  { ISFUNC, clear_befline },		/* Control-u */
   { ISFUNC, rl_void },			/* Control-v */
   { ISFUNC, rl_void },		/* Control-w */
   { ISKMAP, rl_void },	/* Control-x */
