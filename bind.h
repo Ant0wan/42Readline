@@ -9,12 +9,7 @@ extern struct s_keymap_entry	*g_keymap;
 void	bind_keys(struct s_keymap_entry *keymap);
 
 /* Action functions */
-void	start_select(void);
-void	close_select(void);
-void	paste_clipboard(void);
 void    paste_via_input(unsigned long v);
-void	copy_clipboard(void);
-void	cut_clipboard(void);
 void	wd_right(void);
 void	wd_left(void);
 void	clear_scr(void);

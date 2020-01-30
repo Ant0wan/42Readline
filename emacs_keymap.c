@@ -34,9 +34,9 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISKMAP, rl_void },	/* Control-x */
   { ISFUNC, rl_void },				/* Control-y */
   { ISFUNC, rl_void },		/* Control-z */
-  { ISKMAP, start_select }, /* Control-[ */
+  { ISKMAP, rl_void }, /* Control-[ */
   { ISFUNC, rl_void },		/* Control-\ */
-  { ISFUNC, close_select },			/* Control-] */
+  { ISFUNC, rl_void },			/* Control-] */
   { ISFUNC, rl_void },		/* Control-^ */
   { ISFUNC, rl_void },			/* Control-_ */
   { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE */
