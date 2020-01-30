@@ -5,7 +5,7 @@
    function.  Returns the number of characters inserted. */
 extern struct s_termcaps	g_termcaps;
 
-struct s_clipboard		g_clipboard = { .flag = CNULL, .str = NULL };
+struct s_clipboard		g_clipboard = { .str = {0}, .l = 0 };
 
 void	init_line_buffer(void)
 {
@@ -183,7 +183,7 @@ void	cursor_u(void)
 	}
 }
 
-void	clear_line(void)
+static void	clear_line(void)
 {
 	rl_home();
 	tputs(g_termcaps.clreol, 1, output);
@@ -290,3 +290,5 @@ void	paste_via_input(unsigned long v)
 		++len;
 	insert_text(&(u.buf[0]), len);
 }
+
+/* Ctrl+W: Cut the word before the cursor, adding it to the clipboard. */

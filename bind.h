@@ -14,7 +14,6 @@ void	wd_right(void);
 void	wd_left(void);
 void	clear_scr(void);
 void	clear_eol(void);
-void	clear_line(void);
 void	autocomplete(void);
 void    rl_home(void);
 void    rl_void(void);

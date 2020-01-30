@@ -19,8 +19,8 @@ void    init_line_buffer(void);
 
 struct s_clipboard
 {
-	char	*str;
-	int	flag;
+	char	str[1024];
+	int	l;
 };
 
 extern struct s_clipboard	g_clipboard;
