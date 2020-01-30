@@ -10,6 +10,7 @@ struct s_hist
 };
 
 extern struct s_hist	*g_hist;
+extern char		*g_vline;
 
 void	add_hentry(const char *str);
 char	*prev_hist(void);

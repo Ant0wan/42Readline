@@ -1,9 +1,17 @@
 #include "ft_readline.h"
 
 struct s_hist	*g_hist = NULL;
+char		*g_vline = NULL;
 
 void	add_hentry(const char *str)
 {
+	if (g_vline)
+	{
+		free(g_vline);
+		g_vline = NULL;
+	}
+	while (g_hist && g_hist->next)
+		g_hist = g_hist->next;
 	if (g_hist == NULL)
 	{
 		g_hist = (struct s_hist*)malloc(sizeof(struct s_hist));
@@ -24,6 +32,8 @@ void	add_hentry(const char *str)
 
 char	*prev_hist(void)
 {
+	if (g_vline == NULL)
+		g_vline = savestring(g_line_state_invisible.line);
 	if (g_hist)
 	{
 		if (g_hist->prev)
@@ -44,7 +54,15 @@ char	*next_hist(void)
 			g_hist = g_hist->next;
 			return (g_hist->prev->str);
 		}
-		return (g_hist->str);
+		else
+		{
+			if (g_vline)
+			{
+				free(g_vline);
+				g_vline = NULL;
+			}
+			return (g_vline);
+		}
 	}
 }
 
