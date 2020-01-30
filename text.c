@@ -145,6 +145,16 @@ void	cursor_r(void)
 	}
 }
 
+void	cursor_d(void)
+{
+	return;
+}
+
+void	cursor_u(void)
+{
+	return;
+}
+
 void	clear_line(void)
 {
 	rl_home();
@@ -220,14 +230,8 @@ void	wd_left(void)
 
 void	clear_scr(void)
 {
-	int	i;
-
-	i = g_line_state_invisible.len - g_display.cpos_buffer_position;
 	tputs(g_termcaps.clrpag, 1, output);
-	display_prompt();
-	write(STDOUT_FILENO, g_line_state_invisible.line, g_line_state_invisible.len);
-	while (i--)
-		tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+	update_line();
 }
 
 void	clear_eol(void)

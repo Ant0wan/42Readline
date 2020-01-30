@@ -28,6 +28,8 @@ void	rl_backspace(void);
 void	rl_insert(int c);
 void	cursor_l(void);
 void	cursor_r(void);
+void	cursor_u(void);
+void	cursor_d(void);
 void	history_up(void);
 void	history_down(void);
 void	kill_line(void);
