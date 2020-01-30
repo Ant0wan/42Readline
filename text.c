@@ -281,7 +281,7 @@ void	paste_via_input(unsigned long v)
 	insert_text(&(u.buf[0]), len);
 }
 
-/* Ctrl+W: Cut the word before the cursor, adding it to the clipboard. */
+/* Ctrl+K: Cut the part of the line after the cursor, adding it to the clipboard. */
 void	clear_eol(void)
 {
 	int	rest;
@@ -289,9 +289,17 @@ void	clear_eol(void)
 	if (g_display.cpos_buffer_position != g_line_state_invisible.len)
 	{
 		rest = g_line_state_invisible.len - g_display.cpos_buffer_position;
+		rl_bzero(g_clipboard.str, g_clipboard.l);
+		rl_strncpy(g_clipboard.str, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
+		g_clipboard.l = rest;
 		rl_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
 		g_line_state_invisible.len -= rest;
 		update_line();
 	}
 }
 
+/* Ctrl+Y: Paste the last thing you cut from the clipboard. The y here stands for “yank”. */
+void	clip_paste(void)
+{
+	insert_text(g_clipboard.str, g_clipboard.l);
+}

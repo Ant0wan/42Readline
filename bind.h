@@ -10,6 +10,7 @@ void	bind_keys(struct s_keymap_entry *keymap);
 
 /* Action functions */
 void    paste_via_input(unsigned long v);
+void	clip_paste(void);
 void	wd_right(void);
 void	wd_left(void);
 void	clear_scr(void);
