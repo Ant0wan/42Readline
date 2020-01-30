@@ -321,3 +321,8 @@ void	clear_befline(void)
 		rl_home();
 	}
 }
+
+/* Ctrl+W: Cut the word before the cursor, adding it to the clipboard. */
+void	cut_next_wd(void)
+{
+}

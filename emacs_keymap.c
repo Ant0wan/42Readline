@@ -8,11 +8,11 @@
 struct s_keymap_entry	g_emacs_standard_keymap[] =
 { /* 127 entries */
   { ISFUNC, rl_void }, /* Control keys. */	/* Control-@ */
-  { ISFUNC, rl_void },			/* Control-a */
+  { ISFUNC, rl_home },			/* Control-a */
   { ISFUNC, cursor_l },			/* Control-b */
   { ISFUNC, kill_line },		/* Control-c */
   { ISFUNC, rl_delete },			/* Control-d */
-  { ISFUNC, rl_void },			/* Control-e */
+  { ISFUNC, rl_end },			/* Control-e */
   { ISFUNC, cursor_r },			/* Control-f */
   { ISFUNC, rl_void },				/* Control-g */
   { ISFUNC, rl_backspace },			/* Control-h */
