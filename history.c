@@ -63,7 +63,7 @@ char	*next_hist(void)
 		if (g_hist->next)
 		{
 			g_hist = g_hist->next;
-			return (g_hist->prev->str);
+			return (g_hist->str);
 		}
 		else
 			return (g_vline);
