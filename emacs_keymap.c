@@ -30,7 +30,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_void },		/* Control-t */
   { ISFUNC, clear_befline },		/* Control-u */
   { ISFUNC, rl_void },			/* Control-v */
-  { ISFUNC, rl_void },		/* Control-w */
+  { ISFUNC, cut_prev_wd },		/* Control-w */
   { ISKMAP, rl_void },	/* Control-x */
   { ISFUNC, clip_paste },				/* Control-y */
   { ISFUNC, rl_void },		/* Control-z */

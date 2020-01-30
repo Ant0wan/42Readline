@@ -9,6 +9,7 @@ extern struct s_keymap_entry	*g_keymap;
 void	bind_keys(struct s_keymap_entry *keymap);
 
 /* Action functions */
+void	cut_prev_wd(void);
 void	clear_befline(void);
 void    paste_via_input(unsigned long v);
 void	clip_paste(void);
