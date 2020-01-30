@@ -9,9 +9,13 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	//input = ft_readline((char *)NULL);
-	input = ft_readline("$> ");
-//	input = readline("$> ");
-	printf("\n\nvalue:\n%s\n", input);
+	while (input = ft_readline("$> "))
+	{
+		printf("\n\nvalue:\n%s\n", input);
+		if (!strcmp(input, "exit"))
+			break;
+	}
 	free(input);
+	free_hist();
 	return (0);
 }

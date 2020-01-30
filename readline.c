@@ -58,6 +58,7 @@ char	*ft_readline(const char *prompt)
 //	rl_set_signals(); /* should set signals for input */
 
 	value = readline_internal();
+	add_hentry(value);
 
 	deprep_terminal();
 //	rl_clear_signals(); /* should reset signals after input */
