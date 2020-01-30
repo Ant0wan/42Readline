@@ -147,12 +147,30 @@ void	cursor_r(void)
 
 void	cursor_d(void)
 {
-	return;
+	if (g_cursor.last_v_pos != g_display.vis_botlin)
+	{
+		g_display.cpos_buffer_position += g_screen.width;
+		++g_cursor.last_v_pos;
+		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, output);
+		update_line();
+	}
 }
 
 void	cursor_u(void)
 {
-	return;
+	if (g_cursor.last_v_pos != 0)
+	{
+		if (g_cursor.last_v_pos == 1 && g_cursor.last_c_pos < g_display.visible_prompt_length)
+		{
+			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
+			g_display.cpos_buffer_position = 0;
+		}
+		else
+			g_display.cpos_buffer_position -= g_screen.width;
+		--g_cursor.last_v_pos;
+		tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
+		update_line();
+	}
 }
 
 void	clear_line(void)
