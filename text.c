@@ -147,9 +147,19 @@ void	cursor_r(void)
 
 void	cursor_d(void)
 {
+	int	len_last_line;
+
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
 	{
-		g_display.cpos_buffer_position += g_screen.width;
+		len_last_line = (g_display.visible_prompt_length + g_line_state_invisible.len) % g_screen.width;
+		if (g_cursor.last_v_pos == g_display.vis_botlin - 1
+			&& g_cursor.last_c_pos > len_last_line)
+		{
+			tputs(tgoto(tgetstr("ch", NULL), 0, len_last_line), 1, output);
+			g_display.cpos_buffer_position = g_line_state_invisible.len;
+		}
+		else
+			g_display.cpos_buffer_position += g_screen.width;
 		++g_cursor.last_v_pos;
 		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, output);
 		update_line();
