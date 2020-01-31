@@ -16,7 +16,16 @@ int	is_quote_open(const char *s)
 		return (0);
 	while (*s)
 	{
-		if (g_quote.c == 0 && (*s == '\"' || *s == '\'' || *s == '`'))
+		if (*s == '\\')
+		{
+			++s;
+			if (*s == '\0')
+			{
+				g_quote.c = 1;
+				break;
+			}
+		}
+		else if (g_quote.c == 0 && (*s == '\"' || *s == '\'' || *s == '`'))
 			g_quote.c = *s;
 		else if (*s && *s == g_quote.c)
 			g_quote.c = 0;
