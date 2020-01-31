@@ -17,7 +17,7 @@ char	*suggest(void)
 
 	i = g_line_state_invisible.len - 1;
 	if (i >= 0 && g_line_state_invisible.line[i] == 'l')
-		return (rl_strdup("s"));
+		return (rl_strdup("s")); /* send the diff only */
 	else
 		return (NULL);
 }
