@@ -26,6 +26,7 @@ SOURCES	:=	bind.c \
 		tty.c \
 		utils.c \
 		quotes.c \
+		completion.c \
 		history.c
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))

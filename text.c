@@ -204,8 +204,15 @@ void	history_up(void)
 
 void	autocomplete(void)
 {
-	insert_text("=>suggest<=", 11); // test
-	insert_text(" ", 1); // test
+	char	*su;
+
+	su = suggest();
+	if (su)
+	{
+		insert_text(su, len(su)); // test
+		free(su);
+		insert_text(" ", 1); // test
+	}
 }
 
 void	history_down(void)

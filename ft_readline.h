@@ -18,6 +18,7 @@
 # include "line.h"
 # include "tty.h"
 # include "history.h"
+# include "completion.h"
 
 char	*ft_readline(const char *prompt);
 
