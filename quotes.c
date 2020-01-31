@@ -18,9 +18,15 @@ int	is_quote_open(const char *s)
 	{
 		if (g_quote.c == 0 && (*s == '\"' || *s == '\'' || *s == '`'))
 			g_quote.c = *s;
-		else if (*s == g_quote.c)
+		else if (*s && *s == g_quote.c)
 			g_quote.c = 0;
 		++s;
 	}
-	return (g_quote.c);
+	if (g_quote.c)
+	{
+		g_quote.c = 0;
+		return (1);
+	}
+	else
+		return (0);
 }

@@ -18,11 +18,12 @@ int	main(int argc, char **argv)
 		while (is_quote_open(tmp))
 		{
 			write(STDOUT_FILENO, "\n", 1);
-			compl = ft_readline("> ");
-			new = rl_sjoin(tmp, compl);
+			new = rl_sjoin(tmp, "\n");
 			free(tmp);
+			compl = ft_readline("> ");
+			tmp = rl_sjoin(new, compl);
+			free(new);
 			free(compl);
-			tmp = new;
 		}
 		printf("\nre:%s\n", tmp);
 		if (!strcmp(tmp, "exit"))
