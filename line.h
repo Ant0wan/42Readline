@@ -13,13 +13,9 @@ extern struct s_line	g_line;
 
 void    init_line_buffer(void);
 
-# define CNULL  0x00
-# define CCOPY  0x01
-# define CCUT   0x02
-
 struct s_clipboard
 {
-	char	str[1024];
+	char	str[1024]; /* Need to be dynamically allocated */
 	int	l;
 };
 

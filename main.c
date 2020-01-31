@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 	while (input = ft_readline("$> "))
 	{
 		tmp = rl_strdup(input);
-		while (!is_quote_open(tmp))
+		while (is_quote_open(tmp))
 		{
 			write(STDOUT_FILENO, "\n", 1);
 			compl = ft_readline("> ");
@@ -23,9 +23,8 @@ int	main(int argc, char **argv)
 			free(tmp);
 			free(compl);
 			tmp = new;
-			printf("\n\nvalue:\n%s\n", tmp);
 		}
-		printf("\n\nvalue:\n%s\n", tmp);
+		printf("\nre:%s\n", tmp);
 		if (!strcmp(tmp, "exit"))
 		{
 			free(tmp);
