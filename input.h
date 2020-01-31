@@ -13,6 +13,7 @@ struct	s_quote
 {
 	char	stack[100];
 	char	*no_quote_prompt;
+	int	no_quote_prompt_len;
 	int	handle;
 };
 

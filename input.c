@@ -13,5 +13,6 @@ struct s_quote	g_quote =
 {
 	.stack = {0},
 	.no_quote_prompt = "> ",
-	.handle = 1
+	.no_quote_prompt_len = 2,
+	.handle = 1,
 };

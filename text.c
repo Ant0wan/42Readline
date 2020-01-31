@@ -9,11 +9,8 @@ struct s_clipboard		g_clipboard = { .str = {0}, .l = 0 };
 
 void	init_line_buffer(void)
 {
-	if (g_line_state_invisible.line == NULL)
-	{
-		g_line_state_invisible.size_buf = 512;
-		g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
-	}
+	g_line_state_invisible.size_buf = 512;
+	g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
 	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_display.cpos_buffer_position = 0;
 	g_line_state_invisible.len = 0;

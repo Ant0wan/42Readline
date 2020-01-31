@@ -191,3 +191,36 @@ void	*rl_memmove(void *dst, const void *src, size_t len)
 	}
 	return (dst);
 }
+
+char	*rl_sjoin(char const *s1, char const *s2)
+{
+	char	*cpy;
+
+	cpy = NULL;
+	if (s1 && s2)
+		cpy = (char*)malloc(sizeof(*cpy) * (len(s1) + len(s2)) + 1);
+	if (!s1 || !s2 || !cpy)
+		return (NULL);
+	cpy = strcpy(cpy, s1);
+	cpy = strcat(cpy, s2);
+	return (cpy);
+}
+
+char	*rl_strdup(const char *s1)
+{
+	char	*s2;
+	size_t	i;
+
+	i = 0;
+	s2 = (char*)malloc(sizeof(*s2) * len(s1) + 1);
+	if (s2 == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		++i;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
