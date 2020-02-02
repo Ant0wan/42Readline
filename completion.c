@@ -49,6 +49,7 @@ static int	count_word(int i)
 char	*suggest(void)
 {
 	int	i;
+	int	count;
 
 	i = g_display.cpos_buffer_position;
 	if (i == 0)
@@ -58,11 +59,14 @@ char	*suggest(void)
 		if (g_line_state_invisible.line[i] == ';'
 			|| g_line_state_invisible.line[i] == '&'
 			|| g_line_state_invisible.line[i] == '|')
+		{
+			++i;
 			break;
+		}
 		--i;
 	}
-//	write(STDOUT_FILENO, &(g_line_state_invisible.line[i]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]) - &(g_line_state_invisible.line[i]));
-//	printf("\n\n%s\n\n", &(g_line_state_invisible.line[i]));
-	printf("\n%d\n", count_word(i));
+	count = count_word(i);
+	if (count > 0)
+		return (suggest_file(""));
 	return (suggest_bin(""));
 }
