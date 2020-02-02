@@ -10,13 +10,22 @@ static char	*suggest_bin(const char *beg_s)
 
 static char	*suggest_file(const char *beg_s)
 {
-//	DIR	dir;
 	char	*file;
+	int	i;
 
-//	dir = opendir("."); should open dir each time change with cd, and close at cd or shutting the shell
-//	At cd, dir should be stored in a sorted list (it is like doing a "ls" at each cd or running bash)
-	feed_list(".");
-//	file = savestring("file.c");
+	i = g_display.cpos_buffer_position - 1;
+	while (i > 0 && (g_line_state_invisible.line[i] != '|'
+				&& g_line_state_invisible.line[i] != ';'
+				&& g_line_state_invisible.line[i] != '&'
+				&& g_line_state_invisible.line[i] != ' '))
+		--i;
+	if ((g_line_state_invisible.line[i] == '|'
+				|| g_line_state_invisible.line[i] == ';'
+				|| g_line_state_invisible.line[i] == '&'
+				|| g_line_state_invisible.line[i] == ' '))
+		++i;
+	feed_list("."); // should be PWD
+	printf("\n%s\n", &(g_line_state_invisible.line[i]));
 	return (g_flst->str);
 }
 
