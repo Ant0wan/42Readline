@@ -37,9 +37,9 @@ char	*suggest(void)
 				|| g_line_state_invisible.line[i] != '&'
 				|| g_line_state_invisible.line[i] != '|'))
 		{
-//			if (flag == 1)
+			if (flag == 1)
 				return (suggest_file(&(g_line_state_invisible.line[i])));
-//			flag = 1;
+			flag = 1;
 			--i;
 		}
 	}
