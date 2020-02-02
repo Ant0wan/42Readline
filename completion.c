@@ -1,6 +1,6 @@
 #include "ft_readline.h"
 
-char	*suggest_bin(const char *beg_s)
+static char	*suggest_bin(const char *beg_s)
 {
 	char	*bin;
 
@@ -8,7 +8,7 @@ char	*suggest_bin(const char *beg_s)
 	return (bin);
 }
 
-char	*sugget_file(const char *beg_s)
+static char	*suggest_file(const char *beg_s)
 {
 	char *file;
 
@@ -24,23 +24,21 @@ char	*suggest(void)
 
 	flag = 0;
 	i = g_line_state_invisible.len - 1;
-	while (i >= 0)
+	while (i >= 0 && g_line_state_invisible.line[i])
 	{
-		if (i == 0 || g_line_state_invisible.line[i] == ';'
+		if (g_line_state_invisible.line[i] == ';'
 			|| g_line_state_invisible.line[i] == '&'
 			|| g_line_state_invisible.line[i] == '|')
-		{
 			return (suggest_bin(&(g_line_state_invisible.line[i])));
-		}
 		while (i >= 0 && g_line_state_invisible.line[i] == ' ')
 			--i;
-		while (i >= 0 && isalnum(g_line_state_invisible.line[i]))
+		while (i >= 0 && g_line_state_invisible.line[i])
 		{
 			if (flag == 1)
 				return (suggest_file(&(g_line_state_invisible.line[i])));
+			flag = 1;
 			--i;
 		}
-		flag = 1;
 	}
-	return (NULL);
+	return (suggest_bin(""));
 }
