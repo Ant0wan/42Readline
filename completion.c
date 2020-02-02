@@ -26,22 +26,30 @@ char	*suggest(void)
 	i = g_line_state_invisible.len - 1;
 	while (i >= 0 && g_line_state_invisible.line[i])
 	{
+//		printf("\n>   %s\n", &(g_line_state_invisible.line[i]));
+//		printf("%d\n", flag);
+		if (flag == 1)
+			return (suggest_file(&(g_line_state_invisible.line[i])));
 		if (g_line_state_invisible.line[i] == ';'
 			|| g_line_state_invisible.line[i] == '&'
 			|| g_line_state_invisible.line[i] == '|')
 			return (suggest_bin(&(g_line_state_invisible.line[i])));
+//		printf("\n>>  %s\n", &(g_line_state_invisible.line[i]));
 		while (i >= 0 && g_line_state_invisible.line[i] == ' ')
 			--i;
-		while (i >= 0 && (g_line_state_invisible.line[i] != ' '
+//		if (i >= 0)
+//			printf("\n>>> %s\n", &(g_line_state_invisible.line[i]));
+		while (i > 0 && (g_line_state_invisible.line[i] != ' '
 				|| g_line_state_invisible.line[i] != ';'
 				|| g_line_state_invisible.line[i] != '&'
 				|| g_line_state_invisible.line[i] != '|'))
 		{
-			if (flag == 1)
-				return (suggest_file(&(g_line_state_invisible.line[i])));
+//			printf("\n>>>>%s\n", &(g_line_state_invisible.line[i]));
 			flag = 1;
 			--i;
 		}
+//		if (i >= 0)
+//			printf("\n>>>>%s\n", &(g_line_state_invisible.line[i]));
 	}
 	return (suggest_bin(""));
 }
