@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 		}
 		free(tmp);
 		free(input);
+		free_completion();
 	}
 	free_hist();
 	return (0);

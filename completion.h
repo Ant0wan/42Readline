@@ -14,5 +14,6 @@ extern struct s_file_lst	*g_flst;
 
 char	*suggest(void);
 void	feed_list(const char *str);
+void	free_completion(void);
 
 #endif

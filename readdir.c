@@ -2,6 +2,19 @@
 
 struct s_file_lst	*g_flst = NULL;
 
+void	free_completion(void)
+{
+	struct s_file_lst	*ptr;
+
+	while (g_flst)
+	{
+		ptr = g_flst->next;
+		free(g_flst->str);
+		free(g_flst);
+		g_flst = ptr;
+	}
+}
+
 void	store_dirl(const char *e)
 {
 	struct s_file_lst	*ptr;
@@ -35,4 +48,5 @@ void	feed_list(const char *str)
 		if (strcmp(ret->d_name, ".") && strcmp(ret->d_name, ".."))
 			store_dirl(ret->d_name);
 	}
+	closedir(dir);
 }
