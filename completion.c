@@ -25,6 +25,7 @@ static char	*suggest_file(const char *beg_s)
 				|| g_line_state_invisible.line[i] == ' '))
 		++i;
 	feed_list("."); // should be PWD
+	/* INSERT here the function to get the filename using strncmp */
 	printf("\n%s\n", &(g_line_state_invisible.line[i]));
 	return (g_flst->str);
 }
