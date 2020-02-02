@@ -15,8 +15,9 @@ static char	*suggest_file(const char *beg_s)
 
 //	dir = opendir("."); should open dir each time change with cd, and close at cd or shutting the shell
 //	At cd, dir should be stored in a sorted list (it is like doing a "ls" at each cd or running bash)
-	file = savestring("file.c");
-	return (file);
+	feed_list(".");
+//	file = savestring("file.c");
+	return (g_flst->str);
 }
 
 static int	count_word(int i)

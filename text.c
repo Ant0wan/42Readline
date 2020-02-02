@@ -210,7 +210,6 @@ void	autocomplete(void)
 	if (su)
 	{
 		insert_text(su, len(su)); // test
-		free(su);
 		insert_text(" ", 1); // test
 	}
 }
