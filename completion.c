@@ -8,6 +8,20 @@ static char	*suggest_bin(const char *beg_s)
 	return (bin);
 }
 
+static char	*get_filename(const char *str, int len)
+{
+	struct s_file_lst	*ptr;
+
+	ptr = g_flst;
+	while (ptr)
+	{
+		if (!strncmp(str, ptr->str, len))
+			return (&(ptr->str[len]));
+		ptr = ptr->next;
+	}
+	return (NULL);
+}
+
 static char	*suggest_file(const char *beg_s)
 {
 	char	*file;
@@ -26,8 +40,9 @@ static char	*suggest_file(const char *beg_s)
 		++i;
 	feed_list("."); // should be PWD
 	/* INSERT here the function to get the filename using strncmp */
-	printf("\n%s\n", &(g_line_state_invisible.line[i]));
-	return (g_flst->str);
+	file = get_filename(&(g_line_state_invisible.line[i]), g_display.cpos_buffer_position - i);
+//	printf("\n%s\n", &(g_line_state_invisible.line[i]));
+	return (file);
 }
 
 static int	count_word(int i)
