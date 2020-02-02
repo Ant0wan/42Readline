@@ -10,8 +10,11 @@ static char	*suggest_bin(const char *beg_s)
 
 static char	*suggest_file(const char *beg_s)
 {
-	char *file;
+//	DIR	dir;
+	char	*file;
 
+//	dir = opendir("."); should open dir each time change with cd, and close at cd or shutting the shell
+//	At cd, dir should be stored in a sorted list (it is like doing a "ls" at each cd or running bash)
 	file = savestring("file.c");
 	return (file);
 }
