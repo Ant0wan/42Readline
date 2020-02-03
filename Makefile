@@ -40,10 +40,10 @@ lib: $(OBJECTS)
 	@ranlib $(NAME)
 
 test: lib
-	$(CC) $(CFLAGS) $(CDEBUG) main.c $(NAME) -ltermcap -o test
+	$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDES) main.c $(NAME) -ltermcap -o test
 
 -include $(DEPENDS)
 
 %.o: %.c Makefile $(addsuffix .mk, $(basename $(NAME)))
-	@$(CC) $(CFLAGS) $(CDEBUG) -MMD -MP -c $< -o $@
+	@$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDES) -MMD -MP -c $< -o $@
 	@printf "\e[38;5;115m%-24s \e[38;5;191mobject built\n\e[0m" $(notdir $(basename $@))

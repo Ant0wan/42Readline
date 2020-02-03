@@ -45,7 +45,7 @@ void	feed_list(const char *str)
 	dir = opendir(str);
 	while ((ret = readdir(dir)))
 	{
-		if (strcmp(ret->d_name, ".") && strcmp(ret->d_name, ".."))
+		if (ft_strcmp(ret->d_name, ".") && ft_strcmp(ret->d_name, ".."))
 			store_dirl(ret->d_name);
 	}
 	closedir(dir);
