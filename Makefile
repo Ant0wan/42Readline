@@ -30,12 +30,14 @@ fclean:
 	@$(RM) $(OBJECTS) $(DEPENDS) $(NAME)
 	@printf "\e[0m$(NAME)\e[38;5;52m%2sdeleted\n\e[0m"
 	@$(RM) test
+	@make -j -C 42Libc/ fclean
 
 re: fclean $(NAME)
 
 objects: $(OBJECTS)
 
 lib: $(OBJECTS)
+	@make -j -C 42Libc/
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 
