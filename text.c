@@ -34,11 +34,14 @@ void	insert_text(const char *string, int len)
 {
 	while (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 		l_expand();
-	if (g_display.cpos_buffer_position + len <= g_line_state_invisible.len + 1)
-		ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position + len]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - len - g_display.cpos_buffer_position + 2);
+	if (g_display.cpos_buffer_position <= g_line_state_invisible.len)
+	{
+		ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position + len]),
+			&(g_line_state_invisible.line[g_display.cpos_buffer_position]),
+			g_line_state_invisible.len - len - g_display.cpos_buffer_position + 2);
+	}
 	ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), string, len);
-	if (g_display.cpos_buffer_position >= len - 1 || g_line_state_invisible.len == 0)
-		g_line_state_invisible.len += len;
+	g_line_state_invisible.len += len;
 	g_display.cpos_buffer_position += len;
 	update_line();
 }
