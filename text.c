@@ -32,13 +32,14 @@ static void	l_expand(void)
 
 void	insert_text(const char *string, int len)
 {
+//	printf("\n\nlen:%d, cpos:%d, line:%d\n\n", len, g_display.cpos_buffer_position, g_line_state_invisible.len);
 	while (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 		l_expand();
-	if (g_display.cpos_buffer_position <= g_line_state_invisible.len)
+	if (g_display.cpos_buffer_position < g_line_state_invisible.len)
 	{
 		ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position + len]),
 			&(g_line_state_invisible.line[g_display.cpos_buffer_position]),
-			g_line_state_invisible.len - len - g_display.cpos_buffer_position + 2);
+			g_line_state_invisible.len - g_display.cpos_buffer_position);
 	}
 	ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), string, len);
 	g_line_state_invisible.len += len;
