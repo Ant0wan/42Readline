@@ -11,12 +11,22 @@ static char	*suggest_bin(const char *beg_s)
 static char	*get_filename(const char *str, int len)
 {
 	t_list	*ptr;
+	t_list	*nptr;
 
 	ptr = g_flst;
 	while (ptr)
 	{
 		if (!ft_strncmp(str, ptr->content, len))
+		{
+			nptr = ptr->next;
+			if (nptr && !ft_strncmp(nptr->content, ptr->content, len))
+			{
+				//printf("\nIN\n");
+				/* Should display the choice here */
+				return (NULL);
+			}
 			return (&(((char*)(ptr->content))[len]));
+		}
 		ptr = ptr->next;
 	}
 	return (NULL);

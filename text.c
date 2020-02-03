@@ -209,12 +209,17 @@ void	history_up(void)
 void	autocomplete(void)
 {
 	char	*su;
+	int	len;
 
 	su = suggest();
 	if (su)
 	{
-		insert_text(su, ft_strlen(su)); // test
-		insert_text(" ", 1); // test
+		len = ft_strlen(su);
+		if (len)
+		{
+			insert_text(su, len);
+			insert_text(" ", 1);
+		}
 	}
 }
 
