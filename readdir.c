@@ -48,5 +48,6 @@ void	feed_list(const char *str)
 		if (ft_strcmp(ret->d_name, ".") && ft_strcmp(ret->d_name, ".."))
 			store_dirl(ret->d_name);
 	}
+	ft_lstquicksort(&g_flst, ft_strcmp);
 	closedir(dir);
 }
