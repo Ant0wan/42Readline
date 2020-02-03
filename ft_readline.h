@@ -9,6 +9,7 @@
 # include <sys/ioctl.h>
 # include <unistd.h>
 
+# include "libft.h"
 # include "bind.h"
 # include "keymaps.h"
 # include "input.h"

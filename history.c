@@ -26,17 +26,17 @@ void	add_hentry(const char *str)
 	if (g_hist == NULL)
 	{
 		g_hist = (struct s_hist*)malloc(sizeof(struct s_hist));
-		rl_bzero(g_hist, sizeof(struct s_hist));
+		ft_bzero(g_hist, sizeof(struct s_hist));
 		g_hist->n = 0;
-		g_hist->str = savestring(str);
+		g_hist->str = ft_strdup(str);
 	}
 	else
 	{
 		g_hist->next = (struct s_hist*)malloc(sizeof(struct s_hist));
-		rl_bzero(g_hist->next, sizeof(struct s_hist));
+		ft_bzero(g_hist->next, sizeof(struct s_hist));
 		g_hist->next->prev = g_hist;
 		g_hist->next->n = g_hist->n + 1;
-		g_hist->next->str = savestring(str);
+		g_hist->next->str = ft_strdup(str);
 		g_hist = g_hist->next;
 	}
 }
@@ -44,7 +44,7 @@ void	add_hentry(const char *str)
 char	*prev_hist(void)
 {
 	if (g_vline == NULL)
-		g_vline = savestring(g_line_state_invisible.line);
+		g_vline = ft_strdup(g_line_state_invisible.line);
 	if (g_hist)
 	{
 		if (g_hist->prev)

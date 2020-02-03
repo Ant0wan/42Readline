@@ -14,19 +14,19 @@ int	main(int argc, char **argv)
 	//input = ft_readline((char *)NULL);
 	while (input = ft_readline("$> "))
 	{
-		tmp = rl_strdup(input);
+		tmp = ft_strdup(input);
 		while (is_quote_open(tmp))
 		{
 			write(STDOUT_FILENO, "\n", 1);
-			new = rl_sjoin(tmp, "\n");
+			new = ft_strjoin(tmp, "\n");
 			free(tmp);
 			compl = ft_readline("> ");
-			tmp = rl_sjoin(new, compl);
+			tmp = ft_strjoin(new, compl);
 			free(new);
 			free(compl);
 		}
 		printf("\nre:%s\n", tmp);
-		if (!strcmp(tmp, "exit"))
+		if (!ft_strcmp(tmp, "exit"))
 		{
 			free(tmp);
 			break;

@@ -23,16 +23,16 @@ void	store_dirl(const char *e)
 	if (ptr == NULL)
 	{
 		g_flst = (struct s_file_lst*)malloc(sizeof(struct s_file_lst));
-		rl_bzero(g_flst, sizeof(struct s_file_lst));
-		g_flst->str = savestring(e);
+		ft_bzero(g_flst, sizeof(struct s_file_lst));
+		g_flst->str = ft_strdup(e);
 	}
 	else
 	{
 		while (ptr->next)
 			ptr = ptr->next;
 		ptr->next = (struct s_file_lst*)malloc(sizeof(struct s_file_lst));
-		rl_bzero(ptr->next, sizeof(struct s_file_lst));
-		ptr->next->str = savestring(e);
+		ft_bzero(ptr->next, sizeof(struct s_file_lst));
+		ptr->next->str = ft_strdup(e);
 	}
 	return;
 }

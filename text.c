@@ -11,7 +11,7 @@ void	init_line_buffer(void)
 {
 	g_line_state_invisible.size_buf = 512;
 	g_line_state_invisible.line = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
-	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
+	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_display.cpos_buffer_position = 0;
 	g_line_state_invisible.len = 0;
 }
@@ -24,8 +24,8 @@ static void	l_expand(void)
 	lold = g_line_state_invisible.size_buf;
 	g_line_state_invisible.size_buf = lold * 2;
 	new = (char*)malloc(sizeof(char) * g_line_state_invisible.size_buf);
-	rl_bzero(new, lold * 2);
-	rl_strncpy(new, g_line_state_invisible.line, lold);
+	ft_bzero(new, lold * 2);
+	ft_strncpy(new, g_line_state_invisible.line, lold);
 	free(g_line_state_invisible.line);
 	g_line_state_invisible.line = new;
 }
@@ -35,8 +35,8 @@ void	insert_text(const char *string, int len)
 	while (len + g_line_state_invisible.len >= g_line_state_invisible.size_buf)
 		l_expand();
 	if (g_display.cpos_buffer_position + len <= g_line_state_invisible.len + 1)
-		rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position + len]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - len - g_display.cpos_buffer_position + 2);
-	rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), string, len);
+		ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position + len]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - len - g_display.cpos_buffer_position + 2);
+	ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), string, len);
 	if (g_display.cpos_buffer_position >= len - 1 || g_line_state_invisible.len == 0)
 		g_line_state_invisible.len += len;
 	g_display.cpos_buffer_position += len;
@@ -49,7 +49,7 @@ void	rl_delete(void)
 	{
 		if (g_line_state_invisible.line[g_display.cpos_buffer_position] && g_display.cpos_buffer_position <= g_line_state_invisible.len)
 		{
-			rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
+			ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
 			g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
 			update_line();
 			--g_line_state_invisible.len;
@@ -70,7 +70,7 @@ void	rl_backspace(void)
 		cursor_l();
 		if (g_line_state_invisible.line[g_display.cpos_buffer_position])
 		{
-			rl_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
+			ft_memmove(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), &(g_line_state_invisible.line[g_display.cpos_buffer_position + 1]), g_line_state_invisible.len - g_display.cpos_buffer_position + 1);
 			g_line_state_invisible.line[g_line_state_invisible.len + 1] = '\0';
 		}
 		else
@@ -83,7 +83,7 @@ void	rl_backspace(void)
 void	kill_line(void)
 {
 	write(STDOUT_FILENO, "^C", 2);
-	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
+	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 	g_display.cpos_buffer_position = 0;
 	g_line_state_invisible.len = 0;
 	g_cursor.last_c_pos = 0;
@@ -187,7 +187,7 @@ static void	clear_line(void)
 	rl_home();
 	tputs(g_termcaps.clreol, 1, output);
 	g_line_state_invisible.len = 0;
-	rl_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
+	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 }
 
 void	history_up(void)
@@ -198,7 +198,7 @@ void	history_up(void)
 	if (s)
 	{
 		clear_line();
-		insert_text(s, len(s));
+		insert_text(s, ft_strlen(s));
 	}
 }
 
@@ -209,7 +209,7 @@ void	autocomplete(void)
 	su = suggest();
 	if (su)
 	{
-		insert_text(su, len(su)); // test
+		insert_text(su, ft_strlen(su)); // test
 		insert_text(" ", 1); // test
 	}
 }
@@ -222,7 +222,7 @@ void	history_down(void)
 	if (s)
 	{
 		clear_line();
-		insert_text(s, len(s));
+		insert_text(s, ft_strlen(s));
 		if (s == g_vline)
 		{
 			free(g_vline);
@@ -312,10 +312,10 @@ void	clear_eol(void)
 	if (g_display.cpos_buffer_position != g_line_state_invisible.len)
 	{
 		rest = g_line_state_invisible.len - g_display.cpos_buffer_position;
-		rl_bzero(g_clipboard.str, g_clipboard.l);
-		rl_strncpy(g_clipboard.str, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
+		ft_bzero(g_clipboard.str, g_clipboard.l);
+		ft_strncpy(g_clipboard.str, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
 		g_clipboard.l = rest;
-		rl_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
+		ft_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
 		g_line_state_invisible.len -= rest;
 		update_line();
 	}
@@ -334,12 +334,12 @@ void	clear_befline(void)
 
 	if (g_display.cpos_buffer_position != 0)
 	{
-		rl_bzero(g_clipboard.str, g_clipboard.l);
-		rl_strncpy(g_clipboard.str, g_line_state_invisible.line, g_display.cpos_buffer_position);
+		ft_bzero(g_clipboard.str, g_clipboard.l);
+		ft_strncpy(g_clipboard.str, g_line_state_invisible.line, g_display.cpos_buffer_position);
 		g_clipboard.l = g_display.cpos_buffer_position;
 		g_line_state_invisible.len -= g_display.cpos_buffer_position;
-		rl_memmove(g_line_state_invisible.line, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_display.cpos_buffer_position);
-		rl_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
+		ft_memmove(g_line_state_invisible.line, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_display.cpos_buffer_position);
+		ft_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
 		g_display.cpos_buffer_position = 0;
 		rl_home();
 	}
@@ -352,17 +352,17 @@ void	cut_prev_wd(void)
 
 	if (g_display.cpos_buffer_position != 0)
 	{
-		rl_bzero(g_clipboard.str, g_clipboard.l);
+		ft_bzero(g_clipboard.str, g_clipboard.l);
 		start = g_display.cpos_buffer_position;
 		while (start && g_line_state_invisible.line[start - 1] == ' ')
 			--start;
 		while (start && g_line_state_invisible.line[start - 1] != ' ')
 			--start;
 		g_clipboard.l = g_display.cpos_buffer_position - start;
-		rl_strncpy(g_clipboard.str, &(g_line_state_invisible.line[start]), g_clipboard.l);
-		rl_memmove(&(g_line_state_invisible.line[start]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
+		ft_strncpy(g_clipboard.str, &(g_line_state_invisible.line[start]), g_clipboard.l);
+		ft_memmove(&(g_line_state_invisible.line[start]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
 		g_line_state_invisible.len -= g_clipboard.l;
-		rl_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
+		ft_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
 		g_display.cpos_buffer_position = start;
 		update_line();
 	}

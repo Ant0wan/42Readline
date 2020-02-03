@@ -43,14 +43,14 @@ void		set_prompt(const char *prompt)
 	if (g_display.prompt != NULL)
 		free(g_display.prompt);
 	if (prompt)
-		g_display.prompt = savestring(prompt);
+		g_display.prompt = ft_strdup(prompt);
 	else
 		g_display.prompt = NULL;
 	if (g_display.prompt == NULL)
 		g_display.display_prompt = "";
 	else
 		g_display.display_prompt = g_display.prompt;
-	g_display.visible_prompt_length = len(g_display.display_prompt); /* Assume single line prompt and does not handle '\' all chr */
+	g_display.visible_prompt_length = ft_strlen(g_display.display_prompt); /* Assume single line prompt and does not handle '\' all chr */
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
 }
 
