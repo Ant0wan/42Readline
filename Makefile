@@ -40,7 +40,7 @@ lib: $(OBJECTS)
 	@ranlib $(NAME)
 
 test: lib
-	$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDES) main.c $(NAME) -ltermcap -o test
+	$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDES) main.c $(NAME) -ltermcap ./42Libc/libft.a -o test
 
 -include $(DEPENDS)
 
