@@ -5,7 +5,7 @@ char		*g_vline = NULL;
 
 static int	strisspace(const char *str)
 {
-	while (*str && isspace(*str))
+	while (*str && ft_isspace(*str))
 		++str;
 	if (!*str)
 		return (1);

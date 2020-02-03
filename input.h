@@ -19,4 +19,6 @@ struct	s_quote
 
 extern struct s_quote	g_quote;
 
+int	is_quote_open(const char *s);
+
 #endif
