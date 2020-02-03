@@ -1,48 +1,53 @@
 #include "ft_readline.h"
 
-static int	g_prop_len = 0;
+size_t	len(const char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+		++i;
+	return (i);
+}
+
+
+char	*savestring(const char *str)
+{
+	size_t	count;
+	char	*save;
+
+	save = (char*)malloc(sizeof(char) * (len(str) + 1));
+	count = 0;
+	while (str[count])
+	{
+		save[count] = str[count];
+		++count;
+	}
+	save[count] = '\0';
+	return (save);
+}
+
+
+
+
 
 static char	*suggest_bin(const char *beg_s)
 {
 	char	*bin;
 
-	bin = ft_strdup("command");
+	bin = savestring("command");
 	return (bin);
-}
-
-static int	common_len(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		++i;
-	return (i);
 }
 
 static char	*get_filename(const char *str, int len)
 {
 	struct s_file_lst	*ptr;
-	struct s_file_lst	*nptr;
 
 	ptr = g_flst;
 	while (ptr)
 	{
-		if (!ft_strncmp(str, ptr->str, len))
-		{
-			g_prop_len = 0;
-			nptr = ptr->next;
-			while (nptr)
-			{
-				if (!ft_strncmp(str, nptr->str, len))
-				{
-					g_prop_len = common_len(ptr->str, nptr->str) /*common len btw ptr->str & nptr->str*/;
-					break;
-				}
-				nptr = nptr->next;
-			}
+		if (!strncmp(str, ptr->str, len))
 			return (&(ptr->str[len]));
-		}
 		ptr = ptr->next;
 	}
 	return (NULL);
@@ -68,7 +73,6 @@ static char	*suggest_file(const char *beg_s)
 	/* INSERT here the function to get the filename using strncmp */
 	file = get_filename(&(g_line_state_invisible.line[i]), g_display.cpos_buffer_position - i);
 //	printf("\n%s\n", &(g_line_state_invisible.line[i]));
-//	printf("\n%d\n", g_prop_len - 1);
 	return (file);
 }
 
