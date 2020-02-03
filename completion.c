@@ -10,13 +10,13 @@ static char	*suggest_bin(const char *beg_s)
 
 static char	*get_filename(const char *str, int len)
 {
-	struct s_file_lst	*ptr;
+	t_list	*ptr;
 
 	ptr = g_flst;
 	while (ptr)
 	{
-		if (!ft_strncmp(str, ptr->str, len))
-			return (&(ptr->str[len]));
+		if (!ft_strncmp(str, ptr->content, len))
+			return (&(((char*)(ptr->content))[len]));
 		ptr = ptr->next;
 	}
 	return (NULL);

@@ -1,15 +1,15 @@
 #include "ft_readline.h"
 
-struct s_file_lst	*g_flst = NULL;
+t_list	*g_flst = NULL;
 
 void	free_completion(void)
 {
-	struct s_file_lst	*ptr;
+	t_list	*ptr;
 
 	while (g_flst)
 	{
 		ptr = g_flst->next;
-		free(g_flst->str);
+		free(g_flst->content);
 		free(g_flst);
 		g_flst = ptr;
 	}
@@ -17,22 +17,22 @@ void	free_completion(void)
 
 void	store_dirl(const char *e)
 {
-	struct s_file_lst	*ptr;
+	t_list	*ptr;
 
 	ptr = g_flst;
 	if (ptr == NULL)
 	{
-		g_flst = (struct s_file_lst*)malloc(sizeof(struct s_file_lst));
-		ft_bzero(g_flst, sizeof(struct s_file_lst));
-		g_flst->str = ft_strdup(e);
+		g_flst = (t_list*)malloc(sizeof(t_list));
+		ft_bzero(g_flst, sizeof(t_list));
+		g_flst->content = (void*)ft_strdup(e);
 	}
 	else
 	{
 		while (ptr->next)
 			ptr = ptr->next;
-		ptr->next = (struct s_file_lst*)malloc(sizeof(struct s_file_lst));
-		ft_bzero(ptr->next, sizeof(struct s_file_lst));
-		ptr->next->str = ft_strdup(e);
+		ptr->next = (t_list*)malloc(sizeof(t_list));
+		ft_bzero(ptr->next, sizeof(t_list));
+		ptr->next->content = (void*)ft_strdup(e);
 	}
 	return;
 }
