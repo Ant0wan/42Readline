@@ -5,7 +5,7 @@
    function.  Returns the number of characters inserted. */
 extern struct s_termcaps	g_termcaps;
 
-struct s_clipboard		g_clipboard = { .str = {0}, .l = 0 };
+struct s_clipboard		g_clipboard = { .str = NULL, .l = 0 };
 
 void	init_line_buffer(void)
 {
@@ -311,16 +311,14 @@ void	paste_via_input(unsigned long v)
 /* Ctrl+K: Cut the part of the line after the cursor, adding it to the clipboard. */
 void	clear_eol(void)
 {
-	int	rest;
-
 	if (g_display.cpos_buffer_position != g_line_state_invisible.len)
 	{
-		rest = g_line_state_invisible.len - g_display.cpos_buffer_position;
-		ft_bzero(g_clipboard.str, g_clipboard.l);
-		ft_strncpy(g_clipboard.str, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
-		g_clipboard.l = rest;
-		ft_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), rest);
-		g_line_state_invisible.len -= rest;
+		g_clipboard.l = g_line_state_invisible.len - g_display.cpos_buffer_position;
+		if (g_clipboard.str != NULL)
+			free(g_clipboard.str);
+		g_clipboard.str = ft_strndup(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
+		ft_bzero(&(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
+		g_line_state_invisible.len -= g_clipboard.l;
 		update_line();
 	}
 }
@@ -338,8 +336,9 @@ void	clear_befline(void)
 
 	if (g_display.cpos_buffer_position != 0)
 	{
-		ft_bzero(g_clipboard.str, g_clipboard.l);
-		ft_strncpy(g_clipboard.str, g_line_state_invisible.line, g_display.cpos_buffer_position);
+		if (g_clipboard.str != NULL)
+			free(g_clipboard.str);
+		g_clipboard.str = ft_strndup(g_line_state_invisible.line, g_display.cpos_buffer_position);
 		g_clipboard.l = g_display.cpos_buffer_position;
 		g_line_state_invisible.len -= g_display.cpos_buffer_position;
 		ft_memmove(g_line_state_invisible.line, &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_display.cpos_buffer_position);
@@ -356,15 +355,16 @@ void	cut_prev_wd(void)
 
 	if (g_display.cpos_buffer_position != 0)
 	{
-		ft_bzero(g_clipboard.str, g_clipboard.l);
+		if (g_clipboard.str != NULL)
+			free(g_clipboard.str);
 		start = g_display.cpos_buffer_position;
 		while (start && g_line_state_invisible.line[start - 1] == ' ')
 			--start;
 		while (start && g_line_state_invisible.line[start - 1] != ' ')
 			--start;
 		g_clipboard.l = g_display.cpos_buffer_position - start;
-		ft_strncpy(g_clipboard.str, &(g_line_state_invisible.line[start]), g_clipboard.l);
-		ft_memmove(&(g_line_state_invisible.line[start]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_clipboard.l);
+		g_clipboard.str = ft_strndup(&(g_line_state_invisible.line[start]), g_clipboard.l);
+		ft_memmove(&(g_line_state_invisible.line[start]), &(g_line_state_invisible.line[g_display.cpos_buffer_position]), g_line_state_invisible.len - g_display.cpos_buffer_position);
 		g_line_state_invisible.len -= g_clipboard.l;
 		ft_bzero(&(g_line_state_invisible.line[g_line_state_invisible.len]), g_clipboard.l);
 		g_display.cpos_buffer_position = start;

@@ -15,7 +15,7 @@ void    init_line_buffer(void);
 
 struct s_clipboard
 {
-	char	str[1024]; /* Need to be dynamically allocated */
+	char	*str;
 	int	l;
 };
 
