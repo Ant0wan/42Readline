@@ -46,7 +46,7 @@ static char	*get_filename(const char *str, int len)
 	ptr = g_flst;
 	while (ptr)
 	{
-		if (!strncmp(str, ptr->str, len))
+		if (!ft_strncmp(str, ptr->str, len))
 			return (&(ptr->str[len]));
 		ptr = ptr->next;
 	}
