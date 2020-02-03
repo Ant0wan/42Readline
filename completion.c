@@ -8,6 +8,16 @@ static char	*suggest_bin(const char *beg_s)
 	return (bin);
 }
 
+static int	common_len(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		++i;
+	return (i);
+}
+
 static char	*get_filename(const char *str, int len)
 {
 	t_list	*ptr;
@@ -21,11 +31,14 @@ static char	*get_filename(const char *str, int len)
 			nptr = ptr->next;
 			if (nptr && !ft_strncmp(nptr->content, ptr->content, len))
 			{
-				//printf("\nIN\n");
 				/* Should display the choice here */
-				return (NULL);
+				//return (NULL);
+		//		printf("\nIN:%d\n", common_len(nptr->content, ptr->content));
+				g_full_completion = 0;
+				return (ft_strndup(&(((char*)(ptr->content))[len]), common_len(nptr->content, ptr->content) - len)); // will force .c second time
 			}
-			return (&(((char*)(ptr->content))[len]));
+			g_full_completion = 1;
+			return (ft_strdup(&(((char*)(ptr->content))[len])));
 		}
 		ptr = ptr->next;
 	}

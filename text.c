@@ -7,6 +7,8 @@ extern struct s_termcaps	g_termcaps;
 
 struct s_clipboard		g_clipboard = { .str = NULL, .l = 0 };
 
+int				g_full_completion = 1;
+
 void	init_line_buffer(void)
 {
 	g_line_state_invisible.size_buf = 512;
@@ -218,7 +220,8 @@ void	autocomplete(void)
 		if (len)
 		{
 			insert_text(su, len);
-			insert_text(" ", 1);
+			if (g_full_completion == 1)
+				insert_text(" ", 1);
 		}
 	}
 }
