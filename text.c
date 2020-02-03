@@ -223,7 +223,9 @@ void	autocomplete(void)
 			if (g_full_completion == 1)
 				insert_text(" ", 1);
 		}
+		free(su);
 	}
+	g_full_completion = 0;
 }
 
 void	history_down(void)

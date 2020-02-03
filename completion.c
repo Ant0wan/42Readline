@@ -32,8 +32,8 @@ static char	*get_filename(const char *str, int len)
 			if (nptr && !ft_strncmp(nptr->content, ptr->content, len))
 			{
 				/* Should display the choice here */
-				//return (NULL);
-		//		printf("\nIN:%d\n", common_len(nptr->content, ptr->content));
+				//return (NULL); /* Should be a binary tree */
+				printf("\nl:%d IN:%d\n", len, common_len(nptr->content, ptr->content));
 				g_full_completion = 0;
 				return (ft_strndup(&(((char*)(ptr->content))[len]), common_len(nptr->content, ptr->content) - len)); // will force .c second time
 			}
