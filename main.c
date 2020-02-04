@@ -12,7 +12,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	//input = ft_readline((char *)NULL);
-	while (input = ft_readline("$> "))
+	while ((input = ft_readline("$> ")))
 	{
 		tmp = ft_strdup(input);
 		while (is_quote_open(tmp))

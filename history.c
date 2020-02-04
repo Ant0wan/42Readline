@@ -54,6 +54,7 @@ char	*prev_hist(void)
 		}
 		return (g_hist->str);
 	}
+	return (NULL);
 }
 
 char	*next_hist(void)
@@ -68,6 +69,7 @@ char	*next_hist(void)
 		else
 			return (g_vline);
 	}
+	return (NULL);
 }
 
 void	free_hist(void)
