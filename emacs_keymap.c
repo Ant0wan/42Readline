@@ -16,7 +16,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, cursor_r },			/* Control-f */
   { ISFUNC, rl_void },				/* Control-g */
   { ISFUNC, rl_backspace },			/* Control-h */
-  { ISFUNC, autocomplete },			/* Control-i */
+  { ISFUNC, rl_void },			/* Control-i */
   { ISFUNC, rl_void },			/* Control-j */
   { ISFUNC, clear_eol },			/* Control-k */
   { ISFUNC, clear_scr },			/* Control-l */
