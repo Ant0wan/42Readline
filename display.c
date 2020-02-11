@@ -87,10 +87,10 @@ void	display_lines(void)
 
 void	update_line(void)
 {
-	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, output);
+	ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
 	if (g_cursor.last_v_pos > 0)
-		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
-	tputs(tgetstr("cd", NULL), 1, output);
+		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
+	ft_putstr(tgetstr("cd", NULL));
 
 	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
 	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
@@ -98,7 +98,7 @@ void	update_line(void)
 
 	display_lines();
 
-	tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+	ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
 	if (g_display.vis_botlin - g_cursor.last_v_pos)
-		tputs(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
 }

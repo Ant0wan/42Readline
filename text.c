@@ -94,7 +94,7 @@ void	kill_line(void)
 	g_line_state_invisible.len = 0;
 	g_cursor.last_c_pos = 0;
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
-		tputs(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
 	g_cursor.last_v_pos = 0;
 	write(STDOUT_FILENO, "\n", 1);
 	update_line();
@@ -114,15 +114,15 @@ void	cursor_l(void)
 	{
 		if (g_cursor.last_c_pos > 0)
 		{
-			tputs(tgoto(g_termcaps.backspace, 0, 0), 1, output);
+			ft_putstr(tgoto(g_termcaps.backspace, 0, 0));
 			--g_cursor.last_c_pos;
 		}
 		else
 		{
 			g_cursor.last_c_pos = g_screen.width - 1;
 			--g_cursor.last_v_pos;
-			tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
+			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
 		}
 		g_display.cpos_buffer_position -= 1;
 		update_line();
@@ -137,13 +137,13 @@ void	cursor_r(void)
 		{
 			g_cursor.last_c_pos = 0;
 			++g_cursor.last_v_pos;
-			tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, output);
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+			ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
 		}
 		else
 		{
 			++g_cursor.last_c_pos;
-			tputs(tgoto(g_termcaps.forward_char, 0, 0), 1, output);
+			ft_putstr(tgoto(g_termcaps.forward_char, 0, 0));
 		}
 		g_display.cpos_buffer_position += 1;
 		update_line();
@@ -160,13 +160,13 @@ void	cursor_d(void)
 		if (g_cursor.last_v_pos == g_display.vis_botlin - 1
 			&& g_cursor.last_c_pos > len_last_line)
 		{
-			tputs(tgoto(tgetstr("ch", NULL), 0, len_last_line), 1, output);
+			ft_putstr(tgoto(tgetstr("ch", NULL), 0, len_last_line));
 			g_display.cpos_buffer_position = g_line_state_invisible.len;
 		}
 		else
 			g_display.cpos_buffer_position += g_screen.width;
 		++g_cursor.last_v_pos;
-		tputs(tgoto(tgetstr("do", NULL), 0, 0), 1, output);
+		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
 		update_line();
 	}
 }
@@ -177,13 +177,13 @@ void	cursor_u(void)
 	{
 		if (g_cursor.last_v_pos == 1 && g_cursor.last_c_pos < g_display.visible_prompt_length)
 		{
-			tputs(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length), 1, output);
+			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length));
 			g_display.cpos_buffer_position = 0;
 		}
 		else
 			g_display.cpos_buffer_position -= g_screen.width;
 		--g_cursor.last_v_pos;
-		tputs(tgoto(tgetstr("up", NULL), 0, 0), 1, output);
+		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
 		update_line();
 	}
 }
@@ -191,7 +191,7 @@ void	cursor_u(void)
 static void	clear_line(void)
 {
 	rl_home();
-	tputs(g_termcaps.clreol, 1, output);
+	ft_putstr(g_termcaps.clreol);
 	g_line_state_invisible.len = 0;
 	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 }
@@ -249,10 +249,10 @@ void	rl_home(void)
 {
 	g_cursor.last_c_pos = g_display.visible_prompt_length;
 	if (g_cursor.last_c_pos > 0)
-		tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
 	if (g_cursor.last_v_pos > 0)
 	{
-		tputs(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
 		g_cursor.last_v_pos = 0;
 	}
 	g_display.cpos_buffer_position = 0;
@@ -265,12 +265,12 @@ void	rl_end(void)
 	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
 	if (g_cursor.last_c_pos > 0)
 	{
-		tputs(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
 		g_display.cpos_buffer_position = g_line_state_invisible.len;
 	}
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
 	{
-		tputs(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos), 1, output);
+		ft_putstr(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
 		g_display.cpos_buffer_position = g_line_state_invisible.len;
 		g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
 	}
@@ -295,14 +295,14 @@ void	wd_left(void)
 
 void	clear_scr(void)
 {
-	tputs(g_termcaps.clrpag, 1, output);
+	ft_putstr(g_termcaps.clrpag);
 	update_line();
 }
 
 /* Function to use to replace all NULL in keymap */
 void	rl_void(void)
 {
-	tputs(tgetstr("bl", NULL), 1, output);
+	ft_putstr(tgetstr("bl", NULL));
 	return;
 }
 

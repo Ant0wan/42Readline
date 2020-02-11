@@ -12,7 +12,7 @@ void	prep_terminal(void)
 	/* Make sure we differentiate between CR and NL on input. */
 	g_termios.c_iflag &= ~(ICRNL | INLCR); /* test */
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_termios);
-	tputs(*(g_tc_strings[28].value), 1, output);
+	ft_putstr(*(g_tc_strings[28].value));
 }
 
 void	deprep_terminal(void)
