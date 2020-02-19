@@ -39,72 +39,14 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
   { ISFUNC, rl_void },			/* Control-] */
   { ISFUNC, rl_void },		/* Control-^ */
   { ISFUNC, rl_void },			/* Control-_ */
-  { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE to TILDE */
-	[ ' ' ... '~' ] = { ISFUNC, rl_insert },
+	[ ' ' ... '~' ] = { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE to TILDE */
   { ISFUNC, rl_backspace }		/* RUBOUT */
 };
 
 
-
-
-
-
-
-
-
 struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 {
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
-	{ ISFUNC, rl_void },
+	[ 0 ... 50 ] = { ISFUNC, rl_void },
 	{ ISFUNC, rl_delete },
 	{ ISFUNC, rl_void },
 	{ ISFUNC, rl_void },
