@@ -6,40 +6,40 @@
 
 struct s_keymap_entry	g_emacs_standard_keymap[] =
 { /* 127 entries */
-  { ISFUNC, rl_void }, /* Control keys. */	/* Control-@ */
-  { ISFUNC, rl_home },			/* Control-a */
-  { ISFUNC, cursor_l },			/* Control-b */
-  { ISFUNC, kill_line },		/* Control-c */
-  { ISFUNC, rl_delete },			/* Control-d */
-  { ISFUNC, rl_end },			/* Control-e */
-  { ISFUNC, cursor_r },			/* Control-f */
-  { ISFUNC, rl_void },				/* Control-g */
-  { ISFUNC, rl_backspace },			/* Control-h */
-  { ISFUNC, rl_void },			/* Control-i */
-  { ISFUNC, rl_void },			/* Control-j */
-  { ISFUNC, clear_eol },			/* Control-k */
-  { ISFUNC, clear_scr },			/* Control-l */
-  { ISFUNC, rl_void },			/* Control-m */
-  { ISFUNC, rl_void },		/* Control-n */
-  { ISFUNC, rl_void },		/* Control-o */
-  { ISFUNC, history_up },		/* Control-p */
-  { ISFUNC, rl_void },			/* Control-q */
-  { ISFUNC, rl_void },	/* Control-r */
-  { ISFUNC, rl_void },	/* Control-s */
-  { ISFUNC, rl_void },		/* Control-t */
-  { ISFUNC, clear_befline },		/* Control-u */
-  { ISFUNC, rl_void },			/* Control-v */
-  { ISFUNC, cut_prev_wd },		/* Control-w */
-  { ISKMAP, rl_void },	/* Control-x */
-  { ISFUNC, clip_paste },				/* Control-y */
-  { ISFUNC, rl_void },		/* Control-z */
-  { ISKMAP, rl_void }, /* Control-[ */
-  { ISFUNC, rl_void },		/* Control-\ */
-  { ISFUNC, rl_void },			/* Control-] */
-  { ISFUNC, rl_void },		/* Control-^ */
-  { ISFUNC, rl_void },			/* Control-_ */
+	{ ISFUNC, rl_void }, /* Control keys. */	/* Control-@ */
+	{ ISFUNC, rl_home },			/* Control-a */
+	{ ISFUNC, cursor_l },			/* Control-b */
+	{ ISFUNC, kill_line },		/* Control-c */
+	{ ISFUNC, rl_delete },			/* Control-d */
+	{ ISFUNC, rl_end },			/* Control-e */
+	{ ISFUNC, cursor_r },			/* Control-f */
+	{ ISFUNC, rl_void },				/* Control-g */
+	{ ISFUNC, rl_backspace },			/* Control-h */
+	{ ISFUNC, rl_void },			/* Control-i */
+	{ ISFUNC, rl_void },			/* Control-j */
+	{ ISFUNC, clear_eol },			/* Control-k */
+	{ ISFUNC, clear_scr },			/* Control-l */
+	{ ISFUNC, rl_void },			/* Control-m */
+	{ ISFUNC, rl_void },		/* Control-n */
+	{ ISFUNC, rl_void },		/* Control-o */
+	{ ISFUNC, history_up },		/* Control-p */
+	{ ISFUNC, rl_void },			/* Control-q */
+	{ ISFUNC, rl_void },	/* Control-r */
+	{ ISFUNC, rl_void },	/* Control-s */
+	{ ISFUNC, rl_void },		/* Control-t */
+	{ ISFUNC, clear_befline },		/* Control-u */
+	{ ISFUNC, rl_void },			/* Control-v */
+	{ ISFUNC, cut_prev_wd },		/* Control-w */
+	{ ISKMAP, rl_void },	/* Control-x */
+	{ ISFUNC, clip_paste },				/* Control-y */
+	{ ISFUNC, rl_void },		/* Control-z */
+	{ ISKMAP, rl_void }, /* Control-[ */
+	{ ISFUNC, rl_void },		/* Control-\ */
+	{ ISFUNC, rl_void },			/* Control-] */
+	{ ISFUNC, rl_void },		/* Control-^ */
+	{ ISFUNC, rl_void },			/* Control-_ */
 	[ ' ' ... '~' ] = { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE to TILDE */
-  { ISFUNC, rl_backspace }		/* RUBOUT */
+	{ ISFUNC, rl_backspace }		/* RUBOUT */
 };
 
 struct s_keymap_entry	g_emacs_ctlx_keymap[] =
@@ -61,4 +61,4 @@ struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 	{ ISFUNC, wd_right },
 	{ ISFUNC, wd_left },
 	[ 89 ... 127 ] = { ISFUNC, rl_void },
- };
+};
