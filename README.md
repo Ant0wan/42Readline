@@ -1,5 +1,13 @@
 # 42Readline
 
+ToDo:
+- Signals -> SIGWINCH,...
+- tputs padding settings
+- g_tc.termcap binding instead of tgetstr
+- VIM binding translator + vim_keymaps.c
+- History file for each tty + `CTRL+R` + fc ?
+- Autocompletion of files, bin, path,...
+
 ---
 
 ## REQUIREMENTS
