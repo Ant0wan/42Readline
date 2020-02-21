@@ -11,6 +11,7 @@ struct s_termcaps
 	char	*clrscroll;
 	char	*IC;
 	char	*clreol;
+	char	*ch;
 	char	*clrpag;
 	char	*cr;
 	char	*dc;

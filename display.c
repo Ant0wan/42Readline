@@ -85,7 +85,7 @@ void	display_lines(void)
 
 void	update_line(void)
 {
-	ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+	ft_putstr(tgoto(g_termcaps.ch, 0, 0));
 	if (g_cursor.last_v_pos > 0)
 		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
 	ft_putstr(tgetstr("cd", NULL));
@@ -96,7 +96,7 @@ void	update_line(void)
 
 	display_lines();
 
-	ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
+	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_display.vis_botlin - g_cursor.last_v_pos)
 		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
 }
