@@ -3,8 +3,6 @@
 /* Insert a string of text into the line at point.  This is the only
    way that you should do insertion.  _rl_insert_char () calls this
    function.  Returns the number of characters inserted. */
-extern struct s_termcaps	g_termcaps;
-
 struct s_clipboard		g_clipboard = { .str = NULL, .l = 0 };
 
 int				g_full_completion = 1;

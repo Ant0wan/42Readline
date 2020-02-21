@@ -20,8 +20,6 @@ struct s_cursor		g_cursor =
 struct s_line_state	g_line_state_visible = {0};
 struct s_line_state	g_line_state_invisible = {0};
 
-extern struct s_termcaps g_termcaps;
-
 void		display_prompt(void)
 {
 	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);

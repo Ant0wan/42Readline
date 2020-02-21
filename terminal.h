@@ -62,7 +62,7 @@ struct s_term
 	int	has_meta;
 };
 
-extern struct s_termcaps		g_tc;
+extern struct s_termcaps		g_termcaps;
 extern struct termios			g_termios;
 extern struct termios			g_termios_backup;
 extern struct s_screen			g_screen;
