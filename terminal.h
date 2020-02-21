@@ -15,6 +15,7 @@ struct s_termcaps
 	char	*clrpag;
 	char	*cr;
 	char	*dc;
+	char	*do1;
 	char	*ei;
 	char	*ic;
 	char	*im;

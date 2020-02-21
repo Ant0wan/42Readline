@@ -135,7 +135,7 @@ void	cursor_r(void)
 		{
 			g_cursor.last_c_pos = 0;
 			++g_cursor.last_v_pos;
-			ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+			ft_putstr(tgoto(g_termcaps.do1, 0, 0));
 			ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 		}
 		else
@@ -164,7 +164,7 @@ void	cursor_d(void)
 		else
 			g_display.cpos_buffer_position += g_screen.width;
 		++g_cursor.last_v_pos;
-		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+		ft_putstr(tgoto(g_termcaps.do1, 0, 0));
 		update_line();
 	}
 }

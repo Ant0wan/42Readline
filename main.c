@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 			free(new);
 			free(compl);
 		}
-		printf("\nre:%s\n", tmp);
+		printf("\nre:%s\n\n", tmp);
 		if (!ft_strcmp(tmp, "exit"))
 		{
 			free(tmp);

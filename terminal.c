@@ -26,28 +26,29 @@ const struct s_termcaps_string	g_tc_strings[] =
 	{"cl", &g_termcaps.clrpag}, /* 6 */
 	{"cr", &g_termcaps.cr}, /* 7 */
 	{"dc", &g_termcaps.dc}, /* 8 */
-	{"ei", &g_termcaps.ei}, /* 9 */
-	{"ic", &g_termcaps.ic}, /* 10 */
-	{"im", &g_termcaps.im}, /* 11 */
-	{"kD", &g_termcaps.kD},	/* 12 delete */
-	{"kH", &g_termcaps.kH},	/* 13 home down ?? */
-	{"kI", &g_termcaps.kI},	/* 14 insert */
-	{"kd", &g_termcaps.kd},  /* 15 */
-	{"ke", &g_termcaps.ke},	/* 16 end keypad mode */
-	{"kh", &g_termcaps.kh},	/* 17home */
-	{"kl", &g_termcaps.kl}, /* 18 */
-	{"kr", &g_termcaps.kr}, /* 19 */
-	{"ks", &g_termcaps.ks},	/* 20 start keypad mode */
-	{"ku", &g_termcaps.ku}, /* 21 */
-	{"le", &g_termcaps.backspace}, /* 22 */
-	{"mm", &g_termcaps.mm}, /* 23 */
-	{"mo", &g_termcaps.mo}, /* 24 */
-	{"nd", &g_termcaps.forward_char}, /* 25 */
-	{"pc", &g_termcaps.pc}, /* 26 */
-	{"up", &g_termcaps.up}, /* 27 */
-	{"vb", &g_termcaps.visible_bell}, /* 28 */
-	{"vs", &g_termcaps.vs}, /* 29 */
-	{"ve", &g_termcaps.ve} /* 30 */
+	{"do", &g_termcaps.do1}, /* 9 */
+	{"ei", &g_termcaps.ei}, /* 10 */
+	{"ic", &g_termcaps.ic}, /* 11 */
+	{"im", &g_termcaps.im}, /* 12 */
+	{"kD", &g_termcaps.kD},	/* 13 delete */
+	{"kH", &g_termcaps.kH},	/* 14 home down ?? */
+	{"kI", &g_termcaps.kI},	/* 15 insert */
+	{"kd", &g_termcaps.kd},  /* 16 */
+	{"ke", &g_termcaps.ke},	/* 17 end keypad mode */
+	{"kh", &g_termcaps.kh},	/* 18home */
+	{"kl", &g_termcaps.kl}, /* 19 */
+	{"kr", &g_termcaps.kr}, /* 20 */
+	{"ks", &g_termcaps.ks},	/* 21 start keypad mode */
+	{"ku", &g_termcaps.ku}, /* 22 */
+	{"le", &g_termcaps.backspace}, /* 23 */
+	{"mm", &g_termcaps.mm}, /* 24 */
+	{"mo", &g_termcaps.mo}, /* 25 */
+	{"nd", &g_termcaps.forward_char}, /* 26 */
+	{"pc", &g_termcaps.pc}, /* 27 */
+	{"up", &g_termcaps.up}, /* 28 */
+	{"vb", &g_termcaps.visible_bell}, /* 29 */
+	{"vs", &g_termcaps.vs}, /* 30 */
+	{"ve", &g_termcaps.ve} /* 31 */
 };
 
 /* Inititalize termcaps. Get termcaps values. */
