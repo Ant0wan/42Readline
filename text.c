@@ -120,7 +120,7 @@ void	cursor_l(void)
 			g_cursor.last_c_pos = g_screen.width - 1;
 			--g_cursor.last_v_pos;
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
+			ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 		}
 		g_display.cpos_buffer_position -= 1;
 		update_line();
@@ -136,7 +136,7 @@ void	cursor_r(void)
 			g_cursor.last_c_pos = 0;
 			++g_cursor.last_v_pos;
 			ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
+			ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 		}
 		else
 		{
@@ -158,7 +158,7 @@ void	cursor_d(void)
 		if (g_cursor.last_v_pos == g_display.vis_botlin - 1
 			&& g_cursor.last_c_pos > len_last_line)
 		{
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, len_last_line));
+			ft_putstr(tgoto(g_termcaps.ch, 0, len_last_line));
 			g_display.cpos_buffer_position = g_line_state_invisible.len;
 		}
 		else
@@ -175,7 +175,7 @@ void	cursor_u(void)
 	{
 		if (g_cursor.last_v_pos == 1 && g_cursor.last_c_pos < g_display.visible_prompt_length)
 		{
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_display.visible_prompt_length));
+			ft_putstr(tgoto(g_termcaps.ch, 0, g_display.visible_prompt_length));
 			g_display.cpos_buffer_position = 0;
 		}
 		else
@@ -247,7 +247,7 @@ void	rl_home(void)
 {
 	g_cursor.last_c_pos = g_display.visible_prompt_length;
 	if (g_cursor.last_c_pos > 0)
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
+		ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_cursor.last_v_pos > 0)
 	{
 		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
@@ -263,7 +263,7 @@ void	rl_end(void)
 	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
 	if (g_cursor.last_c_pos > 0)
 	{
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, g_cursor.last_c_pos));
+		ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 		g_display.cpos_buffer_position = g_line_state_invisible.len;
 	}
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
