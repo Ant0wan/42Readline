@@ -250,7 +250,7 @@ void	rl_home(void)
 		ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_cursor.last_v_pos > 0)
 	{
-		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_cursor.last_v_pos));
 		g_cursor.last_v_pos = 0;
 	}
 	g_display.cpos_buffer_position = 0;

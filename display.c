@@ -87,7 +87,7 @@ void	update_line(void)
 {
 	ft_putstr(tgoto(g_termcaps.ch, 0, 0));
 	if (g_cursor.last_v_pos > 0)
-		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_cursor.last_v_pos));
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_cursor.last_v_pos));
 	ft_putstr(g_termcaps.cd);
 
 	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
@@ -98,5 +98,5 @@ void	update_line(void)
 
 	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_display.vis_botlin - g_cursor.last_v_pos)
-		ft_putstr(tgoto(tgetstr("UP", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_display.vis_botlin - g_cursor.last_v_pos));
 }
