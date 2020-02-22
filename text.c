@@ -300,7 +300,7 @@ void	clear_scr(void)
 /* Function to use to replace all NULL in keymap */
 void	rl_void(void)
 {
-	ft_putstr(tgetstr("bl", NULL));
+	ft_putstr(g_termcaps.bl);
 	return;
 }
 

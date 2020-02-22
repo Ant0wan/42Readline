@@ -19,39 +19,40 @@ const struct s_termcaps_string	g_tc_strings[] =
 {
 	{"@7", &g_termcaps.at7}, /* 0 */
 	{"DC", &g_termcaps.DC}, /* 1 */
-	{"DO", &g_termcaps.DC}, /* 2 */
+	{"DO", &g_termcaps.DO}, /* 2 */
 	{"E3", &g_termcaps.clrscroll}, /* 3 */
 	{"IC", &g_termcaps.IC}, /* 4 */
 	{"UP", &g_termcaps.UP}, /* 5 */
-	{"cd", &g_termcaps.cd}, /* 6 */
-	{"ce", &g_termcaps.clreol}, /* 7 */
-	{"ch", &g_termcaps.ch}, /* 8 */
-	{"cl", &g_termcaps.clrpag}, /* 9 */
-	{"cr", &g_termcaps.cr}, /* 10 */
-	{"dc", &g_termcaps.dc}, /* 11 */
-	{"do", &g_termcaps.do1}, /* 12 */
-	{"ei", &g_termcaps.ei}, /* 13 */
-	{"ic", &g_termcaps.ic}, /* 14 */
-	{"im", &g_termcaps.im}, /* 15 */
-	{"kD", &g_termcaps.kD},	/* 16 delete */
-	{"kH", &g_termcaps.kH},	/* 17 home down ?? */
-	{"kI", &g_termcaps.kI},	/* 18 insert */
-	{"kd", &g_termcaps.kd},  /* 19 */
-	{"ke", &g_termcaps.ke},	/* 20 end keypad mode */
-	{"kh", &g_termcaps.kh},	/* 21home */
-	{"kl", &g_termcaps.kl}, /* 22 */
-	{"kr", &g_termcaps.kr}, /* 23 */
-	{"ks", &g_termcaps.ks},	/* 24 start keypad mode */
-	{"ku", &g_termcaps.ku}, /* 25 */
-	{"le", &g_termcaps.backspace}, /* 26 */
-	{"mm", &g_termcaps.mm}, /* 27 */
-	{"mo", &g_termcaps.mo}, /* 28 */
-	{"nd", &g_termcaps.forward_char}, /* 29 */
-	{"pc", &g_termcaps.pc}, /* 30 */
-	{"up", &g_termcaps.up}, /* 31 */
-	{"vb", &g_termcaps.visible_bell}, /* 32 */
-	{"vs", &g_termcaps.vs}, /* 33 */
-	{"ve", &g_termcaps.ve} /* 34 */
+	{"bl", &g_termcaps.bl}, /* 6 */
+	{"cd", &g_termcaps.cd}, /* 7 */
+	{"ce", &g_termcaps.clreol}, /* 8 */
+	{"ch", &g_termcaps.ch}, /* 9 */
+	{"cl", &g_termcaps.clrpag}, /* 10 */
+	{"cr", &g_termcaps.cr}, /* 11 */
+	{"dc", &g_termcaps.dc}, /* 12 */
+	{"do", &g_termcaps.do1}, /* 13 */
+	{"ei", &g_termcaps.ei}, /* 14 */
+	{"ic", &g_termcaps.ic}, /* 15 */
+	{"im", &g_termcaps.im}, /* 16 */
+	{"kD", &g_termcaps.kD},	/* 17 delete */
+	{"kH", &g_termcaps.kH},	/* 18 home down ?? */
+	{"kI", &g_termcaps.kI},	/* 19 insert */
+	{"kd", &g_termcaps.kd},  /* 20 */
+	{"ke", &g_termcaps.ke},	/* 21 end keypad mode */
+	{"kh", &g_termcaps.kh},	/* 22home */
+	{"kl", &g_termcaps.kl}, /* 23 */
+	{"kr", &g_termcaps.kr}, /* 24 */
+	{"ks", &g_termcaps.ks},	/* 25 start keypad mode */
+	{"ku", &g_termcaps.ku}, /* 26 */
+	{"le", &g_termcaps.backspace}, /* 27 */
+	{"mm", &g_termcaps.mm}, /* 28 */
+	{"mo", &g_termcaps.mo}, /* 29 */
+	{"nd", &g_termcaps.forward_char}, /* 30 */
+	{"pc", &g_termcaps.pc}, /* 31 */
+	{"up", &g_termcaps.up}, /* 32 */
+	{"vb", &g_termcaps.visible_bell}, /* 33 */
+	{"vs", &g_termcaps.vs}, /* 34 */
+	{"ve", &g_termcaps.ve} /* 35 */
 };
 
 /* Inititalize termcaps. Get termcaps values. */
