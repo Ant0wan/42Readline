@@ -18,6 +18,7 @@ SOURCES	:=	bind.c \
 		display.c \
 		emacs_keymap.c \
 		init.c \
+		signals.c \
 		input.c \
 		main.c \
 		readline.c \
@@ -38,7 +39,7 @@ ARFLAGS := rc
 
 INCLUDES := -I ./42Libc/include
 
-#CFLAGS += -Wall -Werror -Wextra -ansi -std=c99 -D_POSIX_C_SOURCE -fno-builtin -O2
-CFLAGS += -std=c99 -D_POSIX_C_SOURCE
+#CFLAGS += -Wall -Werror -Wextra -ansi -std=c99 -D_POSIX_C_SOURCE=200809L -fno-builtin -O2
+CFLAGS += -std=c99 -D_POSIX_C_SOURCE=200809L
 
 CDEBUG := -g3 -fsanitize=address

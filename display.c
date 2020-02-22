@@ -25,7 +25,7 @@ void		display_prompt(void)
 	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);
 }
 
-static int	redisplay_after_sigwinch(void)
+int	redisplay_after_sigwinch(void)
 {
 	/* Clear the last line (assuming that the screen size change will result in
            either more or fewer characters on that line only) and put the cursor at
@@ -33,6 +33,7 @@ static int	redisplay_after_sigwinch(void)
            screen line. */
 
 	/* TO DO */
+	update_line();
 	return (0);
 }
 

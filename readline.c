@@ -56,12 +56,12 @@ char	*ft_readline(const char *prompt)
 	prep_terminal();
 	initialize();
 	set_prompt(prompt);
-//	rl_set_signals(); /* should set signals for input */
+	rl_set_signals(); /* should set signals for input */
 
 	value = readline_internal();
 	add_hentry(value);
 
 	deprep_terminal();
-//	rl_clear_signals(); /* should reset signals after input */
+	rl_clear_signals(); /* should reset signals after input */
 	return (value);
 }

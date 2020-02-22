@@ -76,6 +76,9 @@ extern struct s_term			g_term;
 extern const struct s_termcaps_string	g_tc_strings[];
 
 int	init_terminal(void);
+void	rl_set_signals(void);
+void	rl_clear_signals(void);
+void	resize_terminal(int signo);
 void	initialize(void);
 
 #endif

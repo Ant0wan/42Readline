@@ -87,15 +87,13 @@ int	get_screensize(int tty)
 	return (0);
 }
 
-///* Redisplay the current line after a SIGWINCH is received. */
-//int	resize_terminal(void)
-//{
-//	if (get_screensize(STDIN_FILENO) == -1)
-//		return (-1);
-//	if (redisplay_after_sigwinch() == -1)
-//		return (-1);
-//	return (0);
-//}
+/* Redisplay the current line after a SIGWINCH is received. */
+void	resize_terminal(int signo)
+{
+	(void)signo;
+	get_screensize(STDIN_FILENO);
+	redisplay_after_sigwinch();
+}
 
 int	init_terminal(void)
 {

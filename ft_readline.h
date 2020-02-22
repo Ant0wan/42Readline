@@ -1,6 +1,7 @@
 #ifndef FT_READLINE_H
 # define FT_READLINE_H
 
+# include <signal.h>
 # include <curses.h>
 # include <term.h>
 # include <termios.h>
