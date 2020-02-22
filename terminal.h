@@ -8,6 +8,7 @@ struct s_termcaps
 /* The key sequences output by the arrow keys, if this terminal has any. */
 	char	*at7;
 	char	*DC;
+	char	*DO;
 	char	*clrscroll;
 	char	*IC;
 	char	*UP;

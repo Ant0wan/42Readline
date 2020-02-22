@@ -92,7 +92,7 @@ void	kill_line(void)
 	g_line_state_invisible.len = 0;
 	g_cursor.last_c_pos = 0;
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
-		ft_putstr(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
+		ft_putstr(tgoto(g_termcaps.DO, 0, g_display.vis_botlin - g_cursor.last_v_pos));
 	g_cursor.last_v_pos = 0;
 	write(STDOUT_FILENO, "\n", 1);
 	update_line();
@@ -268,7 +268,7 @@ void	rl_end(void)
 	}
 	if (g_cursor.last_v_pos != g_display.vis_botlin)
 	{
-		ft_putstr(tgoto(tgetstr("DO", NULL), 0, g_display.vis_botlin - g_cursor.last_v_pos));
+		ft_putstr(tgoto(g_termcaps.DO, 0, g_display.vis_botlin - g_cursor.last_v_pos));
 		g_display.cpos_buffer_position = g_line_state_invisible.len;
 		g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
 	}
