@@ -31,9 +31,23 @@ int	redisplay_after_sigwinch(void)
            either more or fewer characters on that line only) and put the cursor at
            column 0.  Make sure the right thing happens if we have wrapped to a new
            screen line. */
-
 	/* TO DO */
-	update_line();
+	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+	ft_putstr(tgoto(g_termcaps.ch, 0, 0));
+	if (g_cursor.last_v_pos > 0)
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_cursor.last_v_pos)); /* Computation error here cause the cursor not 
+					to be placed at the right screen location */
+	ft_putstr(g_termcaps.cd);
+
+	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
+
+	display_lines();
+
+	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
+	if (g_display.vis_botlin - g_cursor.last_v_pos)
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_display.vis_botlin - g_cursor.last_v_pos));
 	return (0);
 }
 
