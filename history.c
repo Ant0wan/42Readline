@@ -9,6 +9,7 @@ void		init_history(void)
 	char	buf[10000];
 	int		fd;
 
+	ft_bzero(buf, 10000);
 	get_history_loc();
 	if (!(g_hist = (struct s_hist *)ft_memalloc(sizeof(*g_hist))))
 	{
@@ -35,7 +36,7 @@ void		remove_nl(void)
 	int	i;
 
 	i = 0;
-	while (i < g_hist->used)
+	while (i <= g_hist->used)
 	{
 		if (g_hist->history_content[i] == '\n')
 			g_hist->history_content[i] = '\0';
@@ -129,7 +130,7 @@ void	free_hist(void)
 	else
 	{
 		i = 0;
-		while (i < g_hist->used)
+		while (i <= g_hist->used)
 		{
 			if (!g_hist->history_content[i])
 				g_hist->history_content[i] = '\n';

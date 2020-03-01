@@ -4,7 +4,7 @@
    way that you should do insertion.  _rl_insert_char () calls this
    function.  Returns the number of characters inserted. */
 struct s_clipboard		g_clipboard = { .str = NULL, .l = 0 };
-
+char					*g_original_cmd;
 int				g_full_completion = 1;
 
 void	init_line_buffer(void)
@@ -198,12 +198,21 @@ void	history_up(void)
 {
 	char	*s;
 
-	s = prev_hist();
-	if (s)
+/*	if (!g_original_cmd)
 	{
-		clear_line();
-		insert_text(s, ft_strlen(s));
+		if (!(g_original_cmd = ft_strdup(g_line_state_invisible.line)))
+		{
+			ft_printf("./21sh: cannot allocate mmemory\n");
+			return ;
+		}
 	}
+	ft_printf("original: %s\n", g_original_cmd);
+*/	s = prev_hist();
+	clear_line();
+	if (s)
+		insert_text(s, ft_strlen(s));
+//	else
+//		insert_text(g_original_cmd, ft_strlen(g_original_cmd));
 }
 
 void	autocomplete(void)
@@ -231,7 +240,6 @@ void	history_down(void)
 	char	*s;
 
 	s = next_hist();
-	ft_printf("invis line: %s\n", g_line_state_invisible.line);
 	if (s)
 	{
 		clear_line();

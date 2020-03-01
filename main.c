@@ -34,6 +34,8 @@ int	main(int argc, char **argv)
 		free(tmp);
 		free(input);
 		free_completion();
+		free(g_original_cmd);
+		g_original_cmd = NULL;
 	}
 	if (g_clipboard.str != NULL)
 		free(g_clipboard.str);
