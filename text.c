@@ -198,21 +198,20 @@ void	history_up(void)
 {
 	char	*s;
 
-/*	if (!g_original_cmd)
+	if (g_hist->offset == g_hist->used - 1)
 	{
+		if (g_original_cmd)
+			free(g_original_cmd);
 		if (!(g_original_cmd = ft_strdup(g_line_state_invisible.line)))
 		{
 			ft_printf("./21sh: cannot allocate mmemory\n");
 			return ;
 		}
 	}
-	ft_printf("original: %s\n", g_original_cmd);
-*/	s = prev_hist();
+	s = prev_hist();
 	clear_line();
 	if (s)
 		insert_text(s, ft_strlen(s));
-//	else
-//		insert_text(g_original_cmd, ft_strlen(g_original_cmd));
 }
 
 void	autocomplete(void)
@@ -240,11 +239,11 @@ void	history_down(void)
 	char	*s;
 
 	s = next_hist();
-	if (s)
-	{
-		clear_line();
+	clear_line();
+	if (*s)
 		insert_text(s, ft_strlen(s));
-	}
+	else
+		insert_text(g_original_cmd, ft_strlen(g_original_cmd));
 }
 
 void	rl_home(void)

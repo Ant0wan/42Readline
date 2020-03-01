@@ -86,7 +86,7 @@ void		add_hentry(const char *buf, int mode)
 	}
 	ft_strcpy(g_hist->history_content + g_hist->used, buf);
 	g_hist->used += size + mode;
-	g_hist->offset = g_hist->used;
+	g_hist->offset = g_hist->used - 1;
 }
 
 char	*prev_hist(void)
@@ -112,7 +112,7 @@ char	*next_hist(void)
 	int	align;
 
 	if (!g_hist->history_content[g_hist->offset] \
-			&& g_hist->offset < g_hist->used)
+			&& g_hist->offset + 1 < g_hist->used)
 		g_hist->offset++;
 	while (g_hist->history_content[g_hist->offset])
 		g_hist->offset++;
