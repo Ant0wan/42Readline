@@ -2,87 +2,143 @@
 
 struct s_hist	*g_hist = NULL;
 char		*g_vline = NULL;
+char		*g_hist_loc = NULL;
 
-static int	strisspace(const char *str)
+void		init_history(void)
 {
-	while (*str && ft_isspace(*str))
-		++str;
-	if (!*str)
-		return (1);
-	return (0);
+	char	buf[10000];
+	int		fd;
+
+	get_history_loc();
+	if (!(g_hist = (struct s_hist *)ft_memalloc(sizeof(*g_hist))))
+	{
+		ft_dprintf(STDERR_FILENO, "./21sh: cannot allocate memory\n");
+		return ;
+	}
+	g_hist->history_content = NULL;
+	g_hist->offset = 0;
+	g_hist->used = 0;
+	g_hist->capacity = 0;
+	if ((fd = open(g_hist_loc, (O_RDWR | O_CREAT), 0644)) < 0)
+	{
+		ft_dprintf(STDERR_FILENO, "./21sh: error: can't open %s\n", g_hist_loc);
+		return ;
+	}
+	while (read(fd, buf, 10000) > 0)
+		add_hentry(buf, 0);
+	remove_nl();
+	close(fd);
 }
 
-void	add_hentry(const char *str)
+void		remove_nl(void)
 {
-	if (g_vline)
+	int	i;
+
+	i = 0;
+	while (i < g_hist->used)
 	{
-		free(g_vline);
-		g_vline = NULL;
+		if (g_hist->history_content[i] == '\n')
+			g_hist->history_content[i] = '\0';
+		i++;
 	}
-	while (g_hist && g_hist->next)
-		g_hist = g_hist->next;
-	if (strisspace(str))
-		return;
-	if (g_hist == NULL)
+}
+
+void		get_history_loc(void)
+{
+	char	*user_home;
+
+	user_home = NULL;
+	if (g_hist_loc)
 	{
-		g_hist = (struct s_hist*)malloc(sizeof(struct s_hist));
-		ft_bzero(g_hist, sizeof(struct s_hist));
-		g_hist->n = 0;
-		g_hist->str = ft_strdup(str);
+		free(g_hist_loc);
+		return ;
 	}
-	else
+	if (!(user_home = getenv("HOME")))
 	{
-		g_hist->next = (struct s_hist*)malloc(sizeof(struct s_hist));
-		ft_bzero(g_hist->next, sizeof(struct s_hist));
-		g_hist->next->prev = g_hist;
-		g_hist->next->n = g_hist->n + 1;
-		g_hist->next->str = ft_strdup(str);
-		g_hist = g_hist->next;
+		ft_printf("./21sh: cannot allocate memory\n");
+		return ;
 	}
+	if (!(g_hist_loc = ft_strjoin(user_home, "/.21sh_history")))
+	{
+		ft_printf("./12sh: cannot allocate memory\n");
+		return ;
+	}
+}
+
+void		add_hentry(const char *buf, int mode)
+{
+	int	size;
+
+	size = ft_strlen(buf);
+	if (size + g_hist->used >= g_hist->capacity - 5 || !g_hist->capacity)
+	{
+		if (!g_hist->capacity)
+			g_hist->capacity = 1;
+		if (!(g_hist->history_content = (char *)ft_memrealloc( \
+						(void **)&(g_hist->history_content), g_hist->used, \
+						sizeof(char) * (g_hist->capacity + size) * 3)))
+		{
+			ft_dprintf(STDERR_FILENO, "/.21sh: cannot allocate memory\n");
+			return ;
+		}
+		g_hist->capacity = (g_hist->capacity + size) * 3;
+	}
+	ft_strcpy(g_hist->history_content + g_hist->used, buf);
+	g_hist->used += size + mode;
+	g_hist->offset = g_hist->used;
 }
 
 char	*prev_hist(void)
 {
+	int	align;
+
+	align = 1;
+	if (!g_hist || !g_hist->history_content)
+		return (NULL);
 	if (g_vline == NULL)
 		g_vline = ft_strdup(g_line_state_invisible.line);
-	if (g_hist)
-	{
-		if (g_hist->prev)
-		{
-			g_hist = g_hist->prev;
-			return (g_hist->next->str);
-		}
-		return (g_hist->str);
-	}
-	return (NULL);
+	while (g_hist->offset > 0 && !g_hist->history_content[g_hist->offset])
+		g_hist->offset -= 1;
+	while (g_hist->offset > 0 && g_hist->history_content[g_hist->offset])
+		g_hist->offset -= 1;
+	if (g_hist->offset == 0)
+		align = 0;
+	return (g_hist->history_content + g_hist->offset + align);
 }
 
 char	*next_hist(void)
 {
-	if (g_hist)
-	{
-		if (g_hist->next)
-		{
-			g_hist = g_hist->next;
-			return (g_hist->str);
-		}
-		else
-			return (g_vline);
-	}
-	return (NULL);
+	int	align;
+
+	if (!g_hist->history_content[g_hist->offset] \
+			&& g_hist->offset < g_hist->used)
+		g_hist->offset++;
+	while (g_hist->history_content[g_hist->offset])
+		g_hist->offset++;
+	return (g_hist->history_content + g_hist->offset + 1);
+
 }
 
 void	free_hist(void)
 {
-	struct s_hist	*prev;
+	int	fd;
+	int	i;
 
-	while (g_hist && g_hist->next) /* In case */
-		g_hist = g_hist->next;
-	while (g_hist)
+	if ((fd = open(g_hist_loc, (O_WRONLY | O_CREAT | O_TRUNC), 0644)) < 0)
+		ft_printf("./21sh: cannot open %s\n", g_hist_loc);
+	else
 	{
-		free(g_hist->str);
-		prev = g_hist->prev;
-		free(g_hist);
-		g_hist = prev;
+		i = 0;
+		while (i < g_hist->used)
+		{
+			if (!g_hist->history_content[i])
+				g_hist->history_content[i] = '\n';
+			i++;
+		}
+		write(fd, g_hist->history_content, g_hist->used);
+		close(fd);
 	}
+	free(g_hist->history_content);
+	free(g_hist);
+	free(g_hist_loc);
 }

@@ -231,15 +231,11 @@ void	history_down(void)
 	char	*s;
 
 	s = next_hist();
+	ft_printf("invis line: %s\n", g_line_state_invisible.line);
 	if (s)
 	{
 		clear_line();
 		insert_text(s, ft_strlen(s));
-		if (s == g_vline)
-		{
-			free(g_vline);
-			g_vline = NULL;
-		}
 	}
 }
 

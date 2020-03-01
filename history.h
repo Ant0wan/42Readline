@@ -1,20 +1,26 @@
 #ifndef HISTORY_H
 # define HISTORY_H
 
+# define ADD_SEPARATOR 1
+
 struct s_hist
 {
-	int		n;
-	char		*str;
-	struct s_hist	*next;
-	struct s_hist	*prev;
+	char				*history_content;
+	unsigned int		offset;
+	unsigned int		used;
+	unsigned int		capacity;
 };
 
 extern struct s_hist	*g_hist;
-extern char		*g_vline;
+extern char				*g_vline;
+extern char				*g_hist_loc;
 
-void	add_hentry(const char *str);
+void	init_history(void);
+void	get_history_loc(void);
+void	add_hentry(const char *buf, int mode);
 char	*prev_hist(void);
 char	*next_hist(void);
 void	free_hist(void);
+void	remove_nl(void);
 
 #endif

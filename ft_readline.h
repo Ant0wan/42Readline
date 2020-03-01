@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <sys/ioctl.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # include "libft.h"
 # include "bind.h"
@@ -21,6 +22,8 @@
 # include "tty.h"
 # include "history.h"
 # include "completion.h"
+
+# define SIGWINCH 28
 
 char	*ft_readline(const char *prompt);
 

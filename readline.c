@@ -54,12 +54,15 @@ char	*ft_readline(const char *prompt)
 	char	*value;
 
 	prep_terminal();
+	if (!g_hist)
+		init_history();
 	initialize();
 	set_prompt(prompt);
 	rl_set_signals(); /* should set signals for input */
 
 	value = readline_internal();
-	add_hentry(value);
+	if (value[0])
+		add_hentry(value, 1);
 
 	deprep_terminal();
 	rl_clear_signals(); /* should reset signals after input */
