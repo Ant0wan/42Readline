@@ -23,5 +23,6 @@ char	*prev_hist(void);
 char	*next_hist(void);
 void	free_hist(void);
 void	remove_nl(void);
+void	hist_lookup(void);
 
 #endif

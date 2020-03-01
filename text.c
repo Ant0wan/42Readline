@@ -194,6 +194,33 @@ static void	clear_line(void)
 	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 }
 
+void	hist_lookup(void)
+{
+	int		i;
+	char	c;
+	char	input[1000];
+	char	suggest[1];
+
+	ft_bzero(input, 1000);
+	*suggest = 0;
+	i = g_display.visible_prompt_length;
+	clear_line();
+	while (i--)
+		ft_putstr(g_termcaps.backspace);
+	clear_line();
+	ft_printf("(reverse-i-search)`%s': %s", input, suggest);
+	while ((i = read(STDIN_FILENO, &c, 1)) > 0)
+	{
+		if (ft_isalnum(c))
+			ft_strcat(input, &c);
+		clear_line();
+		ft_printf("(reverse-i-search)`%s': %s", input, suggest);
+		if (c == 13)
+			break ;
+	}
+	update_line();
+}
+
 void	history_up(void)
 {
 	char	*s;

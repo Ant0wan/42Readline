@@ -24,7 +24,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
 	{ ISFUNC, rl_void },		/* Control-o */
 	{ ISFUNC, history_up },		/* Control-p */
 	{ ISFUNC, rl_void },			/* Control-q */
-	{ ISFUNC, rl_void },	/* Control-r */
+	{ ISFUNC, hist_lookup },	/* Control-r */
 	{ ISFUNC, rl_void },	/* Control-s */
 	{ ISFUNC, rl_void },		/* Control-t */
 	{ ISFUNC, clear_befline },		/* Control-u */
