@@ -63,8 +63,10 @@ void	display_lines(void)
 	display_prompt();
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
-	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
-		write(STDOUT_FILENO, "\n", 1);
+	/* Leave newline to autowrap... */
+//	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
+//		ft_putstr(tgoto(g_termcaps.do1, 0, 0));
+//		write(STDOUT_FILENO, "\n", 1);
 	chr_l -= g_display.visible_first_line_len;
 	index += g_display.visible_first_line_len;
 	while (chr_l > 0)
@@ -74,7 +76,7 @@ void	display_lines(void)
 			write(STDOUT_FILENO, &(g_line_state_invisible.line[index]), g_screen.width);
 			chr_l -= g_screen.width;
 			index += g_screen.width;
-			write(STDOUT_FILENO, "\n", 1);
+//			write(STDOUT_FILENO, "\n", 1);
 		}
 		else if (chr_l > 0)
 		{
@@ -82,6 +84,10 @@ void	display_lines(void)
 			chr_l = 0;
 		}
 	}
+	if (g_cursor.last_c_pos == 0 && g_cursor.last_v_pos > 0)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+//	or 	ft_putstr(tgoto(g_termcaps.do1, 0, 0));
 }
 
 void	update_line(void)
