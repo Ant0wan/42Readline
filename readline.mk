@@ -6,7 +6,7 @@
 #    By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/25 14:45:47 by abarthel          #+#    #+#              #
-#    Updated: 2019/12/18 12:15:30 by efischer         ###   ########.fr        #
+#    Updated: 2020/03/02 16:27:35 by snunes           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SOURCES	:=	bind.c \
 		quotes.c \
 		completion.c \
 		readdir.c \
-		history.c
+		history.c \
+		history_expand.c
 
 OBJECTS := $(patsubst %.c,%.o,$(addprefix $(SOURCES_PATH), $(SOURCES)))
 

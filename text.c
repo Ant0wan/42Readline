@@ -237,8 +237,7 @@ void	history_up(void)
 	}
 	s = prev_hist();
 	clear_line();
-	if (s)
-		insert_text(s, ft_strlen(s));
+	insert_text(s, ft_strlen(s));
 }
 
 void	autocomplete(void)

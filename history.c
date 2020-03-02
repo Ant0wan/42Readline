@@ -20,6 +20,7 @@ void		init_history(void)
 	g_hist->offset = 0;
 	g_hist->used = 0;
 	g_hist->capacity = 0;
+	g_hist->total_lines = 1;
 	if ((fd = open(g_hist_loc, (O_RDWR | O_CREAT), 0644)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, "./21sh: error: can't open %s\n", g_hist_loc);
@@ -28,6 +29,7 @@ void		init_history(void)
 	while (read(fd, buf, 10000) > 0)
 		add_hentry(buf, 0);
 	remove_nl();
+	g_hist->nb_line = g_hist->total_lines;
 	close(fd);
 }
 
@@ -41,9 +43,13 @@ void		remove_nl(void)
 	while (i < g_hist->used)
 	{
 		if (g_hist->history_content[i] == '\n')
+		{
+			g_hist->total_lines += 1;
 			g_hist->history_content[i] = '\0';
+		}
 		i++;
 	}
+	g_hist->total_lines -= 1; /*remove 1 because of increased in add_hentry */
 }
 
 void		get_history_loc(void)
@@ -89,6 +95,8 @@ void		add_hentry(const char *buf, int mode)
 	ft_strcpy(g_hist->history_content + g_hist->used, buf);
 	g_hist->used += size + mode;
 	g_hist->offset = g_hist->used - 1;
+	g_hist->total_lines += 1;
+	g_hist->nb_line = g_hist->total_lines;
 }
 
 char	*prev_hist(void)
@@ -106,6 +114,8 @@ char	*prev_hist(void)
 		g_hist->offset -= 1;
 	if (g_hist->offset == 0)
 		align = 0;
+	if (g_hist->nb_line > 0)
+		g_hist->nb_line -= 1;
 	return (g_hist->history_content + g_hist->offset + align);
 }
 
@@ -118,6 +128,8 @@ char	*next_hist(void)
 		g_hist->offset++;
 	while (g_hist->history_content[g_hist->offset])
 		g_hist->offset++;
+	if (g_hist->history_content[g_hist->offset + 1])
+		g_hist->nb_line += 1;
 	return (g_hist->history_content + g_hist->offset + 1);
 
 }
