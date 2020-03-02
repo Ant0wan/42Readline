@@ -143,3 +143,24 @@ void	free_hist(void)
 	free(g_hist);
 	free(g_hist_loc);
 }
+
+void	*ft_memrealloc(void **content, size_t old_size, size_t new_size)
+{
+	void	*new_content;
+	char	*old_ptr;
+	char	*new_ptr;
+	size_t	i;
+
+	i = 0;
+	if (!(new_content = ft_memalloc(new_size)))
+		return (NULL);
+	old_ptr = (char *)*content;
+	new_ptr = (char *)new_content;
+	while (i < old_size)
+	{
+		new_ptr[i] = old_ptr[i];
+		i++;
+	}
+	free(*content);
+	return (new_content);
+}

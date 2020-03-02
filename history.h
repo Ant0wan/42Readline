@@ -24,5 +24,6 @@ char	*next_hist(void);
 void	free_hist(void);
 void	remove_nl(void);
 void	hist_lookup(void);
+void	*ft_memrealloc(void **content, size_t old_size, size_t new_size);
 
 #endif
