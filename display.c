@@ -84,8 +84,7 @@ void	display_lines(void)
 			chr_l = 0;
 		}
 	}
-	if (g_cursor.last_c_pos == 0 && g_cursor.last_v_pos > 0)
-	{
+	if ((g_display.visible_prompt_length + g_line_state_invisible.len) % g_screen.width == 0 && g_display.vis_botlin > 0)
 		write(STDOUT_FILENO, "\n", 1);
 //	or 	ft_putstr(tgoto(g_termcaps.do1, 0, 0));
 }
