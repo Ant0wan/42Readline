@@ -106,9 +106,7 @@ char	*prev_hist(void)
 	align = 1;
 	if (!g_hist || !g_hist->history_content)
 		return (NULL);
-	if (g_vline == NULL)
-		g_vline = ft_strdup(g_line_state_invisible.line);
-	while (g_hist->offset > 0 && !g_hist->history_content[g_hist->offset])
+	if (g_hist->offset > 0 && !g_hist->history_content[g_hist->offset])
 		g_hist->offset -= 1;
 	while (g_hist->offset > 0 && g_hist->history_content[g_hist->offset])
 		g_hist->offset -= 1;
@@ -121,8 +119,6 @@ char	*prev_hist(void)
 
 char	*next_hist(void)
 {
-	int	align;
-
 	if (!g_hist->history_content[g_hist->offset] \
 			&& g_hist->offset + 1 < g_hist->used)
 		g_hist->offset++;

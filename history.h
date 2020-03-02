@@ -28,9 +28,9 @@ void	remove_nl(void);
 void	hist_lookup(void);
 void	*ft_memrealloc(void **content, size_t old_size, size_t new_size);
 char	*hist_expanse(char *value);
-char	*hist_expand_nbr(char *value, int i, int sign);
-char	*insert_hist_exp(char *value, char *hist_entry);
-char	*hist_expand_word(char *value, int i);
-char	*get_expanded_value(char *value);
+char	*get_hist_entry(char *tmp);
+char	*expand_num(char *value, int start, int sign);
+char	*expand_word(char *value, int start, int sign);
+char	*replace_hist_exp(char *value, char *hist_entry);
 
 #endif

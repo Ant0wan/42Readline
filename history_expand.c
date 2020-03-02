@@ -6,167 +6,129 @@
 /*   By: snunes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:26:29 by snunes            #+#    #+#             */
-/*   Updated: 2020/03/02 19:40:57 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:37:24 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
 static char	g_hist_word_delim[] = " \t\n;&()|<>";
-static int	g_hist_expand_start = 0;
-static int	g_hist_expand_end = 0;
+static int	g_pattern_length;
 
 char	*hist_expanse(char *value)
 {
-	int i;
+	char	*tmp;
+	char	*hist_entry;
 
-	i = 0;
-	while (value && value[i])
+	tmp = value;
+	while (value && (tmp = ft_strchr(tmp, '!')))
 	{
-		g_hist_expand_start = 0;
-		g_hist_expand_end = 0;
-		if (value[i] == '!')
-		{
-			g_hist_expand_start = i;
-			g_hist_expand_end = i;
-			while (value[g_hist_expand_end] \
-					&& !ft_strchr(g_hist_word_delim, value[g_hist_expand_end]))
-				g_hist_expand_end++;
-			if (g_hist_expand_end > g_hist_expand_start + 1)
-				value = get_expanded_value(value);
-			ft_printf("i bef: %d\n", i);
-			if (value && !ft_strchr(g_hist_word_delim, value[i + 1]))
-				i += ft_strlen(g_hist->history_content + g_hist->offset + 1);
-			if (g_hist->nb_line == 0)
-				i++;
-		}
-		else
-			i++;
-		ft_printf("i: %d\n", i);
+		g_pattern_length = 0;
+		tmp++;
+		if (ft_strchr(g_hist_word_delim, *tmp))
+			continue ;
+		if (!(hist_entry = get_hist_entry(tmp)))
+			break ;
+		value = replace_hist_exp(value, hist_entry);
+		tmp += g_pattern_length + 1;
 	}
-	if (!value)
+	if (!hist_entry || !value)
 	{
 		g_hist->nb_line = g_hist->total_lines;
 		g_hist->offset = g_hist->used -1;
+		return (NULL);
 	}
-	else if (g_hist_expand_end)
+	else if (g_pattern_length)
 		ft_printf("\n%s\n", value);
 	return (value);
 }
 
-char	*get_expanded_value(char *value)
-{
-	int	start;
-	int	sign;
-
-	start = g_hist_expand_start;
-	start++;
-	if (!value[start])
-		return (value);
-	if (value[start] == '!')
-		return (hist_expand_nbr(value, start, -1));
-	if (value[start] == '-')
-	{
-		start++;
-		sign = -1;
-	}
-	else
-		sign = 1;
-	if (ft_isdigit(value[start]))
-		return (hist_expand_nbr(value, start, sign));
-	else if (ft_isalpha(value[start]))
-		return (hist_expand_word(value, start));
-	return (value);
-}
-
-char	*hist_expand_nbr(char *value, int start, int sign)
+char	*get_hist_entry(char *tmp)
 {
 	char	*hist_entry;
+	int		sign;
+	int		i;
+	int		start;
 	int		save;
+
+	sign = 0;
+	if (tmp[g_pattern_length] == '!')
+		return (prev_hist());
+	if (tmp[g_pattern_length] == '-')
+	{
+		sign = -1;
+		g_pattern_length++;
+	}
+	start = g_pattern_length;
+	while (!ft_strchr(g_hist_word_delim, tmp[g_pattern_length]))
+		g_pattern_length++;
+	save = tmp[g_pattern_length];
+	tmp[g_pattern_length] = '\0';
+	hist_entry = (ft_isdigit(tmp[start])) ? expand_num(tmp, start, sign) : \
+				 expand_word(tmp, start, sign);
+	tmp[g_pattern_length] = save;
+	return (hist_entry);
+}
+
+char	*expand_num(char *value, int start, int sign)
+{
+	char	*hist_entry;
 	int		entry;
 
-	if (value[start] == '!' && g_hist->total_lines > 1)
-	{
-		prev_hist();
-		return (insert_hist_exp(value, g_hist->history_content + g_hist->offset + 1));
-	}
-	save = value[g_hist_expand_end];
-	value[g_hist_expand_end] = '\0';
 	entry = ft_atoi(value + start);
 	if (sign < 0)
 		entry = g_hist->nb_line - entry;
 	if (entry > g_hist->total_lines || entry <= 0 || g_hist->total_lines <= 1)
 	{
-		ft_dprintf(STDERR_FILENO, "\n./21sh: %s: event not found\n", value + \
-				g_hist_expand_start);
-		free(value);
+		ft_dprintf(STDERR_FILENO, "\n./21sh: !%s: event not found\n", value);
 		return (NULL);
 	}
-	value[g_hist_expand_end] = save;
 	while (entry > g_hist->nb_line)
 		hist_entry = next_hist();
 	while (entry < g_hist->nb_line)
 		hist_entry = prev_hist();
-	return (insert_hist_exp(value, hist_entry));
+	return (hist_entry);
 }
 
-char	*hist_expand_word(char *value, int start)
+char	*expand_word(char *value, int start, int sign)
 {
-	char	*word;
+	char	*hist_entry;
 	int		entry;
-	int		save;
-	int		len;
 
-	save = value[g_hist_expand_end];
-	value[g_hist_expand_end] = '\0';
-	word = value + start;
-	len = ft_strlen(word);
-	while (g_hist->nb_line && ft_strncmp(word, g_hist->history_content + \
-				g_hist->offset + 1, len))
-		prev_hist();
-	if (ft_strncmp(word, g_hist->history_content + g_hist->offset + 1, len))
+	if (sign < 0)
+		value++;
+	while (g_hist->nb_line && ft_strncmp(value, g_hist->history_content + \
+				g_hist->offset + 1, g_pattern_length + sign))
+		hist_entry = prev_hist();
+	if (ft_strncmp(value, g_hist->history_content + g_hist->offset + 1, \
+				g_pattern_length + sign))
 	{
-		ft_dprintf(STDERR_FILENO, "\n./21sh: %s: event not found\n", value \
-				+ g_hist_expand_start);
-		free(value);
+		ft_dprintf(STDERR_FILENO, "\n./21sh: !%s: event not found\n", value);
 		return (NULL);
 	}
-	value[g_hist_expand_end] = save;
-	return (insert_hist_exp(value, g_hist->history_content + g_hist->offset + 1));
+	return (hist_entry);
 }
 
-char	*insert_hist_exp(char *value, char *hist_entry)
+char	*replace_hist_exp(char *value, char *hist_entry)
 {
 	char	*new_value;
 	int		size;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	size = ft_strlen(value) + (g_hist_expand_start - g_hist_expand_end) + \
-		   ft_strlen(hist_entry) + 1;
-	if (!(new_value = (char *)ft_memalloc(sizeof(char) * (size))))
+	while (value[i] && (value[i] != '!' || ft_strchr(g_hist_word_delim, \
+				value[i + 1])))
+		i++;
+	size = ft_strlen(value) - g_pattern_length + ft_strlen(hist_entry);
+	if (!(new_value = (char *)ft_memalloc(sizeof(char) * (size + 1))))
 	{
 		ft_printf("\n./21sh: cannot allocate memory\n");
 		return (NULL);
 	}
-	while (value[i] && i < g_hist_expand_start)
-	{
-		new_value[i] = value[i];
-		i++;
-	}
-	while (value[i] && hist_entry[j])
-	{
-		new_value[i + j] = hist_entry[j];
-		j++;
-	}
-	i = 0;
-	while (value[g_hist_expand_end + i])
-	{
-		new_value[i + j] = value[g_hist_expand_end + i];
-		i++;
-	}
+	value[i] = '\0';
+	ft_strcpy(new_value, value);
+	ft_strcpy(new_value + ft_strlen(hist_entry), value + i + g_pattern_length);
+	ft_strcpy(new_value + i, hist_entry);
 	free(value);
 	return (new_value);
 }
