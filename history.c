@@ -36,7 +36,9 @@ void		remove_nl(void)
 	int	i;
 
 	i = 0;
-	while (i <= g_hist->used)
+	if (!g_hist || !g_hist->history_content)
+		return ;
+	while (i < g_hist->used)
 	{
 		if (g_hist->history_content[i] == '\n')
 			g_hist->history_content[i] = '\0';
