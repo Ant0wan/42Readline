@@ -73,8 +73,6 @@ int	get_screensize(int tty)
 	struct winsize	window_size;
 
 	if (ioctl(tty, TIOCGWINSZ, &window_size) == -1)
-		return (-1);
-	else
 	{
 		window_size.ws_col = tgetnum ("co");
 		window_size.ws_row = tgetnum("li");
