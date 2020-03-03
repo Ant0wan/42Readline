@@ -6,7 +6,7 @@
 /*   By: snunes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:26:29 by snunes            #+#    #+#             */
-/*   Updated: 2020/03/02 22:37:24 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/03 19:00:01 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*hist_expanse(char *value)
 	char	*hist_entry;
 
 	tmp = value;
+	hist_entry = value;
 	while (value && (tmp = ft_strchr(tmp, '!')))
 	{
 		g_pattern_length = 0;
@@ -30,12 +31,13 @@ char	*hist_expanse(char *value)
 		if (!(hist_entry = get_hist_entry(tmp)))
 			break ;
 		value = replace_hist_exp(value, hist_entry);
-		tmp += g_pattern_length + 1;
+		tmp = value;
 	}
 	if (!hist_entry || !value)
 	{
 		g_hist->nb_line = g_hist->total_lines;
 		g_hist->offset = g_hist->used -1;
+		free(value);
 		return (NULL);
 	}
 	else if (g_pattern_length)
@@ -115,6 +117,8 @@ char	*replace_hist_exp(char *value, char *hist_entry)
 	int		size;
 	int		i;
 
+	if (g_pattern_length == 0)
+		g_pattern_length += 1;
 	i = 0;
 	while (value[i] && (value[i] != '!' || ft_strchr(g_hist_word_delim, \
 				value[i + 1])))
@@ -127,8 +131,11 @@ char	*replace_hist_exp(char *value, char *hist_entry)
 	}
 	value[i] = '\0';
 	ft_strcpy(new_value, value);
-	ft_strcpy(new_value + ft_strlen(hist_entry), value + i + g_pattern_length);
 	ft_strcpy(new_value + i, hist_entry);
+	ft_strcpy(new_value + i + ft_strlen(hist_entry), value + i \
+			+ g_pattern_length + 1);
 	free(value);
+	g_hist->offset = g_hist->used - 1;
+	g_hist->nb_line = g_hist->total_lines;
 	return (new_value);
 }
