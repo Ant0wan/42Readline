@@ -25,18 +25,6 @@ void		display_prompt(void)
 	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);
 }
 
-int	redisplay_after_sigwinch(void)
-{
-	/* Clear the last line (assuming that the screen size change will result in
-           either more or fewer characters on that line only) and put the cursor at
-           column 0.  Make sure the right thing happens if we have wrapped to a new
-           screen line. */
-	/* TO DO */
-	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
-	update_line();
-	return (0);
-}
-
 void		set_prompt(const char *prompt)
 {
 	if (g_display.prompt != NULL)
@@ -63,7 +51,7 @@ void	display_lines(void)
 	display_prompt();
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
-	/* Leave newline to autowrap... */
+	/* Leave newline to autowrap... I know... */
 //	if (g_line_state_invisible.len >= g_display.visible_first_line_len)
 //		ft_putstr(tgoto(g_termcaps.do1, 0, 0));
 //		write(STDOUT_FILENO, "\n", 1);
@@ -85,8 +73,8 @@ void	display_lines(void)
 		}
 	}
 	if ((g_display.visible_prompt_length + g_line_state_invisible.len) % g_screen.width == 0 && g_display.vis_botlin > 0)
-		write(STDOUT_FILENO, "\n", 1);
-//	or 	ft_putstr(tgoto(g_termcaps.do1, 0, 0));
+	 	ft_putstr(tgoto(g_termcaps.do1, 0, 0));
+	//	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	update_line(void)
@@ -105,4 +93,30 @@ void	update_line(void)
 	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_display.vis_botlin - g_cursor.last_v_pos)
 		ft_putstr(tgoto(g_termcaps.UP, 0, g_display.vis_botlin - g_cursor.last_v_pos));
+}
+
+int		redisplay_after_sigwinch(void)
+{
+	/* Clear the last line (assuming that the screen size change will result in
+           either more or fewer characters on that line only) and put the cursor at
+           column 0.  Make sure the right thing happens if we have wrapped to a new
+           screen line. */
+	/* TO DO */
+	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+
+	g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+	g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+	g_display.vis_botlin = (g_display.visible_prompt_length + g_line_state_invisible.len) / g_screen.width;
+
+	ft_putstr(tgoto(g_termcaps.ch, 0, 0));
+	if (g_cursor.last_v_pos > 0)
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_cursor.last_v_pos));
+	ft_putstr(g_termcaps.cd);
+
+	display_lines();
+
+	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
+	if (g_display.vis_botlin - g_cursor.last_v_pos)
+		ft_putstr(tgoto(g_termcaps.UP, 0, g_display.vis_botlin - g_cursor.last_v_pos));
+	return (0);
 }
