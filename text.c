@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:23:01 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:23:02 by abarthel         ###   ########.fr       */
+/*   Updated: 2020/03/03 21:37:53 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,31 +206,81 @@ static void	clear_line(void)
 	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 }
 
+#include <stdio.h>
+
 void	hist_lookup(void)
 {
-	int		i;
-	char	c;
-	char	input[1000];
-	char	suggest[1];
+	char			buf[10000];
+	char			*tmp;
+	char			*prompt;
+	union u_buffer	c;
+	int				i;
 
-	ft_bzero(input, 1000);
-	*suggest = 0;
-	i = g_display.visible_prompt_length;
-	clear_line();
-	while (i--)
-		ft_putstr(g_termcaps.backspace);
-	clear_line();
-	ft_printf("(reverse-i-search)`%s': %s", input, suggest);
-	while ((i = read(STDIN_FILENO, &c, 1)) > 0)
+	tmp = g_line_state_invisible.line;
+	i = 0;
+	c.value = 1;
+	ft_bzero(buf, 10000);
+	prompt = ft_strdup(g_display.prompt);
+	set_prompt("(reverse-i-search)");
+	while (c.value && (ft_isalnum(c.value) || c.value == 1 || c.value == 127))
 	{
-		if (ft_isalnum(c))
-			ft_strcat(input, &c);
-		clear_line();
-		ft_printf("(reverse-i-search)`%s': %s", input, suggest);
-		if (c == 13)
-			break ;
+		update_line();
+		ft_printf("`%s': %s", buf, g_line_state_invisible.line);
+		c = read_key();
+		i++;
+		if (!test_c_value(c))
+		{
+			buf[i] = c.value;
+			if (!get_matching_hist(&tmp, buf))
+				set_prompt("(failed reverse-i-search)");
+			free(g_line_state_invisible.line);
+			if (!(g_line_state_invisible.line = ft_strdup(tmp)))
+			{
+				ft_printf("./21sh: cannot allocate memory\n");
+				break ;
+			}
+			tmp = g_line_state_invisible.line;
+			g_display.cpos_buffer_position = ft_strlen(tmp) + i + 4;
+		}
 	}
+	set_prompt(prompt);
+	free(prompt);
 	update_line();
+	return ;
+}
+
+char	*get_matching_hist(char **line, char *patern)
+{
+	char	*save;
+
+	save = *line;
+	while (!ft_strstr(*line, patern))
+		*line = prev_hist();
+	if (!ft_strstr(*line, patern))
+	{
+		*line = save;
+		return (NULL);
+	}
+	return (*line);
+}
+
+int		test_c_value(union u_buffer c)
+{
+	if (enter_rc(c))
+		return (2);
+	if (isstdkey(c.value))
+		(g_emacs_standard_keymap[c.value].func)(c.value);
+	else if (isctrlkey(c))
+	{
+		if (mvctrlkey(c))
+			c.buf[2] = c.buf[5] + 20;
+		(g_emacs_ctlx_keymap[c.buf[2]].func)();
+	}
+	else if (ismetachar(c))
+		return (2);
+	else
+		return (0);
+	return (1);
 }
 
 void	history_up(void)
