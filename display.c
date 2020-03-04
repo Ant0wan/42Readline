@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:20:42 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/04 17:57:09 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:40:08 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ struct s_line_state	g_line_state_invisible = {0};
 
 void		display_prompt(void)
 {
-	ft_printf("|b%.3dc%.3dv%.3d|> ", g_display.vis_botlin, g_cursor.last_c_pos ,g_cursor.last_v_pos);
-//	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);
+//	ft_printf("|b%.3dc%.3dv%.3d|> ", g_display.vis_botlin, g_cursor.last_c_pos ,g_cursor.last_v_pos);
+	write(STDOUT_FILENO, g_display.display_prompt, g_display.visible_prompt_length);
 }
 
 void		set_prompt(const char *prompt)
@@ -51,7 +51,7 @@ void		set_prompt(const char *prompt)
 	else
 		g_display.display_prompt = g_display.prompt;
 	g_display.visible_prompt_length = 16;
-//	g_display.visible_prompt_length = ft_strlen(g_display.display_prompt); /* Assume single line prompt and does not handle '\' all chr */
+	g_display.visible_prompt_length = ft_strlen(g_display.display_prompt); /* Assume single line prompt and does not handle '\' all chr */
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
 }
 

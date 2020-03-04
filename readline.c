@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:22:31 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/04 19:23:58 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:28:56 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_readline(const char *prompt)
 	while (!value)
 	{
 		value = readline_internal();
-		if (value[0] && (value = hist_expanse(value)))
+		if (value && value[0] && (value = hist_expanse(value)))
 		{
 			add_hentry(value, 1);
 			break ;

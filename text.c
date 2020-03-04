@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:23:01 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/04 19:01:52 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/04 20:07:32 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,32 +222,36 @@ void	hist_lookup(void)
 	set_prompt("(reverse-i-search)");
 	while (ft_isprint(buf[i]) || !buf[i])
 	{
-		update_line();
+		ft_putstr(tgoto(g_termcaps.ch, 0, 0));
+		ft_putstr(g_display.prompt);
+		ft_putstr(tgoto(g_termcaps.clreol, 0, 0));
 		ft_printf("`%s': %s", buf, tmp);
 		c = read_key();
-		if (c.value == 127)
+		if (c.value == 127 && i > 0)
 			i--;
 		if (test_c_value(c))
 			break ;
 		if (i >= 0)
 			buf[i] = (c.value == 127) ? '\0' : c.value;
+		if (c.value != 127)
 		i++;
 		if (c.value != 127 && !(get_matching_hist(&tmp, buf)))
-				set_prompt("(failed reverse-i-search)");
+			set_prompt("(failed reverse-i-search)");
+		else if (ft_strequ(g_display.prompt, "(failed reverse-i-search)"))
+			set_prompt("(reverse-i-search)");
 	}
 	g_hist_lookup_value = c.value;
-	free(g_line_state_invisible.line);
-	if (i == 0)
-		tmp = NULL;
-	if (!(g_line_state_invisible.line = (char *)ft_memalloc(sizeof(char) * g_line_state_invisible.size_buf)))
-	g_line_state_invisible.line = ft_memcpy(g_line_state_invisible.line, tmp, ft_strlen(tmp));
-	ft_printf("g_line: |%s|, tmp: |%s|\n", g_line_state_invisible.line, tmp);
-	ft_printf("len tmp: %d\n", ft_strlen(tmp));
-	g_line_state_invisible.len = ft_strlen(tmp);
-	ft_printf("len: %d\n", g_line_state_invisible.len);
-	g_display.cpos_buffer_position = g_line_state_invisible.len;
 	set_prompt(prompt);
 	free(prompt);
+	if (i != 0 || tmp[0])
+	{
+		free(g_line_state_invisible.line);
+		if (!(g_line_state_invisible.line = (char *)ft_memalloc(sizeof(char) * g_line_state_invisible.size_buf)))
+			ft_printf("./21sh: cannot allocate memory\n");
+		g_line_state_invisible.line = ft_memcpy(g_line_state_invisible.line, tmp, ft_strlen(tmp));
+		g_line_state_invisible.len = ft_strlen(tmp);
+		g_display.cpos_buffer_position = g_line_state_invisible.len;
+	}
 	update_line();
 	return ;
 }
