@@ -91,8 +91,8 @@ void	rl_backspace(void)
 		}
 		else
 			g_line_state_invisible.line[g_display.cpos_buffer_position] = '\0';
-		update_line();
 		--g_line_state_invisible.len;
+		update_line();
 	}
 }
 
