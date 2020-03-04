@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:22:31 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/04 18:55:23 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:23:58 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*ft_readline(const char *prompt)
 {
 	char	*value;
 
+	value = NULL;
 	prep_terminal();
 	if (!g_hist)
 		init_history();
