@@ -17,6 +17,7 @@ extern struct s_hist	*g_hist;
 extern char				*g_vline;
 extern char				*g_hist_loc;
 extern char				*g_original_cmd;
+extern int				g_hist_lookup_value;
 
 void	init_history(void);
 void	get_history_loc(void);

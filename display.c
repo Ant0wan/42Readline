@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:20:42 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:20:43 by abarthel         ###   ########.fr       */
+/*   Updated: 2020/03/04 17:57:09 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	display_lines(void)
 	index = 0;
 	display_prompt();
 	g_display.visible_first_line_len = g_screen.width - g_display.visible_prompt_length;
+	/*why writing g_display.visible_first_line_len and not g_line_state_invisible.len ?*/
 	write(STDOUT_FILENO, g_line_state_invisible.line, g_display.visible_first_line_len);
 	/* Leave newline to autowrap... I know... */
 //	if (g_line_state_invisible.len >= g_display.visible_first_line_len)

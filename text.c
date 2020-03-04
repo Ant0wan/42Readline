@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:23:01 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 21:37:53 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/04 19:01:52 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,6 @@ static void	clear_line(void)
 	ft_bzero(g_line_state_invisible.line, g_line_state_invisible.size_buf);
 }
 
-#include <stdio.h>
-
 void	hist_lookup(void)
 {
 	char			buf[10000];
@@ -222,27 +220,32 @@ void	hist_lookup(void)
 	ft_bzero(buf, 10000);
 	prompt = ft_strdup(g_display.prompt);
 	set_prompt("(reverse-i-search)");
-	while (c.value && (ft_isalnum(c.value) || c.value == 1 || c.value == 127))
+	while (ft_isprint(buf[i]) || !buf[i])
 	{
 		update_line();
-		ft_printf("`%s': %s", buf, g_line_state_invisible.line);
+		ft_printf("`%s': %s", buf, tmp);
 		c = read_key();
+		if (c.value == 127)
+			i--;
+		if (test_c_value(c))
+			break ;
+		if (i >= 0)
+			buf[i] = (c.value == 127) ? '\0' : c.value;
 		i++;
-		if (!test_c_value(c))
-		{
-			buf[i] = c.value;
-			if (!get_matching_hist(&tmp, buf))
+		if (c.value != 127 && !(get_matching_hist(&tmp, buf)))
 				set_prompt("(failed reverse-i-search)");
-			free(g_line_state_invisible.line);
-			if (!(g_line_state_invisible.line = ft_strdup(tmp)))
-			{
-				ft_printf("./21sh: cannot allocate memory\n");
-				break ;
-			}
-			tmp = g_line_state_invisible.line;
-			g_display.cpos_buffer_position = ft_strlen(tmp) + i + 4;
-		}
 	}
+	g_hist_lookup_value = c.value;
+	free(g_line_state_invisible.line);
+	if (i == 0)
+		tmp = NULL;
+	if (!(g_line_state_invisible.line = (char *)ft_memalloc(sizeof(char) * g_line_state_invisible.size_buf)))
+	g_line_state_invisible.line = ft_memcpy(g_line_state_invisible.line, tmp, ft_strlen(tmp));
+	ft_printf("g_line: |%s|, tmp: |%s|\n", g_line_state_invisible.line, tmp);
+	ft_printf("len tmp: %d\n", ft_strlen(tmp));
+	g_line_state_invisible.len = ft_strlen(tmp);
+	ft_printf("len: %d\n", g_line_state_invisible.len);
+	g_display.cpos_buffer_position = g_line_state_invisible.len;
 	set_prompt(prompt);
 	free(prompt);
 	update_line();
@@ -251,36 +254,39 @@ void	hist_lookup(void)
 
 char	*get_matching_hist(char **line, char *patern)
 {
-	char	*save;
+	char	*tmp;
 
-	save = *line;
-	while (!ft_strstr(*line, patern))
-		*line = prev_hist();
-	if (!ft_strstr(*line, patern))
+
+	tmp = *line;
+	if (!tmp)
+		return (tmp);
+	while (!ft_strstr(tmp, patern) && g_hist->nb_line > 0)
+		tmp = prev_hist();
+	if (ft_strstr(tmp, patern))
+		*line = tmp;
+	else
 	{
-		*line = save;
-		return (NULL);
+		while (!ft_strstr(tmp, *line) && g_hist->nb_line < g_hist->total_lines)
+			tmp = next_hist();
+		*line = tmp;
+		tmp = NULL;
 	}
-	return (*line);
+	return (tmp);
 }
 
 int		test_c_value(union u_buffer c)
 {
-	if (enter_rc(c))
-		return (2);
-	if (isstdkey(c.value))
-		(g_emacs_standard_keymap[c.value].func)(c.value);
-	else if (isctrlkey(c))
-	{
-		if (mvctrlkey(c))
-			c.buf[2] = c.buf[5] + 20;
-		(g_emacs_ctlx_keymap[c.buf[2]].func)();
-	}
-	else if (ismetachar(c))
-		return (2);
-	else
+	if ((ft_isprint(c.value) && c.value != 9) || c.value == 127)
 		return (0);
-	return (1);
+	if (enter_rc(c))
+		return (1);
+	if (isctrlkey(c))
+		return (1);
+	if (ismetachar(c))
+		return (1);
+	if (isstdkey(c.value))
+		return (1);
+	return (0);
 }
 
 void	history_up(void)
