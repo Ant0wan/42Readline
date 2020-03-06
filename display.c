@@ -135,10 +135,17 @@ int		redisplay_after_sigwinch(void)
 		ft_putstr(tgoto(g_termcaps.UP, 0, g_cursor.last_v_pos));
 	ft_putstr(g_termcaps.cd);
 
+	if (g_cursor.last_v_pos < 0)
+		g_cursor.last_v_pos = 0;
 	display_lines();
 
 	ft_putstr(tgoto(g_termcaps.ch, 0, g_cursor.last_c_pos));
 	if (g_display.vis_botlin - g_cursor.last_v_pos)
 		ft_putstr(tgoto(g_termcaps.UP, 0, g_display.vis_botlin - g_cursor.last_v_pos));
+	if (g_cursor.last_c_pos == g_screen.width)
+	{
+		g_cursor.last_c_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) % g_screen.width;
+		g_cursor.last_v_pos = (g_display.visible_prompt_length + g_display.cpos_buffer_position) / g_screen.width;
+	}
 	return (0);
 }
