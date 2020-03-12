@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:20:52 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:20:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:02:33 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ struct s_keymap_entry	g_emacs_standard_keymap[] =
 	{ ISFUNC, rl_home },			/* Control-a */
 	{ ISFUNC, cursor_l },			/* Control-b */
 	{ ISFUNC, kill_line },		/* Control-c */
-	{ ISFUNC, rl_delete },			/* Control-d */
+	{ ISFUNC, rl_eot },			/* Control-d */
 	{ ISFUNC, rl_end },			/* Control-e */
 	{ ISFUNC, cursor_r },			/* Control-f */
 	{ ISFUNC, rl_void },				/* Control-g */
