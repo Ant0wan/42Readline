@@ -1,5 +1,7 @@
 # 42Readline
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f3a0ca3f09da4980be8d37cf3b1b47ab)](https://app.codacy.com/manual/antoinepaulbarthelemy/42Readline?utm_source=github.com&utm_medium=referral&utm_content=Ant0wan/42Readline&utm_campaign=Badge_Grade_Dashboard)
+
 42Readline is a library [a 42 side-project] coded in C and providing a set of functions for use by applications that allow users to edit command lines as they are typed in.
 
 The Readline library includes additional functions to maintain a list of previously-entered command lines, to recall and perhaps reedit those lines, and perform csh-like history expansion on previous commands.
