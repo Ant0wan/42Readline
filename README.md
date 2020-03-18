@@ -37,7 +37,7 @@ Following are the Command Line Features :
 
 ### Keyboard Shortcuts
 
-- #### Working With Processes
+#### Working With Processes
 
 > Use the following shortcuts to manage running processes.
 
@@ -47,13 +47,15 @@ Following are the Command Line Features :
 
 `Ctrl+D` Close the bash shell. This sends an EOF (End-of-file) marker to bash, and bash exits when it receives this marker. This is similar to running the exit command.
 
-- #### Controlling the Screen
+
+#### Controlling the Screen
 
 > The following shortcuts allow you to control what appears on the screen.
 
 `Ctrl+L` Clear the screen. This is similar to running the “clear” command.
 
-- #### Moving the Cursor
+
+#### Moving the Cursor
 
 > Use the following shortcuts to quickly move the cursor around the current line while typing a command.
 
@@ -61,12 +63,71 @@ Following are the Command Line Features :
 
 `Ctrl+E` or `End` Go to the end of the line.
 
-`Alt+B` Go left (back) one word.
+`Ctrl+Left Arrow` Go left (back) one word.
 
-`Ctrl+B` Go left (back) one character.
+`Ctrl+B` of `Left Arrow` Go left (back) one character.
 
-`Alt+F` Go right (forward) one word.
+`Ctrl+Right Arrow` Go right (forward) one word.
 
-`Ctrl+F` Go right (forward) one character.
+`Ctrl+F` of `Right Arrow` Go right (forward) one character.
 
 `Ctrl+XX` Move between the beginning of the line and the current position of the cursor. This allows you to press Ctrl+XX to return to the start of the line, change something, and then press Ctrl+XX to go back to your original cursor position. To use this shortcut, hold the Ctrl key and tap the X key twice.
+
+
+#### Deleting Text
+
+> Use the following shortcuts to quickly delete characters.
+
+`Ctrl+D` or `Delete` Delete the character under the cursor.
+
+`Ctrl+H` or `Backspace` Delete the character before the cursor.
+
+
+#### Fixing Typos
+
+> These shortcuts allow you to fix typos and undo your key presses.
+
+`Alt+T` Swap the current word with the previous word.
+
+`Ctrl+T` Swap the last two characters before the cursor with each other. You can use this to quickly fix typos when you type two characters in the wrong order.
+
+`Ctrl+_` (not yet implemented) Undo your last key press. You can repeat this to undo multiple times.
+
+
+#### Cutting and Pasting
+
+> Bash includes some basic cut-and-paste features.
+
+`Ctrl+W` Cut the word before the cursor, adding it to the clipboard.
+
+`Ctrl+K` Cut the part of the line after the cursor, adding it to the clipboard.
+
+`Ctrl+U` Cut the part of the line before the cursor, adding it to the clipboard.
+
+`Ctrl+Y` Paste the last thing you cut from the clipboard. The y here stands for “yank”.
+
+
+#### Tab Completion
+
+> Tab completion is a very useful bash feature. While typing a file, directory, or command name, press Tab and bash will automatically complete what you’re typing, if possible. If not, bash will show you various possible matches and you can continue typing and pressing Tab to finish typing.
+
+`Tab` Automatically complete the file, directory, or command you’re typing.
+
+
+#### Working With Command History (need tests)
+
+> Quickly scroll through your recent commands, which are stored in your user account’s bash history file.
+
+`Ctrl+P` or `Up Arrow` Go to the previous command in the command history. Press the shortcut multiple times to walk back through the history.
+
+`Ctrl+N` or `Down Arrow` Go to the next command in the command history. Press the shortcut multiple times to walk forward through the history.
+
+`Alt+R` Revert any changes to a command you’ve pulled from your history if you’ve edited it.
+
+> Bash also has a special “recall” mode you can use to search for commands you’ve previously run.
+
+`Ctrl+R` Recall the last command matching the characters you provide. Press this shortcut and start typing to search your bash history for a command.
+
+`Ctrl+O` Run a command you found with Ctrl+R.
+
+`Ctrl+G` Leave history searching mode without running a command.
