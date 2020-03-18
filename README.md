@@ -1,4 +1,6 @@
-# 42Readline
+# 42Readline [![42](https://i.imgur.com/9NXfcit.jpg)](i.imgur.com/9NXfcit.jpg)[![freetime](https://i.imgur.com/8IcDLkc.png)](i.imgur.com/8IcDLkc.png)
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7924aebdcf304c2c8b6553ab4cfb03e6)](https://www.codacy.com/manual/antoinepaulbarthelemy/42Readline?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ant0wan/42Readline&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.com/Ant0wan/42Readline.svg?branch=master)](https://travis-ci.com/Ant0wan/42Readline)
 
 42Readline is a library [a 42 side-project] coded in C and providing a set of functions for use by applications that allow users to edit command lines as they are typed in.
 
