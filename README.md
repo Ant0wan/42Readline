@@ -1,6 +1,10 @@
 # 42Readline
 
-42Readline is a library [a 42 side-project] coded in C and providing a set of functions for use by applications that allow users to edit command lines as they are typed in. Both Emacs and Vi editing modes are available. The Readline library includes additional functions to maintain a list of previously-entered command lines, to recall and perhaps reedit those lines, and perform csh-like history expansion on previous commands.
+42Readline is a library [a 42 side-project] coded in C and providing a set of functions for use by applications that allow users to edit command lines as they are typed in.
+
+The Readline library includes additional functions to maintain a list of previously-entered command lines, to recall and perhaps reedit those lines, and perform csh-like history expansion on previous commands.
+
+Both **Emacs and Vi editing modes** are available.
 
 ---
 
