@@ -26,31 +26,19 @@ int	main(int argc, char **argv)
 	//input = ft_readline((char *)NULL);
 	while ((input = ft_readline("$> ")))
 	{
-		tmp = ft_strdup(input);
-		while (is_quote_open(tmp))
-		{
-			write(STDOUT_FILENO, "\n", 1);
-			new = ft_strjoin(tmp, "\n");
-			free(tmp);
-			compl = ft_readline("> ");
-			tmp = ft_strjoin(new, compl);
-			free(new);
-			free(compl);
-		}
 		printf("\nre:%s\n\n", tmp);
-		if (!ft_strcmp(tmp, "exit"))
+		if (!ft_strcmp(input, "exit"))
 		{
-			free(tmp);
+			free(input);
 			break;
 		}
-		free(tmp);
 		free(input);
 		free_completion();
 		free(g_original_cmd);
 		g_original_cmd = NULL;
 	}
-	if (g_clipboard.str != NULL)
-		free(g_clipboard.str);
+	if (g_clip.str != NULL)
+		free(g_clip.str);
 	free_hist();
 	return (0);
 }
