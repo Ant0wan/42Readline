@@ -24,6 +24,7 @@
 # include <fcntl.h>
 
 # include "libft.h"
+# include "ft_stack.h"
 # include "bind.h"
 # include "keymaps.h"
 # include "input.h"
@@ -33,9 +34,12 @@
 # include "line.h"
 # include "tty.h"
 # include "history.h"
-# include "completion.h"
+# include "avl.h"
+# include "autocomplete.h"
 
-# define SIGWINCH 28
+# ifndef SIGWINCH
+#  define SIGWINCH 28
+# endif
 
 char	*ft_readline(const char *prompt);
 

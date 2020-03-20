@@ -6,19 +6,18 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:22:05 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:22:06 by abarthel         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:18:34 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYMAPS_H
 # define KEYMAPS_H
 
-/* The values that TYPE can have in a keymap entry. */
 # define ISFUNC 0
 # define ISKMAP 1
 # define ISMACR 2
 
-struct s_keymap_entry
+struct	s_keymap_entry
 {
 	char	type;
 	void	(*func)();
@@ -26,9 +25,13 @@ struct s_keymap_entry
 
 extern struct s_keymap_entry	g_emacs_standard_keymap[];
 extern struct s_keymap_entry	g_emacs_ctlx_keymap[];
+extern struct s_keymap_entry	g_emacs_meta_keymap[];
 
-/* Implement later
-extern s_keymap_entry	g_emacs_meta_keymap;
-*/
+extern struct s_keymap_entry	g_vim_standard_insert_keymap[];
+extern struct s_keymap_entry	g_vim_ctlx_insert_keymap[];
+extern struct s_keymap_entry	g_vim_meta_insert_keymap[];
+extern struct s_keymap_entry	g_vim_standard_cmd_keymap[];
+extern struct s_keymap_entry	g_vim_ctlx_cmd_keymap[];
+extern struct s_keymap_entry	g_vim_meta_cmd_keymap[];
 
 #endif

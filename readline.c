@@ -6,70 +6,59 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:22:31 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/04 19:28:56 by snunes           ###   ########.fr       */
+/*   Updated: 2020/03/10 18:07:38 by snunes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-///* The current style of editing. */
-//struct s_input	g_input =
-//{
-//	.mode = IM_READLINE | IM_INSERT,
-//	.last_command_was_kill = 0,
-//	.numeric_arg = 1,
-//	.explicit_arg = 0,
-//	.arg_sign = 1
-//};
+int	g_hist_lookup = 0;
 
-int	g_hist_lookup_value = 1;
-
-static char	*readline_internal(void)
+static void	readline_internal_keys(union u_buffer c, char **value)
 {
-	union u_buffer	c;
-	char		*value;
-
-	value = NULL;
-	c.value = 1;
-	init_line_buffer();
-	value = g_line_state_invisible.line;
-	update_line();
 	while (c.value)
 	{
-		if (g_hist_lookup_value == 1)
-			c = read_key();
-		else
-		{
-			c.value = g_hist_lookup_value;
-			g_hist_lookup_value = 1;
-		}
-		//printf("%c%c%c%c\n", c.buf[0], c.buf[1], c.buf[2], c.buf[3]); /* Debug */
-		//printf("%d %d %d %d  %d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3], (int)c.buf[4], (int)c.buf[5], (int)c.buf[6], (int)c.buf[7]); /* Debug */
-		//printf("%d\n", c.value); /* Debug */
-	//	if (*g_quote.stack != '\0')
-		if (enter_rc(c))
-			return (value);
-		if (isstdkey(c.value))
-			(g_emacs_standard_keymap[c.value].func)(c.value);
+		if (g_input_break)
+			return (g_vim_mode ? vim_insert() : rl_void());
+		c = read_key();
+//		ft_printf("\n%d %d %d %d %d %d %d\n", (int)c.buf[0], (int)c.buf[1], (int)c.buf[2], (int)c.buf[3], (int)c.buf[4], (int)c.buf[5], (int)c.buf[6]);
+		if (!g_ctrl_mode && g_hist_lookup)
+			hist_lookup(c);
+		if (g_ctrl_mode)
+			rl_ctrl_mode(c);
+		else if (enter_rc(c))
+			return (g_vim_mode ? vim_insert() : rl_void());
+		else if (isstdkey(c.value))
+			(g_standard_keymap[c.value].func)(c.value);
 		else if (isctrlkey(c))
 		{
 			if (mvctrlkey(c))
 				c.buf[2] = c.buf[5] + 20;
-			(g_emacs_ctlx_keymap[c.buf[2]].func)();
+			(g_ctlx_keymap[(int)c.buf[2]].func)();
 		}
 		else if (ismetachar(c))
-			return (value);
+			(g_meta_keymap[(int)c.buf[1]].func)();
 		else
 			paste_via_input(c.value);
-		value = g_line_state_invisible.line;
+		*value = g_line.line;
 	}
+}
+
+static char	*readline_internal(void)
+{
+	char			*value;
+
+	value = NULL;
+	init_line_buffer();
+	value = g_line.line;
+	update_line();
+	if (g_vim_mode == 0)
+		add_back();
+	readline_internal_keys((union u_buffer){.value = 1}, &value);
 	return (value);
 }
 
-/* Read a line of input.
-   Prompt with prompt. An NULL prompt means none.
-   A return value of NULL means that EOF was encountered. */
-char	*ft_readline(const char *prompt)
+char		*readline_loop(const char *prompt)
 {
 	char	*value;
 
@@ -79,18 +68,36 @@ char	*ft_readline(const char *prompt)
 		init_history();
 	initialize();
 	set_prompt(prompt);
-	rl_set_signals(); /* should set signals for input */
-
-	while (!value)
-	{
-		value = readline_internal();
-		if (value && value[0] && (value = hist_expanse(value)))
-		{
-			add_hentry(value, 1);
-			break ;
-		}
-	}
+	rl_set_signals();
+	value = readline_internal();
 	deprep_terminal();
-	rl_clear_signals(); /* should reset signals after input */
+	rl_clear_signals();
+	stack_delete(&g_back, del_stat_line);
+	if (value != NULL)
+		ft_putchar_fd('\n', 2);
 	return (value);
+}
+
+char		*ft_readline(const char *prompt)
+{
+	char	*input;
+	char	*compl;
+	char	*new;
+
+	input = NULL;
+	while (!input)
+	{
+		input = readline_loop(prompt);
+		while (is_quote_open(input))
+		{
+			compl = readline_loop("> ");
+			new = ft_strjoin(input, compl);
+			free(input);
+			free(compl);
+			input = new;
+		}
+		if (input && input[0] && (input = hist_expanse(input)))
+			add_hentry(input, 1);
+	}
+	return (input);
 }

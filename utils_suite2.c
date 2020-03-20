@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   completion.h                                       :+:      :+:    :+:   */
+/*   utils_suite2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 17:20:37 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:20:38 by abarthel         ###   ########.fr       */
+/*   Created: 2020/03/10 14:03:17 by abarthel          #+#    #+#             */
+/*   Updated: 2020/03/10 14:03:19 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPLETION_H
-# define COMPLETION_H
+#include "ft_readline.h"
 
-# include <sys/types.h>
-# include <dirent.h>
+int	mvctrlkey(union u_buffer c)
+{
+	return (c.buf[2] == 49 && c.buf[3] == 59 && c.buf[4] == 53);
+}
 
-extern t_list	*g_flst;
-
-extern int	g_full_completion;
-
-char	*suggest(void);
-void	feed_list(const char *str);
-void	free_completion(void);
-
-#endif
+int	enter_rc(union u_buffer c)
+{
+	return (c.buf[0] == 13 && c.buf[1] == 0);
+}

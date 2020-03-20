@@ -1,60 +1,44 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   emacs_keymap.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 17:20:52 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/12 12:02:33 by abarthel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_readline.h"
 
-/* An array of function pointers, one for each possible key.
-   If the type byte is ISKMAP, then the pointer is the address of
-   a keymap. */
-
-struct s_keymap_entry	g_emacs_standard_keymap[] =
-{ /* 127 entries */
-	{ ISFUNC, rl_void }, /* Control keys. */	/* Control-@ */
-	{ ISFUNC, rl_home },			/* Control-a */
-	{ ISFUNC, cursor_l },			/* Control-b */
-	{ ISFUNC, kill_line },		/* Control-c */
-	{ ISFUNC, rl_eot },			/* Control-d */
-	{ ISFUNC, rl_end },			/* Control-e */
-	{ ISFUNC, cursor_r },			/* Control-f */
-	{ ISFUNC, rl_void },				/* Control-g */
-	{ ISFUNC, rl_backspace },			/* Control-h */
-	{ ISFUNC, rl_void },			/* Control-i */
-	{ ISFUNC, rl_void },			/* Control-j */
-	{ ISFUNC, clear_eol },			/* Control-k */
-	{ ISFUNC, clear_scr },			/* Control-l */
-	{ ISFUNC, rl_void },			/* Control-m */
-	{ ISFUNC, rl_void },		/* Control-n */
-	{ ISFUNC, rl_void },		/* Control-o */
-	{ ISFUNC, history_up },		/* Control-p */
-	{ ISFUNC, rl_void },			/* Control-q */
-	{ ISFUNC, hist_lookup },	/* Control-r */
-	{ ISFUNC, rl_void },	/* Control-s */
-	{ ISFUNC, rl_void },		/* Control-t */
-	{ ISFUNC, clear_befline },		/* Control-u */
-	{ ISFUNC, rl_void },			/* Control-v */
-	{ ISFUNC, cut_prev_wd },		/* Control-w */
-	{ ISKMAP, rl_void },	/* Control-x */
-	{ ISFUNC, clip_paste },				/* Control-y */
-	{ ISFUNC, rl_void },		/* Control-z */
-	{ ISKMAP, rl_void }, /* Control-[ */
-	{ ISFUNC, rl_void },		/* Control-\ */
-	{ ISFUNC, rl_void },			/* Control-] */
-	{ ISFUNC, rl_void },		/* Control-^ */
-	{ ISFUNC, rl_void },			/* Control-_ */
-	[ ' ' ... '~' ] = { ISFUNC, rl_insert }, /* The start of printing characters. */ /* SPACE to TILDE */
-	{ ISFUNC, rl_backspace }		/* RUBOUT */
+struct s_keymap_entry g_emacs_standard_keymap[] =
+{
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_home },
+	{ ISFUNC, cursor_l },
+	{ ISFUNC, kill_line },
+	{ ISFUNC, rl_eot },
+	{ ISFUNC, rl_end },
+	{ ISFUNC, cursor_r },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_backspace },
+	{ ISFUNC, autocomplete },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, clear_eol },
+	{ ISFUNC, clear_scr },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, history_down },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, history_up },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, hist_lookup },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_reversel },
+	{ ISFUNC, clear_befline },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, cut_prev_wd },
+	{ ISFUNC, rl_ctrl_mode },
+	{ ISFUNC, clip_paste },
+	{ ISFUNC, rl_void },
+	{ ISKMAP, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, undo_last },
+	[ ' ' ... '~' ] = { ISFUNC, rl_insert },
+	{ ISFUNC, rl_backspace }
 };
 
-struct s_keymap_entry	g_emacs_ctlx_keymap[] =
+struct s_keymap_entry g_emacs_ctlx_keymap[] =
 {
 	[ 0 ... 50 ] = { ISFUNC, rl_void },
 	{ ISFUNC, rl_delete },
@@ -73,4 +57,17 @@ struct s_keymap_entry	g_emacs_ctlx_keymap[] =
 	{ ISFUNC, wd_right },
 	{ ISFUNC, wd_left },
 	[ 89 ... 127 ] = { ISFUNC, rl_void },
+};
+
+struct s_keymap_entry g_emacs_meta_keymap[] =
+{
+	[ 0 ... 97 ] = { ISFUNC, rl_void },
+	{ ISFUNC, wd_left },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, cut_next_wd },
+	{ ISFUNC, rl_void },
+	{ ISFUNC, wd_right },
+	[ 103 ... 115 ] = { ISFUNC, rl_void },
+	{ ISFUNC, swap_words },
+	[ 117 ... 127 ] = { ISFUNC, rl_void },
 };

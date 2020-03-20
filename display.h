@@ -6,58 +6,47 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 17:20:46 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/03 17:20:47 by abarthel         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:13:18 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-/* Display variables */
-struct s_display
+struct	s_display
 {
-	char	*prompt;                /* Pointer to passed prompt */
-	char	*display_prompt;        /* String containing prompt to display */
-	int	visible_prompt_length;  /* Length of visible prompt */
-	int	vis_botlin;             /* Number of physical lines consumed by the current line buffer currently */
-	int	cpos_buffer_position;   /* The index into the line buffer corresponding to the cursor position */
-	int	line_size;              /* Default and initial buffer size. Can grow. */
-	int	visible_first_line_len; /* The length (buffer offset) of the first line of the last (possibly multi-line) buffer displayed on the screen. */
-
+	char	*prompt;
+	char	*display_prompt;
+	int		prompt_l;
+	int		botl;
+	int		cbpos;
+	int		cbpos_prev;
+	int		line_size;
+	int		fst_line_l;
 };
 
-/* State of visible and invisible lines. */
-struct s_line_state
+struct	s_line_state
 {
 	char	*line;
-	int	size_buf;
-	int	len;
-//	int	*lbreaks;
-//	int	lbsize;
-//	int	wbsize;
-//	int	*wrapped_line;
+	int		size_buf;
+	int		len;
 };
 
-/* The visible cursor position. Adjuted when text is printed. */
-struct s_cursor
+struct	s_cursor
 {
-	int	last_c_pos;
-	int	last_v_pos;
+	int	c_pos;
+	int	v_pos;
 };
 
-/* The line display buffers.
-   One is the line currently displayed on the screen.
-   The other is the line about to be displayed. */
-extern struct s_line_state	g_line_state_visible;
-extern struct s_line_state	g_line_state_invisible;
+extern struct s_line_state	g_line;
 
-extern struct s_display		g_display;
+extern struct s_display		g_dis;
 extern struct s_cursor		g_cursor;
 
 void	set_prompt(const char *prompt);
 void	display_prompt(void);
 void	update_line(void);
-int	redisplay_after_sigwinch(void);
+void	redisplay_after_sigwinch(void);
 void	init_line_buffer(void);
 
 #endif

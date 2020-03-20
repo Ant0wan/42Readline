@@ -1,33 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   utils_suite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 17:22:44 by abarthel          #+#    #+#             */
-/*   Updated: 2020/03/10 10:55:47 by efischer         ###   ########.fr       */
+/*   Created: 2020/03/10 14:03:05 by abarthel          #+#    #+#             */
+/*   Updated: 2020/03/10 14:03:10 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-struct sigaction	g_sigact_winch;
-struct sigaction	g_dummy_winch;
-
-void	rl_set_signals(void)
+int	hexvalue(int c)
 {
-	if (g_sigact_winch.sa_handler == NULL)
-	{
-		sigemptyset(&g_sigact_winch.sa_mask);
-		sigaddset(&g_sigact_winch.sa_mask, SIGWINCH);
-		g_sigact_winch.sa_flags = SA_RESTART;
-		g_sigact_winch.sa_handler = resize_terminal;
-	}
-	sigaction(SIGWINCH, &g_sigact_winch, &g_dummy_winch);
+	if (c >= 'a' && c <= 'f')
+		return (c - 'a' + 10);
+	else if (c >= 'A' && (c) <= 'F')
+		return (c - 'A' + 10);
+	else
+		return (c - '0');
 }
 
-void	rl_clear_signals(void)
+int	ismetachar(union u_buffer c)
 {
-	sigaction(SIGWINCH, &g_dummy_winch, NULL);
+	return (c.buf[0] == 27 && c.buf[1] != 0);
+}
+
+int	isprintchr(int c)
+{
+	return (c >= 32 && c <= 126);
+}
+
+int	isstdkey(int c)
+{
+	return (c > 0 && c <= 127);
+}
+
+int	isctrlkey(union u_buffer c)
+{
+	return (c.buf[0] == 27 && c.buf[1] == 91);
 }
